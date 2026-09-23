@@ -1,5 +1,7 @@
+'use client';
+
 import { X, Minus, Plus, ShoppingBag, Trash2, ArrowRight } from 'lucide-react';
-import { CartItem } from '../types';
+import { CartItem } from '@/types';
 
 interface CartProps {
   isOpen: boolean;

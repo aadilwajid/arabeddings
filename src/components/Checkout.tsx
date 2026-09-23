@@ -1,6 +1,8 @@
+'use client';
+
 import { useState } from 'react';
 import { ArrowLeft, CreditCard, Lock, CheckCircle2 } from 'lucide-react';
-import { CartItem } from '../types';
+import { CartItem } from '@/types';
 
 interface CheckoutProps {
   items: CartItem[];

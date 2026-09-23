@@ -1,16 +1,18 @@
+'use client';
+
 import { useState, useMemo } from 'react';
-import Header from './components/Header';
-import ProductCard from './components/ProductCard';
-import ProductDetail from './components/ProductDetail';
-import Cart from './components/Cart';
-import Checkout from './components/Checkout';
-import { products, categories } from './data/products';
-import { Product, CartItem, Category } from './types';
+import Header from '@/components/Header';
+import ProductCard from '@/components/ProductCard';
+import ProductDetail from '@/components/ProductDetail';
+import Cart from '@/components/Cart';
+import Checkout from '@/components/Checkout';
+import { products, categories } from '@/data/products';
+import { Product, CartItem, Category } from '@/types';
 import { SlidersHorizontal } from 'lucide-react';
 
 type View = 'shop' | 'checkout';
 
-export default function App() {
+export default function HomePage() {
   const [view, setView] = useState<View>('shop');
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [cartOpen, setCartOpen] = useState(false);

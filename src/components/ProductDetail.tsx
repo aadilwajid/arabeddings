@@ -1,6 +1,8 @@
+'use client';
+
 import { X, Star, ShoppingBag, Minus, Plus, Heart, Truck, Shield, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
-import { Product } from '../types';
+import { Product } from '@/types';
 
 interface ProductDetailProps {
   product: Product;
