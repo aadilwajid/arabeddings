@@ -335,8 +335,44 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="bg-[#F5EDE4] border-t border-[#E8DFD5] py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-sm text-[#A09080]">© 2026 ARA Beddings. All rights reserved.</p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+            <div>
+              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Shop</h4>
+              <ul className="space-y-2 text-sm text-[#5C4A32]">
+                <li><button onClick={() => { setSelectedCategory('Bed Sheets'); setView('shop'); }} className="hover:text-[#C4A265]">Bed Sheets</button></li>
+                <li><button onClick={() => { setSelectedCategory('Comforters'); setView('shop'); }} className="hover:text-[#C4A265]">Comforters</button></li>
+                <li><button onClick={() => { setSelectedCategory('Quilt Covers'); setView('shop'); }} className="hover:text-[#C4A265]">Quilt Covers</button></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Customer Service</h4>
+              <ul className="space-y-2 text-sm text-[#5C4A32]">
+                <li><a href="/track-order" className="hover:text-[#C4A265]">Track Order</a></li>
+                <li><a href="https://wa.me/923160143039" target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A265]">WhatsApp Support</a></li>
+                <li><a href="#" className="hover:text-[#C4A265]">Returns & Exchanges</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Payment Methods</h4>
+              <ul className="space-y-2 text-sm text-[#5C4A32]">
+                <li>Cash on Delivery</li>
+                <li>JazzCash: 03160143039</li>
+                <li>Easypaisa: 03160143039</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">About</h4>
+              <ul className="space-y-2 text-sm text-[#5C4A32]">
+                <li><a href="#" className="hover:text-[#C4A265]">About Us</a></li>
+                <li><a href="#" className="hover:text-[#C4A265]">Contact</a></li>
+                <li><a href="/admin/login" className="hover:text-[#C4A265]">Admin</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-[#E8DFD5] text-center">
+            <p className="text-sm text-[#A09080]">© 2026 ARA Beddings. All rights reserved. | Shipping: Rs 350 flat rate across Pakistan</p>
+          </div>
         </div>
       </footer>
     </div>
