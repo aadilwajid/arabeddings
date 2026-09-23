@@ -1,0 +1,26 @@
+[
+  {
+    "id": "user-001",
+    "email": "admin@arabeddings.com",
+    "password": "$2a$10$XQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJ",
+    "name": "Admin",
+    "role": "superadmin",
+    "createdAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "user-002",
+    "email": "manager@arabeddings.com",
+    "password": "$2a$10$XQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJ",
+    "name": "Store Manager",
+    "role": "manager",
+    "createdAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "user-003",
+    "email": "support@arabeddings.com",
+    "password": "$2a$10$XQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJQJ",
+    "name": "Support Team",
+    "role": "support",
+    "createdAt": "2026-01-01T00:00:00Z"
+  }
+]

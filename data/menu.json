@@ -1,0 +1,8 @@
+[
+  { "id": "menu-001", "label": "Home", "href": "/", "order": 1 },
+  { "id": "menu-002", "label": "Shop", "href": "/shop", "order": 2 },
+  { "id": "menu-003", "label": "About", "href": "/about", "order": 3 },
+  { "id": "menu-004", "label": "Services", "href": "/services", "order": 4 },
+  { "id": "menu-005", "label": "Blog", "href": "/blog", "order": 5 },
+  { "id": "menu-006", "label": "Contact", "href": "/contact", "order": 6 }
+]

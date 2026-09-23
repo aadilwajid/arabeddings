@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ARA Beddings - Offline Demo</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #FDF8F3; color: #2D2A26; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .header { text-align: center; padding: 3rem 0; border-bottom: 1px solid #E8DFD5; }
+    .header h1 { font-family: Georgia, serif; font-size: 2.5rem; letter-spacing: 0.2em; }
+    .header h1 span { color: #C4A265; }
+    .header p { color: #5C4A32; margin-top: 0.5rem; }
+    .section { padding: 3rem 0; }
+    .section h2 { font-family: Georgia, serif; font-size: 2rem; margin-bottom: 1.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+    .card { background: white; border-radius: 1rem; overflow: hidden; border: 1px solid #F0E8DE; transition: box-shadow 0.3s; }
+    .card:hover { box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .card img { width: 100%; height: 200px; object-fit: cover; }
+    .card-content { padding: 1.5rem; }
+    .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .card p { color: #5C4A32; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .price { font-size: 1.2rem; font-weight: 600; color: #2D2A26; }
+    .badge { display: inline-block; background: #C4A265; color: white; font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 1rem; margin-bottom: 0.5rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+    .stat { background: white; padding: 2rem; border-radius: 1rem; text-align: center; border: 1px solid #F0E8DE; }
+    .stat-number { font-size: 2.5rem; font-weight: bold; color: #C4A265; }
+    .stat-label { color: #5C4A32; font-size: 0.9rem; margin-top: 0.5rem; }
+    .features { background: white; padding: 3rem; border-radius: 1rem; border: 1px solid #F0E8DE; }
+    .features h3 { margin-bottom: 1rem; }
+    .features ul { list-style: none; }
+    .features li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; color: #5C4A32; }
+    .features li::before { content: "✓"; position: absolute; left: 0; color: #C4A265; font-weight: bold; }
+    .footer { background: #F5EDE4; padding: 3rem 0; text-align: center; border-top: 1px solid #E8DFD5; margin-top: 3rem; }
+    .footer p { color: #A09080; font-size: 0.9rem; }
+    .btn { display: inline-block; background: #2D2A26; color: white; padding: 0.75rem 2rem; border-radius: 2rem; text-decoration: none; font-weight: 500; transition: background 0.3s; }
+    .btn:hover { background: #C4A265; }
+    .admin-info { background: #2D2A26; color: white; padding: 2rem; border-radius: 1rem; margin: 2rem 0; }
+    .admin-info h3 { color: #C4A265; margin-bottom: 1rem; }
+    .admin-info code { background: rgba(255,255,255,0.1); padding: 0.25rem 0.5rem; border-radius: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>ARA <span>BEDDINGS</span></h1>
+      <p>Luxury Home Linen & Bedding - Pakistan</p>
+    </div>
+
+    <div class="section">
+      <h2>Featured Products</h2>
+      <div class="grid">
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400" alt="Egyptian Cotton Sheet Set">
+          <div class="card-content">
+            <span class="badge">Best Seller</span>
+            <h3>Premium Egyptian Cotton Sheet Set</h3>
+            <p>Luxurious 800 thread count Egyptian cotton bed sheet set.</p>
+            <div class="price">Rs 8,500 - Rs 14,500</div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1616627561839-074385245ff6?w=400" alt="Comforter Set">
+          <div class="card-content">
+            <span class="badge">New</span>
+            <h3>Luxury Microfiber Comforter Set</h3>
+            <p>Premium comforter set with soft microfiber filling.</p>
+            <div class="price">Rs 12,500 - Rs 21,500</div>
+          </div>
+        </div>
+        <div class="card">
+          <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400" alt="Quilt Cover Set">
+          <div class="card-content">
+            <h3>Elegant Satin Quilt Cover Set</h3>
+            <p>Beautiful quilt cover set with hidden zipper closure.</p>
+            <div class="price">Rs 6,500 - Rs 12,500</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Why Choose ARA Beddings?</h2>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-number">5000+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Products</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Quality Guaranteed</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="features">
+        <h3>Complete E-Commerce Features</h3>
+        <ul>
+          <li>Multi-variant products (Size + Type selection)</li>
+          <li>Shopping cart with quantity controls</li>
+          <li>Checkout with COD, JazzCash, Easypaisa</li>
+          <li>Order tracking with visual timeline</li>
+          <li>Customer reviews and ratings</li>
+          <li>Wishlist functionality</li>
+          <li>Size guide modal</li>
+          <li>WhatsApp integration</li>
+          <li>Printable invoices</li>
+          <li>Admin panel with full CRUD</li>
+          <li>Media library management</li>
+          <li>Order status management</li>
+          <li>User role-based access</li>
+          <li>Site settings customization</li>
+          <li>Menu manager</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="admin-info">
+      <h3>Admin Login Credentials</h3>
+      <p><strong>URL:</strong> /admin/login</p>
+      <p><strong>Email:</strong> <code>admin@arabeddings.com</code></p>
+      <p><strong>Password:</strong> <code>password</code></p>
+      <p style="margin-top: 1rem; opacity: 0.8;">Additional accounts: manager@arabeddings.com / manager123, support@arabeddings.com / support123</p>
+    </div>
+
+    <div class="section">
+      <h2>All Pages</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="card-content">
+            <h3>Storefront</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: 0.25rem 0;">✓ Homepage with hero slider</li>
+              <li style="padding: 0.25rem 0;">✓ Shop with filters</li>
+              <li style="padding: 0.25rem 0;">✓ Product detail modal</li>
+              <li style="padding: 0.25rem 0;">✓ Cart drawer</li>
+              <li style="padding: 0.25rem 0;">✓ Checkout flow</li>
+              <li style="padding: 0.25rem 0;">✓ Order tracking</li>
+              <li style="padding: 0.25rem 0;">✓ Wishlist page</li>
+              <li style="padding: 0.25rem 0;">✓ Account page</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <h3>Content Pages</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: 0.25rem 0;">✓ About Us</li>
+              <li style="padding: 0.25rem 0;">✓ Services</li>
+              <li style="padding: 0.25rem 0;">✓ Blog/Journal</li>
+              <li style="padding: 0.25rem 0;">✓ Contact</li>
+              <li style="padding: 0.25rem 0;">✓ Custom Designs</li>
+              <li style="padding: 0.25rem 0;">✓ Invoice (printable)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-content">
+            <h3>Admin Panel</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="padding: 0.25rem 0;">✓ Dashboard</li>
+              <li style="padding: 0.25rem 0;">✓ Products CRUD</li>
+              <li style="padding: 0.25rem 0;">✓ Orders management</li>
+              <li style="padding: 0.25rem 0;">✓ Media library</li>
+              <li style="padding: 0.25rem 0;">✓ Reviews moderation</li>
+              <li style="padding: 0.25rem 0;">✓ Users management</li>
+              <li style="padding: 0.25rem 0;">✓ Menu manager</li>
+              <li style="padding: 0.25rem 0;">✓ Site settings</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin: 3rem 0;">
+      <a href="#" class="btn">Start Shopping →</a>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>© 2026 ARA Beddings. All rights reserved. | Premium Home Linen & Bedding | WhatsApp: 03160143039</p>
+  </div>
+</body>
+</html>

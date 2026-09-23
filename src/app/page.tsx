@@ -171,6 +171,8 @@ export default function HomePage() {
               <button onClick={() => setView('home')} className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Home</button>
               <button onClick={() => setView('shop')} className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Shop</button>
               <a href="/about" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">About</a>
+              <a href="/services" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Services</a>
+              <a href="/blog" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Blog</a>
               <a href="/contact" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Contact</a>
             </nav>
 
@@ -336,42 +338,61 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="bg-[#F5EDE4] border-t border-[#E8DFD5] py-12 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
+            <div className="col-span-2 md:col-span-1">
+              <h4 className="text-lg font-serif tracking-[0.15em] text-[#2D2A26] uppercase mb-4">
+                ARA <span className="text-[#C4A265]">BEDDINGS</span>
+              </h4>
+              <p className="text-sm text-[#5C4A32] leading-relaxed mb-4">
+                Crafting luxury home linen since 2018. Premium quality delivered across Pakistan.
+              </p>
+              <div className="flex gap-3">
+                <a href="https://wa.me/923160143039" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#2D2A26] text-white rounded-full flex items-center justify-center hover:bg-[#C4A265] transition-colors">
+                  <MessageCircle size={16} />
+                </a>
+              </div>
+            </div>
             <div>
-              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Shop</h4>
+              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Shop</h5>
               <ul className="space-y-2 text-sm text-[#5C4A32]">
                 <li><button onClick={() => { setSelectedCategory('Bed Sheets'); setView('shop'); }} className="hover:text-[#C4A265]">Bed Sheets</button></li>
                 <li><button onClick={() => { setSelectedCategory('Comforters'); setView('shop'); }} className="hover:text-[#C4A265]">Comforters</button></li>
                 <li><button onClick={() => { setSelectedCategory('Quilt Covers'); setView('shop'); }} className="hover:text-[#C4A265]">Quilt Covers</button></li>
+                <li><button onClick={() => { setSelectedCategory('Kids'); setView('shop'); }} className="hover:text-[#C4A265]">Kids</button></li>
+                <li><button onClick={() => { setSelectedCategory('Accessories'); setView('shop'); }} className="hover:text-[#C4A265]">Accessories</button></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Customer Service</h4>
+              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Company</h5>
+              <ul className="space-y-2 text-sm text-[#5C4A32]">
+                <li><a href="/about" className="hover:text-[#C4A265]">About Us</a></li>
+                <li><a href="/services" className="hover:text-[#C4A265]">Services</a></li>
+                <li><a href="/blog" className="hover:text-[#C4A265]">Blog</a></li>
+                <li><a href="/contact" className="hover:text-[#C4A265]">Contact</a></li>
+                <li><a href="/custom-designs" className="hover:text-[#C4A265]">Custom Designs</a></li>
+              </ul>
+            </div>
+            <div>
+              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Customer Care</h5>
               <ul className="space-y-2 text-sm text-[#5C4A32]">
                 <li><a href="/track-order" className="hover:text-[#C4A265]">Track Order</a></li>
+                <li><a href="/wishlist" className="hover:text-[#C4A265]">Wishlist</a></li>
+                <li><a href="/account" className="hover:text-[#C4A265]">My Account</a></li>
                 <li><a href="https://wa.me/923160143039" target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A265]">WhatsApp Support</a></li>
-                <li><a href="#" className="hover:text-[#C4A265]">Returns & Exchanges</a></li>
               </ul>
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Payment Methods</h4>
+              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Payment & Shipping</h5>
               <ul className="space-y-2 text-sm text-[#5C4A32]">
                 <li>Cash on Delivery</li>
                 <li>JazzCash: 03160143039</li>
                 <li>Easypaisa: 03160143039</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">About</h4>
-              <ul className="space-y-2 text-sm text-[#5C4A32]">
-                <li><a href="#" className="hover:text-[#C4A265]">About Us</a></li>
-                <li><a href="#" className="hover:text-[#C4A265]">Contact</a></li>
-                <li><a href="/admin/login" className="hover:text-[#C4A265]">Admin</a></li>
+                <li className="pt-2 font-medium">Flat Shipping: Rs 350</li>
               </ul>
             </div>
           </div>
           <div className="pt-8 border-t border-[#E8DFD5] text-center">
-            <p className="text-sm text-[#A09080]">© 2026 ARA Beddings. All rights reserved. | Shipping: Rs 350 flat rate across Pakistan</p>
+            <p className="text-sm text-[#A09080]">© 2026 ARA Beddings. All rights reserved. | Premium Home Linen & Bedding</p>
           </div>
         </div>
       </footer>
@@ -464,6 +485,8 @@ function ProductDetailModal({ product, onClose, onAddToCart, sizes, types, forma
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
   const [selectedType, setSelectedType] = useState<VariantType | null>(null);
   const [quantity, setQuantity] = useState(1);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [showReviewForm, setShowReviewForm] = useState(false);
 
   const availableTypes = selectedSize ? product.variants.filter((v: any) => v.size === selectedSize).map((v: any) => v.type) : types;
   const selectedVariant = selectedSize && selectedType ? product.variants.find((v: any) => v.size === selectedSize && v.type === selectedType) : null;
@@ -536,8 +559,182 @@ function ProductDetailModal({ product, onClose, onAddToCart, sizes, types, forma
                 )}
               </>
             )}
+
+            {/* Size Guide Button */}
+            {product.customizable && (
+              <button onClick={() => setShowSizeGuide(true)} className="text-sm text-[#C4A265] hover:underline mb-6">
+                📏 Size Guide
+              </button>
+            )}
+
+            {/* Reviews Section */}
+            <div className="border-t border-[#E8DFD5] pt-6">
+              <div className="flex items-center justify-between mb-4">
+                <h4 className="text-lg font-medium text-[#2D2A26]">Customer Reviews</h4>
+                <button onClick={() => setShowReviewForm(true)} className="text-sm text-[#C4A265] hover:underline">
+                  Write a Review
+                </button>
+              </div>
+              <div className="space-y-3">
+                <div className="bg-[#FDF8F3] rounded-lg p-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className={i < 5 ? 'text-[#C4A265] fill-[#C4A265]' : 'text-[#E8DFD5]'} />
+                      ))}
+                    </div>
+                    <span className="text-sm font-medium text-[#2D2A26]">Fatima Ahmed</span>
+                  </div>
+                  <p className="text-sm text-[#5C4A32]">Absolutely love this product! So soft and comfortable. The quality is amazing for the price.</p>
+                </div>
+                <div className="bg-[#FDF8F3] rounded-lg p-3">
+                  <div className="flex items-center gap-2 mb-1">
+                    <div className="flex">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} size={14} className={i < 4 ? 'text-[#C4A265] fill-[#C4A265]' : 'text-[#E8DFD5]'} />
+                      ))}
+                    </div>
+                    <span className="text-sm font-medium text-[#2D2A26]">Ali Hassan</span>
+                  </div>
+                  <p className="text-sm text-[#5C4A32]">Great quality. Very comfortable and the fit is perfect. Shipping was fast too.</p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+
+      {/* Size Guide Modal */}
+      {showSizeGuide && (
+        <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4" onClick={() => setShowSizeGuide(false)}>
+          <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
+            <div className="sticky top-0 bg-white border-b border-[#E8DFD5] px-6 py-4 flex items-center justify-between">
+              <h3 className="text-xl font-serif text-[#2D2A26]">Size Guide</h3>
+              <button onClick={() => setShowSizeGuide(false)} className="p-2 hover:bg-[#F5EDE4] rounded-lg"><X size={20} /></button>
+            </div>
+            <div className="p-6">
+              <h4 className="font-medium text-[#2D2A26] mb-4">Bed Sheet & Quilt Cover Sizes</h4>
+              <table className="w-full text-sm">
+                <thead className="bg-[#F5EDE4]">
+                  <tr>
+                    <th className="text-left px-4 py-2">Size</th>
+                    <th className="text-left px-4 py-2">Dimensions (inches)</th>
+                    <th className="text-left px-4 py-2">Fits Mattress</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-[#E8DFD5]">
+                    <td className="px-4 py-3 font-medium">Single</td>
+                    <td className="px-4 py-3">72" x 100"</td>
+                    <td className="px-4 py-3">3' x 6.5' bed</td>
+                  </tr>
+                  <tr className="border-b border-[#E8DFD5]">
+                    <td className="px-4 py-3 font-medium">Double</td>
+                    <td className="px-4 py-3">90" x 100"</td>
+                    <td className="px-4 py-3">4' x 6.5' bed</td>
+                  </tr>
+                  <tr className="border-b border-[#E8DFD5]">
+                    <td className="px-4 py-3 font-medium">Queen</td>
+                    <td className="px-4 py-3">108" x 108"</td>
+                    <td className="px-4 py-3">5' x 6.5' bed</td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-medium">King</td>
+                    <td className="px-4 py-3">120" x 108"</td>
+                    <td className="px-4 py-3">6' x 6.5' bed</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="mt-6 p-4 bg-[#FDF8F3] rounded-lg">
+                <p className="text-sm text-[#5C4A32]"><strong>Tip:</strong> Measure your mattress length, width, and depth before ordering. Our fitted sheets accommodate mattresses up to 12" deep.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Review Form Modal */}
+      {showReviewForm && (
+        <ReviewFormModal productId={product.id} onClose={() => setShowReviewForm(false)} />
+      )}
+    </div>
+  );
+}
+
+// Review Form Modal
+function ReviewFormModal({ productId, onClose }: { productId: string; onClose: () => void }) {
+  const [formData, setFormData] = useState({ name: '', email: '', rating: 5, comment: '' });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await fetch('/api/reviews', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        id: Date.now().toString(),
+        productId,
+        customerName: formData.name,
+        customerEmail: formData.email,
+        rating: formData.rating,
+        comment: formData.comment,
+        approved: false,
+        createdAt: new Date().toISOString()
+      })
+    });
+    setSubmitted(true);
+  };
+
+  if (submitted) {
+    return (
+      <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4" onClick={onClose}>
+        <div className="bg-white rounded-2xl max-w-md w-full p-8 text-center" onClick={(e) => e.stopPropagation()}>
+          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
+          </div>
+          <h3 className="text-xl font-medium text-[#2D2A26] mb-2">Thank You!</h3>
+          <p className="text-[#5C4A32] mb-6">Your review has been submitted and will appear after approval.</p>
+          <button onClick={onClose} className="bg-[#C4A265] text-white px-6 py-2 rounded-lg hover:bg-[#D4B275]">Close</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="fixed inset-0 bg-black/60 z-[60] flex items-center justify-center p-4" onClick={onClose}>
+      <div className="bg-white rounded-2xl max-w-md w-full" onClick={(e) => e.stopPropagation()}>
+        <div className="border-b border-[#E8DFD5] px-6 py-4 flex items-center justify-between">
+          <h3 className="text-xl font-serif text-[#2D2A26]">Write a Review</h3>
+          <button onClick={onClose} className="p-2 hover:bg-[#F5EDE4] rounded-lg"><X size={20} /></button>
+        </div>
+        <form onSubmit={handleSubmit} className="p-6 space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-[#5C4A32] mb-2">Name *</label>
+            <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className="w-full px-4 py-2 border border-[#E8DFD5] rounded-lg focus:outline-none focus:border-[#C4A265]" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#5C4A32] mb-2">Email *</label>
+            <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required className="w-full px-4 py-2 border border-[#E8DFD5] rounded-lg focus:outline-none focus:border-[#C4A265]" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#5C4A32] mb-2">Rating *</label>
+            <div className="flex gap-1">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <button key={star} type="button" onClick={() => setFormData({ ...formData, rating: star })}>
+                  <Star size={24} className={star <= formData.rating ? 'text-[#C4A265] fill-[#C4A265]' : 'text-[#E8DFD5]'} />
+                </button>
+              ))}
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-[#5C4A32] mb-2">Your Review *</label>
+            <textarea value={formData.comment} onChange={(e) => setFormData({ ...formData, comment: e.target.value })} required rows={4} className="w-full px-4 py-2 border border-[#E8DFD5] rounded-lg focus:outline-none focus:border-[#C4A265] resize-none" />
+          </div>
+          <div className="flex justify-end gap-3 pt-4">
+            <button type="button" onClick={onClose} className="px-6 py-2 border border-[#E8DFD5] rounded-lg">Cancel</button>
+            <button type="submit" className="px-6 py-2 bg-[#C4A265] text-white rounded-lg hover:bg-[#D4B275]">Submit Review</button>
+          </div>
+        </form>
       </div>
     </div>
   );
