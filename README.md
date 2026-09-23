@@ -1,60 +1,84 @@
-# ARA Beddings - E-Commerce Platform
+# ARA Beddings - Complete E-Commerce Platform
 
-A complete, production-ready e-commerce website for ARA Beddings, a Pakistan-based luxury bedding brand. Built with Next.js 16, TypeScript, and Tailwind CSS.
+A production-ready e-commerce website for ARA Beddings, a Pakistan-based luxury bedding brand. Built with Next.js 16, TypeScript, and Tailwind CSS. Features a complete admin panel with full CRUD operations, order management, media library, and more.
 
 ## 🚀 Features
 
-### Storefront
-- **Homepage**: Hero slider, featured products, category browsing, trust bar
-- **Shop**: Search, category filters, sorting, product grid
+### 🛍️ Storefront
+- **Homepage**: Hero slider with 3 rotating slides, featured products, category grid, trust bar
+- **Shop**: Search, category filters (Bed Sheets, Comforters, Quilt Covers, Kids, Accessories, Quilts), price sorting
 - **Product Detail**: Step-by-step variant selection (Size → Type), image gallery, wishlist
 - **Cart**: Global cart drawer with quantity controls
-- **Checkout**: Customer info, shipping address, payment methods (COD, JazzCash, Easypaisa)
-- **Order Confirmation**: Order number and summary
-- **WhatsApp Integration**: Floating WhatsApp button for customer support
+- **Checkout**: Customer info, shipping address, COD/JazzCash/Easypaisa payment options with optional payment proof
+- **Order Confirmation**: Order number display
+- **Track Order**: Customers can track orders by order number with visual timeline
+- **WhatsApp Integration**: Floating WhatsApp button for customer support (03160143039)
+- **Invoice**: Printable invoice page with brand logo, line items, shipping, total
 
-### Admin Panel
+### 🔐 Admin Panel
+- **Secure Login**: JWT-based authentication with hashed passwords
 - **Dashboard**: Stats overview (products, orders, revenue, pending orders)
-- **Products Management**: View all products with details
-- **Orders Management**: View orders with status tracking
-- **Authentication**: Secure login with JWT tokens
+- **Products Management**: Full CRUD with multi-variant support (Size + Type)
+- **Orders Management**: 
+  - Status filters (new, confirmed, processing, shipped, delivered, cancelled)
+  - Search by order number or customer name
+  - Status updates with history tracking
+  - WhatsApp customer (pre-filled message)
+  - Invoice PDF link
+  - Copy invoice text to clipboard
+  - View payment proof
+- **Media Library**: 
+  - Upload images with URL
+  - Tags for organization
+  - Search by filename or tag
+  - Multi-select delete
+  - Usage tracking
+- **Reviews Moderation**: Approve/unpublish/delete reviews
+- **Users Management**: Create/delete admin users with role-based access (superadmin, admin, manager, support)
+- **Menu Manager**: Drag-and-drop menu items for header/footer navigation
+- **Site Settings**: 
+  - Site name, logo, favicon
+  - Contact numbers (WhatsApp, JazzCash, Easypaisa)
+  - Shipping fee configuration
+  - Homepage hero customization
 
-### Technical Features
-- Multi-variant products (Size: Single/Double/Queen/King, Type: Bed Sheet Set/Comforter Set/Quilt Cover Set/Fitted Sheet Only)
-- PKR currency formatting
-- Flat shipping fee (Rs 350)
-- JSON file-based data storage (easy migration path to PostgreSQL)
-- Session-based authentication with hashed passwords
-- Responsive design (mobile-first)
-- SEO-friendly structure
+### 📦 Product Model
+- Multi-variant products with step-by-step selection
+- **Sizes**: Single, Double, Queen, King
+- **Types**: Bed Sheet Set, Comforter Set, Quilt Cover Set, Fitted Sheet Only
+- **Categories**: Bed Sheets, Comforters, Quilt Covers, Kids, Accessories, Quilts
+- Fields: name, slug, description, priceFrom, compareAt, stock, badge, featured, isNew, customizable
 
-## 📋 Prerequisites
-
-- Node.js 20+ 
-- npm or yarn
+### 💰 Pakistan-Specific Features
+- PKR currency formatting (Rs X,XXX)
+- Flat shipping fee: Rs 350 (all zones, all sizes)
+- COD as primary payment method
+- JazzCash/Easypaisa integration (03160143039)
+- WhatsApp support button
 
 ## 🛠️ Installation
 
 ### 1. Clone and Install Dependencies
 
 ```bash
-# Navigate to project directory
 cd ara-beddings
-
-# Install dependencies
 npm install
 ```
 
 ### 2. Seed the Database
 
 ```bash
-# This creates initial data including admin user and sample products
 npm run seed
 ```
 
+This creates:
+- Admin user: `admin@arabeddings.com` / `password`
+- 5 sample products with variants
+- Default settings
+
 ### 3. Environment Variables
 
-Create a `.env.local` file in the root directory:
+Create a `.env.local` file:
 
 ```env
 JWT_SECRET=your-secret-key-here
@@ -67,37 +91,54 @@ NODE_ENV=development
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000](http://localhost:3000)
 
-## 🔐 Admin Login
+## 🔐 Admin Access
 
-**Email:** `admin@arabeddings.com`  
-**Password:** `password`
+**URL**: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)  
+**Email**: `admin@arabeddings.com`  
+**Password**: `password`
 
-Access the admin panel at: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
-
-## 📦 Project Structure
+## 📁 Project Structure
 
 ```
 ara-beddings/
 ├── src/
 │   ├── app/
-│   │   ├── page.tsx              # Main storefront
-│   │   ├── layout.tsx            # Root layout
-│   │   ├── globals.css           # Global styles
+│   │   ├── page.tsx                    # Main storefront
+│   │   ├── layout.tsx                  # Root layout
+│   │   ├── globals.css                 # Global styles
 │   │   ├── admin/
-│   │   │   ├── login/page.tsx    # Admin login
-│   │   │   └── dashboard/page.tsx # Admin dashboard
-│   │   └── api/
-│   │       ├── products/route.ts # Products API
-│   │       ├── orders/route.ts   # Orders API
-│   │       └── auth/login/route.ts # Auth API
-│   ├── components/               # React components
+│   │   │   ├── layout.tsx              # Admin layout with sidebar
+│   │   │   ├── page.tsx                # Redirect to dashboard
+│   │   │   ├── login/
+│   │   │   │   ├── page.tsx            # Login page
+│   │   │   │   └── layout.tsx          # Standalone layout
+│   │   │   ├── dashboard/page.tsx      # Dashboard
+│   │   │   ├── products/page.tsx       # Products CRUD
+│   │   │   ├── orders/page.tsx         # Orders management
+│   │   │   ├── media/page.tsx          # Media library
+│   │   │   ├── reviews/page.tsx        # Reviews moderation
+│   │   │   ├── users/page.tsx          # Users management
+│   │   │   ├── menu/page.tsx           # Menu manager
+│   │   │   └── settings/page.tsx       # Site settings
+│   │   ├── api/
+│   │   │   ├── products/route.ts       # Products API
+│   │   │   ├── orders/route.ts         # Orders API
+│   │   │   ├── media/route.ts          # Media API
+│   │   │   ├── reviews/route.ts        # Reviews API
+│   │   │   ├── users/route.ts          # Users API
+│   │   │   ├── menu/route.ts           # Menu API
+│   │   │   ├── settings/route.ts       # Settings API
+│   │   │   └── auth/login/route.ts     # Auth API
+│   │   ├── invoice/[id]/page.tsx       # Printable invoice
+│   │   └── track-order/page.tsx        # Order tracking
+│   ├── components/                     # Shared components
 │   ├── lib/
-│   │   └── store.ts              # JSON data store
+│   │   └── store.ts                    # JSON data store
 │   └── types/
-│       └── index.ts              # TypeScript types
-├── data/                         # JSON data files (created after seed)
+│       └── index.ts                    # TypeScript types
+├── data/                               # JSON data files
 │   ├── products.json
 │   ├── orders.json
 │   ├── users.json
@@ -105,79 +146,89 @@ ara-beddings/
 │   ├── media.json
 │   └── settings.json
 ├── scripts/
-│   └── seed-data.js              # Database seeder
-├── Dockerfile                    # Docker configuration
-├── docker-compose.yml            # Docker Compose
-├── next.config.mjs               # Next.js config
-├── postcss.config.mjs            # PostCSS config
-├── tsconfig.json                 # TypeScript config
-└── vercel.json                   # Vercel deployment config
+│   └── seed-data.js                    # Database seeder
+├── Dockerfile
+├── docker-compose.yml
+├── next.config.mjs
+├── postcss.config.mjs
+├── tsconfig.json
+└── vercel.json
 ```
 
-## 🗄️ Data Models
+## 🗄️ API Endpoints
 
-### Product
-- Multi-variant support (Size + Type combinations)
-- Categories: Bed Sheets, Comforters, Quilt Covers, Kids, Accessories, Quilts
-- Fields: name, slug, description, priceFrom, compareAt, stock, badge, featured, isNew, customizable
+### Products
+- `GET /api/products` - Get all products
+- `POST /api/products` - Create product
+- `PUT /api/products` - Update product
+- `DELETE /api/products` - Delete product
 
-### Order
-- Customer information (name, email, phone, address)
-- Order items with variants
-- Payment methods: COD, JazzCash, Easypaisa
-- Status tracking: new → confirmed → processing → shipped → delivered / cancelled
-- Status history with timestamps
+### Orders
+- `GET /api/orders` - Get all orders
+- `POST /api/orders` - Create order
+- `PUT /api/orders` - Update order status
 
-### User
-- Role-based access: superadmin, admin, manager, support
-- Hashed passwords with bcrypt
+### Media
+- `GET /api/media` - Get all media
+- `POST /api/media` - Upload media
+- `DELETE /api/media` - Delete media
+
+### Reviews
+- `GET /api/reviews` - Get all reviews
+- `POST /api/reviews` - Create review
+- `PUT /api/reviews` - Update review (approve/unpublish)
+- `DELETE /api/reviews` - Delete review
+
+### Users
+- `GET /api/users` - Get all users
+- `POST /api/users` - Create user
+- `DELETE /api/users` - Delete user
+
+### Menu
+- `GET /api/menu` - Get menu
+- `PUT /api/menu` - Update menu
+
+### Settings
+- `GET /api/settings` - Get settings
+- `PUT /api/settings` - Update settings
+
+### Auth
+- `POST /api/auth/login` - Admin login
 
 ## 🚢 Deployment
 
 ### Option 1: Vercel (Recommended)
 
 ```bash
-# Install Vercel CLI
 npm i -g vercel
-
-# Deploy
 vercel
 ```
 
 ### Option 2: Docker
 
 ```bash
-# Build and run with Docker Compose
 docker-compose up -d
-
-# Or build manually
-docker build -t ara-beddings .
-docker run -p 3000:3000 -v $(pwd)/data:/app/data ara-beddings
 ```
 
-### Option 3: Traditional Hosting
+### Option 3: Traditional
 
 ```bash
-# Build for production
 npm run build
-
-# Start production server
 npm start
 ```
 
-## 📱 Payment Methods
+## 🔄 End-to-End Flow
 
-### Cash on Delivery (COD)
-- Primary payment method
-- No additional setup required
-
-### JazzCash
-- Account Number: 03160143039
-- Customers can upload payment proof (transaction ID or screenshot)
-
-### Easypaisa
-- Account Number: 03160143039
-- Customers can upload payment proof (transaction ID or screenshot)
+1. **Admin creates product** → `/admin/products` → Add Product form
+2. **Customer browses shop** → `/` → Click "Shop Collection"
+3. **Customer selects variant** → Product modal → Size → Type → Add to Cart
+4. **Customer checks out** → Cart drawer → Checkout → Enter details → Place Order
+5. **Order confirmation** → Order number displayed
+6. **Customer tracks order** → `/track-order` → Enter order number → View status timeline
+7. **Admin updates status** → `/admin/orders` → Click eye icon → Update status
+8. **Admin sends WhatsApp** → Click WhatsApp icon → Pre-filled message opens
+9. **Admin views invoice** → Click invoice icon → Printable invoice page
+10. **Customer receives delivery** → Status updated to "delivered"
 
 ## 🎨 Design System
 
@@ -192,42 +243,60 @@ npm start
 - **Headings**: Georgia (serif)
 - **Body**: System fonts (sans-serif)
 
-## 🔧 API Endpoints
+## 📊 Data Models
 
-### Products
-- `GET /api/products` - Get all products
+### Product
+```typescript
+{
+  id: string;
+  name: string;
+  slug: string;
+  category: Category;
+  description: string;
+  mainImage: string;
+  galleryImages: string[];
+  priceFrom: number;
+  compareAt?: number;
+  stock: number;
+  badge?: string;
+  featured: boolean;
+  isNew: boolean;
+  customizable: boolean;
+  variants: ProductVariant[];
+}
+```
 
-### Orders
-- `GET /api/orders` - Get all orders
-- `POST /api/orders` - Create new order
+### Order
+```typescript
+{
+  id: string;
+  orderNumber: string;
+  customer: Customer;
+  items: OrderItem[];
+  subtotal: number;
+  shipping: number;
+  total: number;
+  status: OrderStatus;
+  paymentMethod: PaymentMethod;
+  paymentProof?: string;
+  statusHistory: StatusUpdate[];
+}
+```
 
-### Authentication
-- `POST /api/auth/login` - Admin login
+## 🔧 Future Enhancements
 
-## 📊 Shipping
-
-- **Flat Rate**: Rs 350 for all orders
-- **Coverage**: All across Pakistan
-- **No free shipping threshold** (can be configured in settings)
-
-## 🔄 Future Enhancements
-
-### Database Migration
-The current JSON file store can be easily migrated to PostgreSQL:
-
-1. Create database schema based on TypeScript types
-2. Replace `src/lib/store.ts` functions with database queries
-3. Use Prisma or Drizzle ORM for type-safe queries
-
-### Additional Features
-- Customer accounts and order history
-- Product reviews and ratings
-- Email notifications
-- Inventory management
-- Advanced admin features (media library, reviews moderation)
-- Wishlist persistence (currently localStorage)
-- Order tracking page
-- Invoice generation
+- [ ] PostgreSQL database migration
+- [ ] Customer accounts and order history
+- [ ] Email notifications (order confirmation, status updates)
+- [ ] Advanced inventory management
+- [ ] Bulk product import/export
+- [ ] Discount codes and promotions
+- [ ] Multi-language support (Urdu)
+- [ ] Dark mode
+- [ ] Product reviews on storefront
+- [ ] Wishlist persistence (database)
+- [ ] Advanced analytics dashboard
+- [ ] Courier integration (TCS, Leopard, etc.)
 
 ## 📞 Support
 
