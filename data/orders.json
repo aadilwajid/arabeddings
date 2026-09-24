@@ -1,0 +1,125 @@
+[
+  {
+    "id": "order-001",
+    "orderNumber": "ARA-123456",
+    "customer": {
+      "name": "Fatima Ahmed",
+      "email": "fatima@example.com",
+      "phone": "03001234567",
+      "address": "House 45, Street 12, DHA Phase 5",
+      "city": "Lahore",
+      "postalCode": "54000"
+    },
+    "items": [
+      {
+        "productId": "prod-001",
+        "productName": "Premium Egyptian Cotton Sheet Set",
+        "variantId": "var-001-3",
+        "size": "Queen",
+        "type": "Bed Sheet Set",
+        "price": 12500,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800"
+      }
+    ],
+    "subtotal": 12500,
+    "shipping": 350,
+    "total": 12850,
+    "status": "delivered",
+    "paymentMethod": "cod",
+    "statusHistory": [
+      { "status": "new", "timestamp": "2026-01-10T10:00:00Z" },
+      { "status": "confirmed", "timestamp": "2026-01-10T11:00:00Z" },
+      { "status": "processing", "timestamp": "2026-01-11T09:00:00Z" },
+      { "status": "shipped", "timestamp": "2026-01-12T14:00:00Z", "note": "TCS Tracking: 123456789" },
+      { "status": "delivered", "timestamp": "2026-01-14T16:00:00Z" }
+    ],
+    "createdAt": "2026-01-10T10:00:00Z",
+    "updatedAt": "2026-01-14T16:00:00Z"
+  },
+  {
+    "id": "order-002",
+    "orderNumber": "ARA-123457",
+    "customer": {
+      "name": "Ali Hassan",
+      "email": "ali@example.com",
+      "phone": "03211234567",
+      "address": "Flat 12B, Tower 3, Bahria Town",
+      "city": "Islamabad",
+      "postalCode": "44000"
+    },
+    "items": [
+      {
+        "productId": "prod-002",
+        "productName": "Luxury Microfiber Comforter Set",
+        "variantId": "var-002-4",
+        "size": "King",
+        "type": "Comforter Set",
+        "price": 21500,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1616627561839-074385245ff6?w=800"
+      },
+      {
+        "productId": "prod-005",
+        "productName": "Velvet Decorative Cushion Cover",
+        "variantId": "var-005-1",
+        "size": "Single",
+        "type": "Fitted Sheet Only",
+        "price": 1200,
+        "quantity": 2,
+        "image": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800"
+      }
+    ],
+    "subtotal": 23900,
+    "shipping": 350,
+    "total": 24250,
+    "status": "shipped",
+    "paymentMethod": "jazzcash",
+    "paymentProof": "TXN-987654321",
+    "statusHistory": [
+      { "status": "new", "timestamp": "2026-01-15T10:00:00Z" },
+      { "status": "confirmed", "timestamp": "2026-01-15T11:00:00Z" },
+      { "status": "processing", "timestamp": "2026-01-16T09:00:00Z" },
+      { "status": "shipped", "timestamp": "2026-01-17T14:00:00Z", "note": "Leopard Tracking: LP-456789" }
+    ],
+    "createdAt": "2026-01-15T10:00:00Z",
+    "updatedAt": "2026-01-17T14:00:00Z"
+  },
+  {
+    "id": "order-003",
+    "orderNumber": "ARA-123458",
+    "customer": {
+      "name": "Sara Khan",
+      "email": "sara@example.com",
+      "phone": "03331234567",
+      "address": "House 78, Block C, Gulberg III",
+      "city": "Lahore",
+      "postalCode": "54000"
+    },
+    "items": [
+      {
+        "productId": "prod-003",
+        "productName": "Elegant Satin Quilt Cover Set",
+        "variantId": "var-003-2",
+        "size": "Double",
+        "type": "Quilt Cover Set",
+        "price": 8500,
+        "quantity": 1,
+        "image": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800"
+      }
+    ],
+    "subtotal": 8500,
+    "shipping": 350,
+    "total": 8850,
+    "status": "processing",
+    "paymentMethod": "easypaisa",
+    "paymentProof": "EP-1122334455",
+    "statusHistory": [
+      { "status": "new", "timestamp": "2026-01-18T10:00:00Z" },
+      { "status": "confirmed", "timestamp": "2026-01-18T11:00:00Z" },
+      { "status": "processing", "timestamp": "2026-01-19T09:00:00Z" }
+    ],
+    "createdAt": "2026-01-18T10:00:00Z",
+    "updatedAt": "2026-01-19T09:00:00Z"
+  }
+]

@@ -4,18 +4,24 @@ A production-ready e-commerce website for ARA Beddings, a Pakistan-based luxury 
 
 ## 🚀 Features
 
-### 🛍️ Storefront
+### 🛍️ Storefront (15 Pages)
 - **Homepage**: Hero slider with 3 rotating slides, featured products, category grid, trust bar
 - **Shop**: Search, category filters (Bed Sheets, Comforters, Quilt Covers, Kids, Accessories, Quilts), price sorting
-- **Product Detail**: Step-by-step variant selection (Size → Type), image gallery, wishlist
+- **Product Detail**: Step-by-step variant selection (Size → Type), image gallery, wishlist, size guide modal, reviews form
 - **Cart**: Global cart drawer with quantity controls
 - **Checkout**: Customer info, shipping address, COD/JazzCash/Easypaisa payment options with optional payment proof
 - **Order Confirmation**: Order number display
 - **Track Order**: Customers can track orders by order number with visual timeline
-- **WhatsApp Integration**: Floating WhatsApp button for customer support (03160143039)
+- **About Us**: Company story, values, team, statistics
+- **Services**: Custom stitching, custom designs, size consultation, delivery, quality guarantee, fast processing
+- **Blog/Journal**: 6 demo blog posts with categories (Guides, Education, Inspiration)
+- **Contact**: Contact form, business info, WhatsApp, payment methods
+- **Custom Designs**: Custom order request form with full specifications
+- **Account**: Login/Register with password visibility toggle
+- **Wishlist**: Saved items page with localStorage persistence
 - **Invoice**: Printable invoice page with brand logo, line items, shipping, total
 
-### 🔐 Admin Panel
+### 🔐 Admin Panel (9 Sections)
 - **Secure Login**: JWT-based authentication with hashed passwords
 - **Dashboard**: Stats overview (products, orders, revenue, pending orders)
 - **Products Management**: Full CRUD with multi-variant support (Size + Type)
@@ -72,9 +78,13 @@ npm run seed
 ```
 
 This creates:
-- Admin user: `admin@arabeddings.com` / `password`
-- 5 sample products with variants
+- 3 admin users (superadmin, manager, support)
+- 8 sample products with variants
+- 3 sample orders with different statuses
+- 5 customer reviews
+- 5 media files
 - Default settings
+- Navigation menu
 
 ### 3. Environment Variables
 
@@ -95,9 +105,13 @@ Open [http://localhost:3000](http://localhost:3000)
 
 ## 🔐 Admin Access
 
-**URL**: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)  
-**Email**: `admin@arabeddings.com`  
-**Password**: `password`
+**URL**: [http://localhost:3000/admin/login](http://localhost:3000/admin/login)
+
+| Email | Password | Role |
+|-------|----------|------|
+| admin@arabeddings.com | password | Super Admin |
+| manager@arabeddings.com | manager123 | Manager |
+| support@arabeddings.com | support123 | Support |
 
 ## 📁 Project Structure
 
@@ -108,6 +122,15 @@ ara-beddings/
 │   │   ├── page.tsx                    # Main storefront
 │   │   ├── layout.tsx                  # Root layout
 │   │   ├── globals.css                 # Global styles
+│   │   ├── about/page.tsx              # About page
+│   │   ├── account/page.tsx            # Account login/register
+│   │   ├── blog/page.tsx               # Blog/Journal
+│   │   ├── contact/page.tsx            # Contact form
+│   │   ├── custom-designs/page.tsx     # Custom design requests
+│   │   ├── services/page.tsx           # Services page
+│   │   ├── wishlist/page.tsx           # Wishlist
+│   │   ├── track-order/page.tsx        # Order tracking
+│   │   ├── invoice/[id]/page.tsx       # Printable invoice
 │   │   ├── admin/
 │   │   │   ├── layout.tsx              # Admin layout with sidebar
 │   │   │   ├── page.tsx                # Redirect to dashboard
@@ -122,18 +145,15 @@ ara-beddings/
 │   │   │   ├── users/page.tsx          # Users management
 │   │   │   ├── menu/page.tsx           # Menu manager
 │   │   │   └── settings/page.tsx       # Site settings
-│   │   ├── api/
-│   │   │   ├── products/route.ts       # Products API
-│   │   │   ├── orders/route.ts         # Orders API
-│   │   │   ├── media/route.ts          # Media API
-│   │   │   ├── reviews/route.ts        # Reviews API
-│   │   │   ├── users/route.ts          # Users API
-│   │   │   ├── menu/route.ts           # Menu API
-│   │   │   ├── settings/route.ts       # Settings API
-│   │   │   └── auth/login/route.ts     # Auth API
-│   │   ├── invoice/[id]/page.tsx       # Printable invoice
-│   │   └── track-order/page.tsx        # Order tracking
-│   ├── components/                     # Shared components
+│   │   └── api/
+│   │       ├── products/route.ts       # Products API
+│   │       ├── orders/route.ts         # Orders API
+│   │       ├── media/route.ts          # Media API
+│   │       ├── reviews/route.ts        # Reviews API
+│   │       ├── users/route.ts          # Users API
+│   │       ├── menu/route.ts           # Menu API
+│   │       ├── settings/route.ts       # Settings API
+│   │       └── auth/login/route.ts     # Auth API
 │   ├── lib/
 │   │   └── store.ts                    # JSON data store
 │   └── types/
@@ -144,7 +164,10 @@ ara-beddings/
 │   ├── users.json
 │   ├── reviews.json
 │   ├── media.json
-│   └── settings.json
+│   ├── settings.json
+│   └── menu.json
+├── public/
+│   └── demo-preview.html               # Offline demo preview
 ├── scripts/
 │   └── seed-data.js                    # Database seeder
 ├── Dockerfile
@@ -243,60 +266,31 @@ npm start
 - **Headings**: Georgia (serif)
 - **Body**: System fonts (sans-serif)
 
-## 📊 Data Models
+## 📊 Demo Data
 
-### Product
-```typescript
-{
-  id: string;
-  name: string;
-  slug: string;
-  category: Category;
-  description: string;
-  mainImage: string;
-  galleryImages: string[];
-  priceFrom: number;
-  compareAt?: number;
-  stock: number;
-  badge?: string;
-  featured: boolean;
-  isNew: boolean;
-  customizable: boolean;
-  variants: ProductVariant[];
-}
-```
+After running `npm run seed`, you'll have:
 
-### Order
-```typescript
-{
-  id: string;
-  orderNumber: string;
-  customer: Customer;
-  items: OrderItem[];
-  subtotal: number;
-  shipping: number;
-  total: number;
-  status: OrderStatus;
-  paymentMethod: PaymentMethod;
-  paymentProof?: string;
-  statusHistory: StatusUpdate[];
-}
-```
+### Products (8)
+- Premium Egyptian Cotton Sheet Set (Best Seller)
+- Luxury Microfiber Comforter Set (New)
+- Elegant Satin Quilt Cover Set
+- Kids Cartoon Bed Sheet Set (Kids Special)
+- Velvet Decorative Cushion Cover (Sale)
+- Winter Warm Quilt
+- Organic Cotton Fitted Sheet (Eco-Friendly)
+- Luxury Silk Pillowcase Set
 
-## 🔧 Future Enhancements
+### Orders (3)
+- ARA-123456: Delivered (COD)
+- ARA-123457: Shipped (JazzCash with payment proof)
+- ARA-123458: Processing (Easypaisa with payment proof)
 
-- [ ] PostgreSQL database migration
-- [ ] Customer accounts and order history
-- [ ] Email notifications (order confirmation, status updates)
-- [ ] Advanced inventory management
-- [ ] Bulk product import/export
-- [ ] Discount codes and promotions
-- [ ] Multi-language support (Urdu)
-- [ ] Dark mode
-- [ ] Product reviews on storefront
-- [ ] Wishlist persistence (database)
-- [ ] Advanced analytics dashboard
-- [ ] Courier integration (TCS, Leopard, etc.)
+### Reviews (5)
+- 4 approved reviews
+- 1 pending review
+
+### Media (5)
+- Product images with tags
 
 ## 📞 Support
 
