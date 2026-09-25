@@ -9,6 +9,8 @@ import AbandonedCartNotification, { saveCartForRecovery } from '@/components/Aba
 import CityDeliveryEstimate from '@/components/CityDeliveryEstimate';
 import DiscountCodeInput from '@/components/DiscountCodeInput';
 import RecentlyViewed, { addToRecentlyViewed } from '@/components/RecentlyViewed';
+import { isFeatureEnabled } from '@/lib/feature-flags';
+import { ProductGridSkeleton } from '@/components/SkeletonLoaders';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -23,6 +25,7 @@ export default function HomePage() {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [heroIndex, setHeroIndex] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const categories = ['All', 'Bed Sheets', 'Comforters', 'Quilt Covers', 'Kids', 'Accessories', 'Quilts'];
   const sizes: Size[] = ['Single', 'Double', 'Queen', 'King'];
@@ -36,12 +39,20 @@ export default function HomePage() {
 
   // Load data
   useEffect(() => {
-    fetch('/api/products')
-      .then(res => res.json())
-      .then(data => setProducts(data));
+    // Simulate loading delay for skeleton demo
+    const timer = setTimeout(() => {
+      fetch('/api/products')
+        .then(res => res.json())
+        .then(data => {
+          setProducts(data);
+          setLoading(false);
+        });
+    }, 800);
     
     const savedWishlist = localStorage.getItem('wishlist');
     if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+    
+    return () => clearTimeout(timer);
   }, []);
 
   // Auto-rotate hero
@@ -266,15 +277,19 @@ export default function HomePage() {
                 <button onClick={() => setView('shop')} className="bg-[#2D2A26] text-white px-8 py-3 rounded-full font-medium hover:bg-[#C4A265] transition-colors">
                   View All Products
                 </button>
-                <BundleBuilder products={products} onAddBundleToCart={(items) => {
-                  items.forEach(item => addToCart(item.product, item.variantId, item.quantity));
-                }} />
+                {isFeatureEnabled('bundle_builder') && (
+                  <BundleBuilder products={products} onAddBundleToCart={(items) => {
+                    items.forEach(item => addToCart(item.product, item.variantId, item.quantity));
+                  }} />
+                )}
               </div>
             </section>
           )}
 
           {/* Compare Bar */}
-          <CompareBar products={products} onAddToCart={(product, variantId) => addToCart(product, variantId)} />
+          {isFeatureEnabled('product_comparison') && (
+            <CompareBar products={products} onAddToCart={(product, variantId) => addToCart(product, variantId)} />
+          )}
 
           {/* Categories */}
           <section className="bg-white py-16">
@@ -341,11 +356,15 @@ export default function HomePage() {
             ))}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={handleViewProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
-            ))}
-          </div>
+          {loading ? (
+            <ProductGridSkeleton count={6} />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredProducts.map(product => (
+                <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={handleViewProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
+              ))}
+            </div>
+          )}
         </section>
       )}
 
@@ -363,10 +382,14 @@ export default function HomePage() {
       </a>
 
       {/* Abandoned Cart Recovery */}
-      <AbandonedCartNotification onRestore={(items) => setCart(items)} />
+      {isFeatureEnabled('abandoned_cart') && (
+        <AbandonedCartNotification onRestore={(items) => setCart(items)} />
+      )}
 
       {/* Recently Viewed */}
-      <RecentlyViewed products={products} onViewProduct={setSelectedProduct} formatPrice={formatPrice} />
+      {isFeatureEnabled('recently_viewed') && (
+        <RecentlyViewed products={products} onViewProduct={setSelectedProduct} formatPrice={formatPrice} />
+      )}
 
       {/* Footer */}
       <footer className="bg-[#F5EDE4] border-t border-[#E8DFD5] py-12 mt-16">
@@ -441,7 +464,9 @@ function ProductCard({ product, onAddToCart, onViewDetails, onToggleWishlist, is
         <img src={product.mainImage} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         {product.badge && <span className="absolute top-3 left-3 bg-[#C4A265] text-white text-xs font-medium px-3 py-1 rounded-full">{product.badge}</span>}
         <div className="absolute top-3 right-3 flex flex-col gap-2">
-          <CompareButton productId={product.id} />
+          {isFeatureEnabled('product_comparison') && (
+            <CompareButton productId={product.id} />
+          )}
         </div>
         <button onClick={(e) => { e.stopPropagation(); onToggleWishlist(product.id); }} className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-[#FDF8F3]">
           <Heart size={18} className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-[#5C4A32]'} />
