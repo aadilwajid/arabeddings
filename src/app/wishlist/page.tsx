@@ -34,7 +34,7 @@ export default function WishlistPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
-      <Header cartCount={0} wishlistCount={wishlist.length} onCartClick={() => window.location.href = '/'} />
+      <Header />
       
       {/* Hero */}
       <section className="relative h-[250px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">

@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { ThemeProvider } from '@/components/ThemeProvider';
+import ThemeSwitcher from '@/components/ThemeSwitcher';
 
 export const metadata: Metadata = {
   title: 'ARA Beddings | Luxury Home Linen & Bedding - Pakistan',
@@ -40,7 +42,10 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="ARA Beddings" />
       </head>
       <body className="bg-[#FDF8F3] text-[#2D2A26] antialiased">
-        {children}
+        <ThemeProvider>
+          {children}
+          <ThemeSwitcher />
+        </ThemeProvider>
         <script
           dangerouslySetInnerHTML={{
             __html: `

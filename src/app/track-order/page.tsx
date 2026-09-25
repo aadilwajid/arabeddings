@@ -69,7 +69,7 @@ export default function TrackOrderPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
-      <Header cartCount={0} wishlistCount={wishlistCount} onCartClick={() => window.location.href = '/'} />
+      <Header />
       
       <div className="py-16">
         <div className="max-w-2xl mx-auto px-4">

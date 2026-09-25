@@ -20,7 +20,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
-      <Header cartCount={0} wishlistCount={0} onCartClick={() => window.location.href = '/'} />
+      <Header />
       {/* Hero */}
       <section className="relative h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
