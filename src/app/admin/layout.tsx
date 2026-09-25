@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Package, ShoppingCart, Users, DollarSign, Settings, Menu as MenuIcon, Image, MessageSquare, LogOut, LayoutDashboard, FileText } from 'lucide-react';
+import { Package, ShoppingCart, Users, DollarSign, Settings, Menu as MenuIcon, Image, MessageSquare, LogOut, LayoutDashboard, FileText, ToggleRight } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -36,6 +36,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: DollarSign, label: 'Discounts', href: '/admin/discounts' },
     { icon: FileText, label: 'Analytics', href: '/admin/analytics' },
     { icon: Settings, label: 'Operations', href: '/admin/operations' },
+    { icon: ToggleRight, label: 'Features', href: '/admin/features' },
   ];
 
   return (
