@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import { Heart, Trash2, ShoppingBag } from 'lucide-react';
 import { Product } from '@/types';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<string[]>([]);
@@ -32,6 +34,8 @@ export default function WishlistPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
+      <Header cartCount={0} wishlistCount={wishlist.length} onCartClick={() => window.location.href = '/'} />
+      
       {/* Hero */}
       <section className="relative h-[250px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,7 +68,7 @@ export default function WishlistPage() {
                         <button onClick={() => removeFromWishlist(product.id)} className="p-2 hover:bg-red-50 text-red-500 rounded-lg">
                           <Trash2 size={16} />
                         </button>
-                        <a href={`/shop?product=${product.id}`} className="p-2 hover:bg-[#F5EDE4] text-[#5C4A32] rounded-lg">
+                        <a href={`/?product=${product.id}#shop`} className="p-2 hover:bg-[#F5EDE4] text-[#5C4A32] rounded-lg">
                           <ShoppingBag size={16} />
                         </a>
                       </div>
@@ -85,6 +89,8 @@ export default function WishlistPage() {
           </div>
         )}
       </section>
+
+      <Footer />
     </div>
   );
 }

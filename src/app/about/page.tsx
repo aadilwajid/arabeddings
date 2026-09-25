@@ -1,10 +1,13 @@
 'use client';
 
 import { Award, Heart, Leaf, Users, CheckCircle } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
+      <Header cartCount={0} wishlistCount={0} onCartClick={() => window.location.href = '/'} />
       {/* Hero */}
       <section className="relative h-[500px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -143,11 +146,13 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-3xl font-serif text-white mb-4">Ready to Transform Your Sleep?</h2>
           <p className="text-[#D4C5B0] mb-8">Join thousands of happy customers across Pakistan.</p>
-          <a href="/shop" className="inline-block bg-[#C4A265] text-white px-8 py-3 rounded-full font-medium hover:bg-[#D4B275] transition-colors">
+          <a href="/#shop" className="inline-block bg-[#C4A265] text-white px-8 py-3 rounded-full font-medium hover:bg-[#D4B275] transition-colors">
             Shop Now
           </a>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }

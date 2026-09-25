@@ -3,6 +3,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function AccountPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -27,16 +29,19 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#FDF8F3] flex items-center justify-center px-4 py-16">
-      <div className="max-w-md w-full">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-serif text-[#2D2A26] mb-2">
-            {isLogin ? 'Welcome Back' : 'Create Account'}
-          </h1>
-          <p className="text-[#5C4A32]">
-            {isLogin ? 'Sign in to your ARA Beddings account' : 'Join the ARA Beddings family'}
-          </p>
-        </div>
+    <div className="min-h-screen bg-[#FDF8F3]">
+      <Header cartCount={0} wishlistCount={0} onCartClick={() => window.location.href = '/'} />
+      
+      <div className="flex items-center justify-center px-4 py-16">
+        <div className="max-w-md w-full">
+          <div className="text-center mb-8">
+            <h1 className="text-4xl font-serif text-[#2D2A26] mb-2">
+              {isLogin ? 'Welcome Back' : 'Create Account'}
+            </h1>
+            <p className="text-[#5C4A32]">
+              {isLogin ? 'Sign in to your ARA Beddings account' : 'Join the ARA Beddings family'}
+            </p>
+          </div>
 
         <div className="bg-white rounded-2xl p-8 border border-[#F0E8DE]">
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -128,6 +133,9 @@ export default function AccountPage() {
           </div>
         </div>
       </div>
+      </div>
+      
+      <Footer />
     </div>
   );
 }

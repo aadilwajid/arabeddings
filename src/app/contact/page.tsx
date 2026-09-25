@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
@@ -18,6 +20,7 @@ export default function ContactPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
+      <Header cartCount={0} wishlistCount={0} onCartClick={() => window.location.href = '/'} />
       {/* Hero */}
       <section className="relative h-[400px] flex items-center overflow-hidden">
         <div className="absolute inset-0">
@@ -183,6 +186,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }
