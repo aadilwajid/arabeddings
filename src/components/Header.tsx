@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { Search, ShoppingBag, Menu, X, Heart } from 'lucide-react';
+import LoyaltyWidget from './LoyaltyWidget';
+import ReferralProgram from './ReferralProgram';
 
 interface HeaderProps {
   cartCount: number;
@@ -43,12 +45,16 @@ export default function Header({ cartCount, wishlistCount, onCartClick, onSearch
             <a href="/track-order" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Track Order</a>
           </nav>
 
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 md:space-x-3">
             {onSearchClick && (
               <button onClick={onSearchClick} className="p-2 text-[#5C4A32] hover:text-[#C4A265]">
                 <Search size={20} />
               </button>
             )}
+            <div className="hidden md:flex items-center gap-2">
+              <LoyaltyWidget />
+              <ReferralProgram />
+            </div>
             <a href="/wishlist" className="relative p-2 text-[#5C4A32] hover:text-[#C4A265] md:hidden">
               <Heart size={20} />
               {wishlistCount > 0 && (

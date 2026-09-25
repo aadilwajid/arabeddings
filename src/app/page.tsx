@@ -3,6 +3,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Product, CartItem, Size, VariantType, Order, Customer } from '@/types';
 import { Search, ShoppingBag, Menu, X, Star, Minus, Plus, Heart, Trash2, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import BundleBuilder from '@/components/BundleBuilder';
+import CompareBar, { CompareButton } from '@/components/ProductComparison';
+import AbandonedCartNotification, { saveCartForRecovery } from '@/components/AbandonedCartNotification';
+import CityDeliveryEstimate from '@/components/CityDeliveryEstimate';
+import DiscountCodeInput from '@/components/DiscountCodeInput';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -74,19 +79,22 @@ export default function HomePage() {
 
     setCart(prev => {
       const existing = prev.find(item => item.variantId === variantId);
-      if (existing) {
-        return prev.map(item => item.variantId === variantId ? { ...item, quantity: item.quantity + quantity } : item);
-      }
-      return [...prev, {
-        productId: product.id,
-        productName: product.name,
-        variantId: variant.id,
-        size: variant.size,
-        type: variant.type,
-        price: variant.price,
-        quantity,
-        image: product.mainImage
-      }];
+      const newCart = existing
+        ? prev.map(item => item.variantId === variantId ? { ...item, quantity: item.quantity + quantity } : item)
+        : [...prev, {
+            productId: product.id,
+            productName: product.name,
+            variantId: variant.id,
+            size: variant.size,
+            type: variant.type,
+            price: variant.price,
+            quantity,
+            image: product.mainImage
+          }];
+      
+      // Save for abandoned cart recovery
+      saveCartForRecovery(newCart);
+      return newCart;
     });
     setCartOpen(true);
   };
@@ -247,13 +255,19 @@ export default function HomePage() {
                   <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={setSelectedProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
                 ))}
               </div>
-              <div className="text-center mt-8">
+              <div className="text-center mt-8 flex flex-wrap gap-4 justify-center">
                 <button onClick={() => setView('shop')} className="bg-[#2D2A26] text-white px-8 py-3 rounded-full font-medium hover:bg-[#C4A265] transition-colors">
                   View All Products
                 </button>
+                <BundleBuilder products={products} onAddBundleToCart={(items) => {
+                  items.forEach(item => addToCart(item.product, item.variantId, item.quantity));
+                }} />
               </div>
             </section>
           )}
+
+          {/* Compare Bar */}
+          <CompareBar products={products} onAddToCart={(product, variantId) => addToCart(product, variantId)} />
 
           {/* Categories */}
           <section className="bg-white py-16">
@@ -341,6 +355,9 @@ export default function HomePage() {
         <MessageCircle size={24} />
       </a>
 
+      {/* Abandoned Cart Recovery */}
+      <AbandonedCartNotification onRestore={(items) => setCart(items)} />
+
       {/* Footer */}
       <footer className="bg-[#F5EDE4] border-t border-[#E8DFD5] py-12 mt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -413,6 +430,9 @@ function ProductCard({ product, onAddToCart, onViewDetails, onToggleWishlist, is
       <div className="relative aspect-square overflow-hidden cursor-pointer bg-[#F5EDE4]" onClick={() => onViewDetails(product)}>
         <img src={product.mainImage} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         {product.badge && <span className="absolute top-3 left-3 bg-[#C4A265] text-white text-xs font-medium px-3 py-1 rounded-full">{product.badge}</span>}
+        <div className="absolute top-3 right-3 flex flex-col gap-2">
+          <CompareButton productId={product.id} />
+        </div>
         <button onClick={(e) => { e.stopPropagation(); onToggleWishlist(product.id); }} className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:bg-[#FDF8F3]">
           <Heart size={18} className={isWishlisted ? 'fill-red-500 text-red-500' : 'text-[#5C4A32]'} />
         </button>
@@ -751,6 +771,8 @@ function CheckoutView({ cart, cartTotal, shipping, orderTotal, onBack, onCheckou
   const [customer, setCustomer] = useState<Customer>({ name: '', email: '', phone: '', address: '', city: '', postalCode: '' });
   const [paymentMethod, setPaymentMethod] = useState<'cod' | 'jazzcash' | 'easypaisa'>('cod');
   const [paymentProof, setPaymentProof] = useState<string>('');
+  const [discountCode, setDiscountCode] = useState<string>('');
+  const [discountAmount, setDiscountAmount] = useState<number>(0);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -779,6 +801,16 @@ function CheckoutView({ cart, cartTotal, shipping, orderTotal, onBack, onCheckou
               <input type="text" value={customer.postalCode} onChange={(e) => setCustomer({ ...customer, postalCode: e.target.value })} placeholder="Postal Code" required className="px-4 py-3 bg-[#FDF8F3] border border-[#E8DFD5] rounded-xl" />
             </div>
           </div>
+          {customer.city && (
+            <CityDeliveryEstimate city={customer.city} onCityChange={(city) => setCustomer({ ...customer, city })} />
+          )}
+          <DiscountCodeInput
+            orderTotal={cartTotal}
+            onApply={(discount, code) => { setDiscountAmount(discount); setDiscountCode(code); }}
+            onRemove={() => { setDiscountAmount(0); setDiscountCode(''); }}
+            appliedCode={discountCode}
+            appliedDiscount={discountAmount}
+          />
           <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
             <h3 className="text-lg font-medium mb-4">Payment Method</h3>
             <div className="space-y-3">
