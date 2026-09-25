@@ -6,12 +6,28 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
       {/* Hero */}
-      <section className="relative h-[400px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative h-[500px] flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600" 
+            alt="Luxury bedding" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FDF8F3]/95 via-[#FDF8F3]/80 to-transparent" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
-            <p className="text-[#C4A265] text-sm uppercase tracking-[0.3em] mb-4">Our Story</p>
+            <p className="text-[#C4A265] text-sm uppercase tracking-[0.3em] mb-4 font-medium">Our Story</p>
             <h1 className="text-5xl md:text-6xl font-serif text-[#2D2A26] mb-6">Crafting Comfort Since 2018</h1>
-            <p className="text-lg text-[#5C4A32]">Premium bedding for Pakistani homes, delivered with care.</p>
+            <p className="text-lg text-[#5C4A32] mb-8">Premium bedding for Pakistani homes, delivered with care. From luxury Egyptian cotton to sustainable bamboo, we bring world-class quality to your bedroom.</p>
+            <div className="flex gap-4">
+              <a href="/shop" className="bg-[#2D2A26] text-white px-8 py-3 rounded-full font-medium hover:bg-[#C4A265] transition-colors">
+                Shop Now
+              </a>
+              <a href="/contact" className="border border-[#2D2A26] text-[#2D2A26] px-8 py-3 rounded-full font-medium hover:bg-[#2D2A26] hover:text-white transition-colors">
+                Contact Us
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -47,6 +63,27 @@ export default function AboutPage() {
             <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE] text-center">
               <p className="text-4xl font-bold text-[#C4A265] mb-2">100%</p>
               <p className="text-sm text-[#5C4A32]">Quality Guaranteed</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Photo Gallery */}
+      <section className="bg-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-serif text-[#2D2A26] mb-12 text-center">Our Craftsmanship</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600" alt="Luxury bedding" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1616627561839-074385245ff6?w=600" alt="Comforter set" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=600" alt="Quilt cover" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
+            </div>
+            <div className="aspect-square rounded-2xl overflow-hidden">
+              <img src="https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=600" alt="Bed sheets" className="w-full h-full object-cover hover:scale-110 transition-transform duration-500" />
             </div>
           </div>
         </div>
