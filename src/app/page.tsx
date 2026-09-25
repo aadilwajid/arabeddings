@@ -174,6 +174,8 @@ export default function HomePage() {
               <a href="/services" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Services</a>
               <a href="/blog" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Blog</a>
               <a href="/contact" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Contact</a>
+              <a href="/wishlist" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Wishlist</a>
+              <a href="/track-order" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Track Order</a>
             </nav>
 
             <div className="flex items-center space-x-3">
@@ -198,7 +200,11 @@ export default function HomePage() {
               <button onClick={() => { setView('home'); setMobileMenuOpen(false); }} className="text-left text-sm text-[#5C4A32]">Home</button>
               <button onClick={() => { setView('shop'); setMobileMenuOpen(false); }} className="text-left text-sm text-[#5C4A32]">Shop</button>
               <a href="/about" className="text-sm text-[#5C4A32]">About</a>
+              <a href="/services" className="text-sm text-[#5C4A32]">Services</a>
+              <a href="/blog" className="text-sm text-[#5C4A32]">Blog</a>
               <a href="/contact" className="text-sm text-[#5C4A32]">Contact</a>
+              <a href="/wishlist" className="text-sm text-[#5C4A32]">Wishlist</a>
+              <a href="/track-order" className="text-sm text-[#5C4A32]">Track Order</a>
             </nav>
           </div>
         )}

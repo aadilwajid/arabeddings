@@ -19,11 +19,27 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
       {/* Hero */}
-      <section className="relative h-[300px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[#C4A265] text-sm uppercase tracking-[0.3em] mb-4">Get in Touch</p>
-          <h1 className="text-5xl font-serif text-[#2D2A26] mb-4">Contact Us</h1>
-          <p className="text-lg text-[#5C4A32]">We're here to help. Reach out anytime.</p>
+      <section className="relative h-[400px] flex items-center overflow-hidden">
+        <div className="absolute inset-0">
+          <img 
+            src="https://images.unsplash.com/photo-1616627561839-074385245ff6?w=1600" 
+            alt="Contact us" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FDF8F3]/95 via-[#FDF8F3]/80 to-transparent" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-[#C4A265] text-sm uppercase tracking-[0.3em] mb-4 font-medium">Get in Touch</p>
+          <h1 className="text-5xl md:text-6xl font-serif text-[#2D2A26] mb-4">Contact Us</h1>
+          <p className="text-lg text-[#5C4A32] mb-8">We're here to help. Reach out anytime for questions, custom orders, or support.</p>
+          <div className="flex gap-4">
+            <a href="https://wa.me/923160143039" target="_blank" rel="noopener noreferrer" className="bg-green-500 text-white px-8 py-3 rounded-full font-medium hover:bg-green-600 transition-colors flex items-center gap-2">
+              <MessageCircle size={20} /> WhatsApp Us
+            </a>
+            <a href="tel:03160143039" className="bg-[#2D2A26] text-white px-8 py-3 rounded-full font-medium hover:bg-[#C4A265] transition-colors flex items-center gap-2">
+              <Phone size={20} /> Call Now
+            </a>
+          </div>
         </div>
       </section>
 
@@ -102,6 +118,15 @@ export default function ContactPage() {
 
           {/* Contact Form */}
           <div className="md:col-span-2">
+            {/* Visual Banner */}
+            <div className="mb-6 rounded-2xl overflow-hidden h-48">
+              <img 
+                src="https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=1200" 
+                alt="Contact us" 
+                className="w-full h-full object-cover"
+              />
+            </div>
+            
             <div className="bg-white rounded-2xl p-8 border border-[#F0E8DE]">
               <h2 className="text-2xl font-serif text-[#2D2A26] mb-6">Send us a Message</h2>
               
