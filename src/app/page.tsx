@@ -8,6 +8,7 @@ import CompareBar, { CompareButton } from '@/components/ProductComparison';
 import AbandonedCartNotification, { saveCartForRecovery } from '@/components/AbandonedCartNotification';
 import CityDeliveryEstimate from '@/components/CityDeliveryEstimate';
 import DiscountCodeInput from '@/components/DiscountCodeInput';
+import RecentlyViewed, { addToRecentlyViewed } from '@/components/RecentlyViewed';
 
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -117,6 +118,12 @@ export default function HomePage() {
       : [...wishlist, productId];
     setWishlist(newWishlist);
     localStorage.setItem('wishlist', JSON.stringify(newWishlist));
+  };
+
+  // Track product view for Recently Viewed
+  const handleViewProduct = (product: Product) => {
+    setSelectedProduct(product);
+    addToRecentlyViewed(product.id);
   };
 
   // Checkout
@@ -252,7 +259,7 @@ export default function HomePage() {
               <h3 className="text-3xl font-serif text-[#2D2A26] mb-8 text-center">Featured Products</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {featuredProducts.slice(0, 3).map(product => (
-                  <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={setSelectedProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
+                  <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={handleViewProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
                 ))}
               </div>
               <div className="text-center mt-8 flex flex-wrap gap-4 justify-center">
@@ -336,7 +343,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map(product => (
-              <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={setSelectedProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
+              <ProductCard key={product.id} product={product} onAddToCart={addToCart} onViewDetails={handleViewProduct} onToggleWishlist={toggleWishlist} isWishlisted={wishlist.includes(product.id)} formatPrice={formatPrice} />
             ))}
           </div>
         </section>
@@ -357,6 +364,9 @@ export default function HomePage() {
 
       {/* Abandoned Cart Recovery */}
       <AbandonedCartNotification onRestore={(items) => setCart(items)} />
+
+      {/* Recently Viewed */}
+      <RecentlyViewed products={products} onViewProduct={setSelectedProduct} formatPrice={formatPrice} />
 
       {/* Footer */}
       <footer className="bg-[#F5EDE4] border-t border-[#E8DFD5] py-12 mt-16">

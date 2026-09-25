@@ -35,6 +35,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: Settings, label: 'Settings', href: '/admin/settings' },
     { icon: DollarSign, label: 'Discounts', href: '/admin/discounts' },
     { icon: FileText, label: 'Analytics', href: '/admin/analytics' },
+    { icon: Settings, label: 'Operations', href: '/admin/operations' },
   ];
 
   return (
