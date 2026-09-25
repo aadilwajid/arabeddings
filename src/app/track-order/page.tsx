@@ -1,14 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Order, OrderStatus } from '@/types';
 import { Search, Package, Truck, CheckCircle, XCircle } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function TrackOrderPage() {
   const [orderNumber, setOrderNumber] = useState('');
   const [order, setOrder] = useState<Order | null>(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [wishlistCount, setWishlistCount] = useState(0);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('wishlist');
+    if (saved) setWishlistCount(JSON.parse(saved).length);
+  }, []);
 
   const handleTrack = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,12 +68,15 @@ export default function TrackOrderPage() {
   const statusOrder: OrderStatus[] = ['new', 'confirmed', 'processing', 'shipped', 'delivered'];
 
   return (
-    <div className="min-h-screen bg-[#FDF8F3] py-16">
-      <div className="max-w-2xl mx-auto px-4">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-serif text-[#2D2A26] mb-4">Track Your Order</h1>
-          <p className="text-[#5C4A32]">Enter your order number to check the status</p>
-        </div>
+    <div className="min-h-screen bg-[#FDF8F3]">
+      <Header cartCount={0} wishlistCount={wishlistCount} onCartClick={() => window.location.href = '/'} />
+      
+      <div className="py-16">
+        <div className="max-w-2xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h1 className="text-4xl font-serif text-[#2D2A26] mb-4">Track Your Order</h1>
+            <p className="text-[#5C4A32]">Enter your order number to check the status</p>
+          </div>
 
         {/* Search Form */}
         <form onSubmit={handleTrack} className="bg-white rounded-2xl border border-[#F0E8DE] p-6 mb-8">
@@ -180,7 +191,10 @@ export default function TrackOrderPage() {
             Contact us on WhatsApp
           </a>
         </div>
+        </div>
       </div>
+      
+      <Footer />
     </div>
   );
 }

@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 import { Upload, CheckCircle } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 
 export default function CustomDesignsPage() {
   const [submitted, setSubmitted] = useState(false);
@@ -34,6 +36,8 @@ export default function CustomDesignsPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
+      <Header cartCount={0} wishlistCount={0} onCartClick={() => window.location.href = '/'} />
+      
       {/* Hero */}
       <section className="relative h-[300px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -136,6 +140,8 @@ export default function CustomDesignsPage() {
           </form>
         </div>
       </section>
+      
+      <Footer />
     </div>
   );
 }
