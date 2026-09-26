@@ -112,26 +112,26 @@ export default function CartPage() {
           </div>
 
           {cart.length === 0 ? (
-            <div className="text-center py-16">
-              <ShoppingBag size={64} className="mx-auto mb-4" style={{ color: 'var(--color-text-secondary)' }} />
-              <h2 className="text-2xl font-serif mb-2" style={{ color: 'var(--color-text)' }}>Your cart is empty</h2>
-              <p className="mb-6" style={{ color: 'var(--color-text-secondary)' }}>Add some products to get started</p>
+            <div className="text-center py-12 md:py-16">
+              <ShoppingBag size={48} className="md:size-64 mx-auto mb-4" style={{ color: 'var(--color-text-secondary)' }} />
+              <h2 className="text-xl md:text-2xl font-serif mb-2" style={{ color: 'var(--color-text)' }}>Your cart is empty</h2>
+              <p className="mb-6 text-sm md:text-base" style={{ color: 'var(--color-text-secondary)' }}>Add some products to get started</p>
               <Link
                 href="/shop"
-                className="inline-block px-8 py-3 rounded-lg font-medium transition-colors"
+                className="inline-block px-6 md:px-8 py-3 rounded-lg font-medium transition-colors"
                 style={{ backgroundColor: 'var(--color-primary)', color: 'white' }}
               >
                 Continue Shopping
               </Link>
             </div>
           ) : (
-            <div className="grid lg:grid-cols-3 gap-8">
+            <div className="grid lg:grid-cols-3 gap-6 md:gap-8">
               {/* Cart Items */}
-              <div className="lg:col-span-2 space-y-4">
+              <div className="lg:col-span-2 space-y-3 md:space-y-4">
                 {cart.map(item => (
                   <div
                     key={item.variantId}
-                    className="flex gap-4 p-4 rounded-xl"
+                    className="flex gap-3 md:gap-4 p-3 md:p-4 rounded-xl"
                     style={{
                       backgroundColor: 'var(--color-surface)',
                       border: 'var(--border)',
@@ -141,40 +141,40 @@ export default function CartPage() {
                     <img
                       src={item.image}
                       alt={item.productName}
-                      className="w-24 h-24 object-cover rounded-lg"
+                      className="w-20 h-20 md:w-24 md:h-24 object-cover rounded-lg flex-shrink-0"
                     />
-                    <div className="flex-1">
-                      <h3 className="font-medium mb-1" style={{ color: 'var(--color-text)' }}>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-medium mb-1 text-sm md:text-base line-clamp-2" style={{ color: 'var(--color-text)' }}>
                         {item.productName}
                       </h3>
-                      <p className="text-sm mb-2" style={{ color: 'var(--color-text-secondary)' }}>
+                      <p className="text-xs md:text-sm mb-2" style={{ color: 'var(--color-text-secondary)' }}>
                         {item.size} - {item.type}
                       </p>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => updateQuantity(item.variantId, item.quantity - 1)}
-                            className="p-1 rounded hover:bg-gray-100"
+                            className="p-2 rounded hover:bg-gray-100 min-w-[32px] min-h-[32px] flex items-center justify-center"
                           >
                             <Minus size={16} />
                           </button>
-                          <span className="w-8 text-center" style={{ color: 'var(--color-text)' }}>
+                          <span className="w-10 text-center font-medium" style={{ color: 'var(--color-text)' }}>
                             {item.quantity}
                           </span>
                           <button
                             onClick={() => updateQuantity(item.variantId, item.quantity + 1)}
-                            className="p-1 rounded hover:bg-gray-100"
+                            className="p-2 rounded hover:bg-gray-100 min-w-[32px] min-h-[32px] flex items-center justify-center"
                           >
                             <Plus size={16} />
                           </button>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <span className="font-semibold" style={{ color: 'var(--color-text)' }}>
+                        <div className="flex items-center justify-between sm:justify-end gap-3">
+                          <span className="font-semibold text-sm md:text-base" style={{ color: 'var(--color-text)' }}>
                             {formatPrice(item.price * item.quantity)}
                           </span>
                           <button
                             onClick={() => removeFromCart(item.variantId)}
-                            className="p-2 rounded hover:bg-red-50 text-red-500"
+                            className="p-2 rounded hover:bg-red-50 text-red-500 min-w-[32px] min-h-[32px] flex items-center justify-center"
                           >
                             <Trash2 size={16} />
                           </button>

@@ -45,11 +45,11 @@ export default function WishlistPage() {
       <Header />
       
       {/* Hero */}
-      <section className="relative h-[250px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">
+      <section className="relative h-[200px] md:h-[250px] bg-gradient-to-br from-[#F5EDE4] to-[#E8DFD5] flex items-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[#C4A265] text-sm uppercase tracking-[0.3em] mb-4">Saved Items</p>
-          <h1 className="text-5xl font-serif text-[#2D2A26] mb-4">My Wishlist</h1>
-          <p className="text-lg text-[#5C4A32]">{wishlistProducts.length} items saved</p>
+          <p className="text-[#C4A265] text-xs md:text-sm uppercase tracking-[0.3em] mb-2 md:mb-4">Saved Items</p>
+          <h1 className="text-3xl md:text-5xl font-serif text-[#2D2A26] mb-2 md:mb-4">My Wishlist</h1>
+          <p className="text-sm md:text-lg text-[#5C4A32]">{wishlistProducts.length} items saved</p>
         </div>
       </section>
 
@@ -75,22 +75,22 @@ export default function WishlistPage() {
                 Clear All
               </button>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
               {wishlistProducts.map(product => (
-                <div key={product.id} className="bg-white rounded-2xl overflow-hidden border border-[#F0E8DE]">
+                <div key={product.id} className="bg-white rounded-xl md:rounded-2xl overflow-hidden border border-[#F0E8DE]">
                   <div className="aspect-square bg-[#F5EDE4]">
                     <img src={product.mainImage} alt={product.name} className="w-full h-full object-cover" />
                   </div>
-                  <div className="p-4">
-                    <p className="text-xs text-[#C4A265] uppercase tracking-wider mb-1">{product.category}</p>
-                    <h3 className="font-medium text-[#2D2A26] mb-2">{product.name}</h3>
-                    <div className="flex items-center justify-between">
-                      <span className="text-lg font-semibold text-[#2D2A26]">Rs {product.priceFrom.toLocaleString()}</span>
-                      <div className="flex gap-2">
-                        <button onClick={() => removeFromWishlist(product.id)} className="p-2 hover:bg-red-50 text-red-500 rounded-lg">
+                  <div className="p-3 md:p-4">
+                    <p className="text-[10px] md:text-xs text-[#C4A265] uppercase tracking-wider mb-1">{product.category}</p>
+                    <h3 className="font-medium text-[#2D2A26] mb-2 text-sm md:text-base line-clamp-2">{product.name}</h3>
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-sm md:text-lg font-semibold text-[#2D2A26]">Rs {product.priceFrom.toLocaleString()}</span>
+                      <div className="flex gap-1 md:gap-2">
+                        <button onClick={() => removeFromWishlist(product.id)} className="p-2 hover:bg-red-50 text-red-500 rounded-lg min-w-[32px] min-h-[32px] flex items-center justify-center">
                           <Trash2 size={16} />
                         </button>
-                        <a href={`/product/${product.id}`} className="p-2 hover:bg-[#F5EDE4] text-[#5C4A32] rounded-lg">
+                        <a href={`/product/${product.id}`} className="p-2 hover:bg-[#F5EDE4] text-[#5C4A32] rounded-lg min-w-[32px] min-h-[32px] flex items-center justify-center">
                           <ShoppingBag size={16} />
                         </a>
                       </div>

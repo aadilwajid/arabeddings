@@ -34,12 +34,15 @@ export default function MobileBottomNav() {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 md:hidden safe-area-bottom" style={{
-      backgroundColor: 'var(--color-surface)',
-      borderTop: 'var(--border)',
-      boxShadow: '0 -2px 10px rgba(0,0,0,0.05)'
-    }}>
-      <div className="grid grid-cols-5 gap-1">
+    <nav 
+      className="fixed bottom-0 left-0 right-0 z-40 md:hidden safe-area-bottom"
+      style={{
+        backgroundColor: 'var(--color-surface)',
+        borderTop: '1px solid var(--color-border)',
+        boxShadow: '0 -4px 12px rgba(0,0,0,0.08)'
+      }}
+    >
+      <div className="flex items-center justify-around px-2 py-2">
         {navItems.map((item) => {
           const Icon = item.icon;
           const isActive = pathname === item.href;
@@ -48,26 +51,32 @@ export default function MobileBottomNav() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex flex-col items-center justify-center py-3 px-2 relative touchable"
+              className="flex flex-col items-center justify-center flex-1 py-2 px-1 relative touchable min-h-[56px]"
               style={{
                 color: isActive ? 'var(--color-primary)' : 'var(--color-text-secondary)'
               }}
             >
               <div className="relative">
-                <Icon size={22} strokeWidth={isActive ? 2.5 : 2} />
+                <Icon 
+                  size={24} 
+                  strokeWidth={isActive ? 2.5 : 2}
+                  className="transition-all"
+                />
                 {item.badge && item.badge > 0 && (
                   <span 
-                    className="absolute -top-2 -right-2 min-w-[18px] h-[18px] rounded-full text-xs flex items-center justify-center text-white font-bold px-1"
+                    className="absolute -top-2 -right-3 min-w-[20px] h-[20px] rounded-full text-[10px] flex items-center justify-center text-white font-bold px-1"
                     style={{ backgroundColor: 'var(--color-primary)' }}
                   >
-                    {item.badge}
+                    {item.badge > 99 ? '99+' : item.badge}
                   </span>
                 )}
               </div>
-              <span className="text-xs mt-1 font-medium">{item.label}</span>
+              <span className="text-[11px] mt-1 font-medium leading-tight text-center">
+                {item.label}
+              </span>
               {isActive && (
                 <div 
-                  className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 rounded-full"
+                  className="absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1 rounded-full transition-all"
                   style={{ backgroundColor: 'var(--color-primary)' }}
                 />
               )}

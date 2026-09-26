@@ -124,11 +124,11 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             { label: product.name }
           ]} />
 
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div className="grid md:grid-cols-2 gap-6 md:gap-8 mb-8 md:mb-12">
             {/* Product Images */}
-            <div>
+            <div className="space-y-4">
               <div 
-                className="aspect-square rounded-xl overflow-hidden mb-4 cursor-zoom-in relative"
+                className="aspect-square rounded-xl overflow-hidden cursor-zoom-in relative"
                 style={{ backgroundColor: 'var(--color-background)' }}
                 onMouseEnter={() => setIsZoomed(true)}
                 onMouseLeave={() => setIsZoomed(false)}
@@ -169,44 +169,48 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
             </div>
 
             {/* Product Info */}
-            <div>
-              <p className="text-sm mb-2" style={{ color: 'var(--color-primary)' }}>
-                {product.category}
-              </p>
-              <h1 className="text-3xl font-serif mb-4" style={{ color: 'var(--color-text)' }}>
-                {product.name}
-              </h1>
+
+            {/* Product Info */}
+            <div className="space-y-4 md:space-y-6">
+              <div>
+                <p className="text-xs md:text-sm mb-2" style={{ color: 'var(--color-primary)' }}>
+                  {product.category}
+                </p>
+                <h1 className="text-2xl md:text-3xl font-serif mb-3 md:mb-4" style={{ color: 'var(--color-text)' }}>
+                  {product.name}
+                </h1>
+              </div>
 
               {/* Rating */}
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-2">
                 <div className="flex">
                   {[1, 2, 3, 4, 5].map(star => (
                     <Star
                       key={star}
-                      size={20}
+                      size={18}
                       className={star <= 4 ? 'fill-[var(--color-primary)] text-[var(--color-primary)]' : 'text-[var(--color-border)]'}
                     />
                   ))}
                 </div>
-                <span className="text-sm" style={{ color: 'var(--color-text-secondary)' }}>
+                <span className="text-xs md:text-sm" style={{ color: 'var(--color-text-secondary)' }}>
                   (4.0) • 128 reviews
                 </span>
               </div>
 
               {/* Price */}
-              <div className="flex items-center gap-3 mb-6">
-                <span className="text-3xl font-bold" style={{ color: 'var(--color-text)' }}>
+              <div className="flex items-center gap-2 md:gap-3 flex-wrap">
+                <span className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--color-text)' }}>
                   {formatPrice(variant.price)}
                 </span>
                 {product.compareAt && (
-                  <span className="text-xl line-through" style={{ color: 'var(--color-text-secondary)' }}>
-                    {formatPrice(product.compareAt)}
-                  </span>
-                )}
-                {product.compareAt && (
-                  <span className="px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-700">
-                    Save {Math.round(((product.compareAt - variant.price) / product.compareAt) * 100)}%
-                  </span>
+                  <>
+                    <span className="text-lg md:text-xl line-through" style={{ color: 'var(--color-text-secondary)' }}>
+                      {formatPrice(product.compareAt)}
+                    </span>
+                    <span className="px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-700">
+                      Save {Math.round(((product.compareAt - variant.price) / product.compareAt) * 100)}%
+                    </span>
+                  </>
                 )}
               </div>
 
@@ -287,19 +291,19 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               </div>
 
               {/* Action Buttons */}
-              <div className="flex gap-3 mb-6">
+              <div className="flex gap-2 md:gap-3 mb-6">
                 <button
                   onClick={handleAddToCart}
                   disabled={variant.stock === 0}
-                  className="flex-1 py-3 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="flex-1 py-3 md:py-4 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center justify-center gap-2 text-sm md:text-base"
                   style={{ backgroundColor: 'var(--color-primary)', color: 'white' }}
                 >
                   <ShoppingCart size={20} />
-                  {variant.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
+                  <span>{variant.stock === 0 ? 'Out of Stock' : 'Add to Cart'}</span>
                 </button>
                 <button
                   onClick={() => toggleWishlist(product.id)}
-                  className={`p-3 rounded-lg border-2 transition-all ${
+                  className={`p-3 md:p-4 rounded-lg border-2 transition-all ${
                     isWishlisted
                       ? 'bg-red-50 border-red-500 text-red-500'
                       : 'hover:border-[var(--color-primary)]'
@@ -321,7 +325,7 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
                       alert('Link copied to clipboard!');
                     }
                   }}
-                  className="p-3 rounded-lg border-2 hover:border-[var(--color-primary)] transition-all"
+                  className="p-3 md:p-4 rounded-lg border-2 hover:border-[var(--color-primary)] transition-all"
                   style={{ borderColor: 'var(--color-border)' }}
                 >
                   <Share2 size={20} />
@@ -329,28 +333,28 @@ export default function ProductDetailPage({ params }: { params: { id: string } }
               </div>
 
               {/* Features */}
-              <div className="grid grid-cols-3 gap-4 pt-6 border-t" style={{ borderColor: 'var(--color-border)' }}>
+              <div className="grid grid-cols-3 gap-2 md:gap-4 pt-6 border-t" style={{ borderColor: 'var(--color-border)' }}>
                 <div className="text-center">
-                  <p className="text-xs font-medium mb-1" style={{ color: 'var(--color-text)' }}>
+                  <p className="text-[10px] md:text-xs font-medium mb-1" style={{ color: 'var(--color-text)' }}>
                     Free Shipping
                   </p>
-                  <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
+                  <p className="text-[9px] md:text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                     On orders over Rs 10,000
                   </p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xs font-medium mb-1" style={{ color: 'var(--color-text)' }}>
+                  <p className="text-[10px] md:text-xs font-medium mb-1" style={{ color: 'var(--color-text)' }}>
                     7-Day Returns
                   </p>
-                  <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
+                  <p className="text-[9px] md:text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                     Easy return policy
                   </p>
                 </div>
                 <div className="text-center">
-                  <p className="text-xs font-medium mb-1" style={{ color: 'var(--color-text)' }}>
+                  <p className="text-[10px] md:text-xs font-medium mb-1" style={{ color: 'var(--color-text)' }}>
                     Secure Payment
                   </p>
-                  <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
+                  <p className="text-[9px] md:text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                     100% protected
                   </p>
                 </div>
