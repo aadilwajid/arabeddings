@@ -13,14 +13,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   useEffect(() => {
     // Check if user is logged in (skip for login page)
     if (pathname === '/admin/login') return;
-    const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
-    if (!token) {
+    
+    // Check for auth_token cookie (non-httpOnly)
+    const token = document.cookie.split(';').find(c => c.trim().startsWith('auth_token='));
+    
+    // Also check localStorage for user data
+    const userData = localStorage.getItem('admin_user');
+    
+    if (!token && !userData) {
       router.push('/admin/login');
+    } else if (userData) {
+      setUser(JSON.parse(userData));
     }
   }, [pathname, router]);
 
   const handleLogout = () => {
     document.cookie = 'token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+    localStorage.removeItem('admin_user');
     router.push('/admin/login');
   };
 
@@ -82,7 +92,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <MenuIcon size={24} />
           </button>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-[#5C4A32]">Welcome, Admin</span>
+            <span className="text-sm text-[#5C4A32]">
+              Welcome, {user?.name || 'Admin'}
+              {user?.role && <span className="ml-2 text-xs text-[#A09080]">({user.role})</span>}
+            </span>
           </div>
         </header>
 

@@ -2,22 +2,33 @@
 
 import { useState, useEffect } from 'react';
 import { Product, Size, VariantType, Category } from '@/types';
-import { Plus, Edit, Trash2, X, Save } from 'lucide-react';
+import { Plus, Edit, Trash2, X, Save, AlertCircle } from 'lucide-react';
 import { v4 as uuidv4 } from 'uuid';
 
 export default function AdminProducts() {
   const [products, setProducts] = useState<Product[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchProducts();
   }, []);
 
   const fetchProducts = async () => {
-    const res = await fetch('/api/products');
-    const data = await res.json();
-    setProducts(data);
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch('/api/products');
+      if (!res.ok) throw new Error('Failed to fetch products');
+      const data = await res.json();
+      setProducts(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleDelete = async (id: string) => {
@@ -46,6 +57,49 @@ export default function AdminProducts() {
     setEditingProduct(null);
     fetchProducts();
   };
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-3xl font-serif text-[#2D2A26]">Products</h2>
+        </div>
+        <div className="bg-white rounded-2xl border border-[#F0E8DE] p-8">
+          <div className="animate-pulse space-y-4">
+            {[1, 2, 3, 4, 5].map(i => (
+              <div key={i} className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-[#F5EDE4] rounded"></div>
+                <div className="flex-1 space-y-2">
+                  <div className="h-4 bg-[#F5EDE4] rounded w-1/3"></div>
+                  <div className="h-3 bg-[#F5EDE4] rounded w-1/4"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <div className="flex items-center gap-3">
+          <AlertCircle className="text-red-500" size={24} />
+          <div>
+            <h3 className="font-medium text-red-800">Error Loading Products</h3>
+            <p className="text-sm text-red-600">{error}</p>
+          </div>
+        </div>
+        <button 
+          onClick={fetchProducts}
+          className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>
