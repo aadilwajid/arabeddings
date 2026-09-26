@@ -51,8 +51,13 @@ export default function HomePage() {
         });
     }, 800);
     
+    // Load wishlist from localStorage
     const savedWishlist = localStorage.getItem('wishlist');
     if (savedWishlist) setWishlist(JSON.parse(savedWishlist));
+    
+    // Load cart from localStorage
+    const savedCart = localStorage.getItem('ara_cart');
+    if (savedCart) setCart(JSON.parse(savedCart));
     
     return () => clearTimeout(timer);
   }, []);
