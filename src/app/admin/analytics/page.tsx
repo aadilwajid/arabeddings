@@ -1,212 +1,180 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { TrendingUp, DollarSign, ShoppingBag, Users, Package, Calendar } from 'lucide-react';
-import { Order, Product } from '@/types';
+import { TrendingUp, Package, Users, DollarSign, MapPin, Clock, Download, RefreshCw } from 'lucide-react';
 
-interface AnalyticsData {
-  totalRevenue: number;
-  totalOrders: number;
-  avgOrderValue: number;
-  totalCustomers: number;
-  topProducts: { name: string; quantity: number; revenue: number }[];
-  ordersByStatus: Record<string, number>;
-  revenueByDay: { date: string; revenue: number }[];
-  recentOrders: Order[];
-}
-
-export default function AnalyticsDashboard() {
-  const [data, setData] = useState<AnalyticsData | null>(null);
-  const [period, setPeriod] = useState<'7' | '30' | '90'>('30');
+export default function AdminAnalytics() {
+  const [analytics, setAnalytics] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [days, setDays] = useState(30);
 
   useEffect(() => {
     fetchAnalytics();
-  }, [period]);
+  }, [days]);
 
   const fetchAnalytics = async () => {
-    const [ordersRes, productsRes] = await Promise.all([
-      fetch('/api/orders'),
-      fetch('/api/products')
-    ]);
-    const orders: Order[] = await ordersRes.json();
-    const products: Product[] = await productsRes.json();
-
-    const now = new Date();
-    const daysAgo = parseInt(period);
-    const startDate = new Date(now.getTime() - daysAgo * 24 * 60 * 60 * 1000);
-
-    const filteredOrders = orders.filter(o => new Date(o.createdAt) >= startDate);
-
-    // Calculate metrics
-    const totalRevenue = filteredOrders.reduce((sum, o) => sum + o.total, 0);
-    const totalOrders = filteredOrders.length;
-    const avgOrderValue = totalOrders > 0 ? Math.floor(totalRevenue / totalOrders) : 0;
-    const uniqueCustomers = new Set(filteredOrders.map(o => o.customer.email)).size;
-
-    // Top products
-    const productSales: Record<string, { quantity: number; revenue: number }> = {};
-    filteredOrders.forEach(order => {
-      order.items.forEach(item => {
-        if (!productSales[item.productId]) {
-          productSales[item.productId] = { quantity: 0, revenue: 0 };
-        }
-        productSales[item.productId].quantity += item.quantity;
-        productSales[item.productId].revenue += item.price * item.quantity;
-      });
-    });
-
-    const topProducts = Object.entries(productSales)
-      .map(([productId, data]) => {
-        const product = products.find(p => p.id === productId);
-        return {
-          name: product?.name || 'Unknown',
-          quantity: data.quantity,
-          revenue: data.revenue
-        };
-      })
-      .sort((a, b) => b.revenue - a.revenue)
-      .slice(0, 5);
-
-    // Orders by status
-    const ordersByStatus: Record<string, number> = {};
-    filteredOrders.forEach(order => {
-      ordersByStatus[order.status] = (ordersByStatus[order.status] || 0) + 1;
-    });
-
-    // Revenue by day
-    const revenueByDay: { date: string; revenue: number }[] = [];
-    for (let i = daysAgo - 1; i >= 0; i--) {
-      const date = new Date(now.getTime() - i * 24 * 60 * 60 * 1000);
-      const dateStr = date.toISOString().split('T')[0];
-      const dayRevenue = filteredOrders
-        .filter(o => o.createdAt.startsWith(dateStr))
-        .reduce((sum, o) => sum + o.total, 0);
-      revenueByDay.push({ date: dateStr, revenue: dayRevenue });
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/analytics?days=${days}`);
+      const data = await res.json();
+      setAnalytics(data);
+    } catch (error) {
+      console.error('Failed to fetch analytics:', error);
+    } finally {
+      setLoading(false);
     }
-
-    // Recent orders
-    const recentOrders = orders
-      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-      .slice(0, 5);
-
-    setData({
-      totalRevenue,
-      totalOrders,
-      avgOrderValue,
-      totalCustomers: uniqueCustomers,
-      topProducts,
-      ordersByStatus,
-      revenueByDay,
-      recentOrders
-    });
   };
 
-  if (!data) {
-    return <div className="text-center py-12">Loading analytics...</div>;
+  const handleExport = async () => {
+    try {
+      const res = await fetch('/api/exports?type=analytics&format=csv');
+      const blob = await res.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `analytics-${Date.now()}.csv`;
+      a.click();
+    } catch (error) {
+      alert('Failed to export analytics');
+    }
+  };
+
+  if (loading || !analytics) {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-3xl font-serif text-[#2D2A26]">Analytics Dashboard</h2>
+        <div className="animate-pulse space-y-4">
+          <div className="grid grid-cols-4 gap-4">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="h-32 bg-[#F5EDE4] rounded"></div>
+            ))}
+          </div>
+          <div className="h-96 bg-[#F5EDE4] rounded"></div>
+        </div>
+      </div>
+    );
   }
 
-  const maxRevenue = Math.max(...data.revenueByDay.map(d => d.revenue), 1);
+  const maxRevenue = Math.max(...analytics.sales.map((s: any) => s.revenue));
 
   return (
-    <div>
-      <div className="flex items-center justify-between mb-8">
-        <h2 className="text-3xl font-serif text-[#2D2A26]">Sales Analytics</h2>
-        <div className="flex items-center gap-2">
-          <Calendar size={18} className="text-[#A09080]" />
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-3xl font-serif text-[#2D2A26]">Analytics Dashboard</h2>
+        <div className="flex gap-2">
           <select
-            value={period}
-            onChange={(e) => setPeriod(e.target.value as '7' | '30' | '90')}
+            value={days}
+            onChange={(e) => setDays(Number(e.target.value))}
             className="px-4 py-2 border border-[#E8DFD5] rounded-lg focus:outline-none focus:border-[#C4A265]"
           >
-            <option value="7">Last 7 days</option>
-            <option value="30">Last 30 days</option>
-            <option value="90">Last 90 days</option>
+            <option value={7}>Last 7 days</option>
+            <option value={30}>Last 30 days</option>
+            <option value={90}>Last 90 days</option>
           </select>
+          <button
+            onClick={handleExport}
+            className="px-4 py-2 bg-[#C4A265] text-white rounded-lg hover:bg-[#D4B275] flex items-center gap-2"
+          >
+            <Download size={18} />
+            Export
+          </button>
+          <button
+            onClick={fetchAnalytics}
+            className="px-4 py-2 border border-[#E8DFD5] rounded-lg hover:bg-[#F5EDE4] flex items-center gap-2"
+          >
+            <RefreshCw size={18} />
+            Refresh
+          </button>
         </div>
       </div>
 
-      {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Customer Metrics */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-              <DollarSign className="text-green-600" size={24} />
-            </div>
-            <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full">Revenue</span>
-          </div>
-          <p className="text-2xl font-bold text-[#2D2A26]">Rs {data.totalRevenue.toLocaleString()}</p>
-          <p className="text-sm text-[#A09080]">Total revenue</p>
+          <Users className="text-[#C4A265] mb-2" size={24} />
+          <p className="text-3xl font-bold text-[#2D2A26]">{analytics.customers.totalCustomers}</p>
+          <p className="text-sm text-[#5C4A32]">Total Customers</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-              <ShoppingBag className="text-blue-600" size={24} />
-            </div>
-            <span className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full">Orders</span>
-          </div>
-          <p className="text-2xl font-bold text-[#2D2A26]">{data.totalOrders}</p>
-          <p className="text-sm text-[#A09080]">Total orders</p>
+          <Users className="text-green-500 mb-2" size={24} />
+          <p className="text-3xl font-bold text-[#2D2A26]">{analytics.customers.newCustomers}</p>
+          <p className="text-sm text-[#5C4A32]">New Customers</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
-              <TrendingUp className="text-purple-600" size={24} />
-            </div>
-            <span className="text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-full">Avg</span>
-          </div>
-          <p className="text-2xl font-bold text-[#2D2A26]">Rs {data.avgOrderValue.toLocaleString()}</p>
-          <p className="text-sm text-[#A09080]">Avg order value</p>
+          <DollarSign className="text-blue-500 mb-2" size={24} />
+          <p className="text-3xl font-bold text-[#2D2A26]">Rs {Math.round(analytics.customers.avgOrderValue).toLocaleString()}</p>
+          <p className="text-sm text-[#5C4A32]">Avg Order Value</p>
         </div>
 
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <div className="flex items-center justify-between mb-4">
-            <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-              <Users className="text-orange-600" size={24} />
-            </div>
-            <span className="text-xs text-orange-600 bg-orange-50 px-2 py-1 rounded-full">Customers</span>
-          </div>
-          <p className="text-2xl font-bold text-[#2D2A26]">{data.totalCustomers}</p>
-          <p className="text-sm text-[#A09080]">Unique customers</p>
+          <TrendingUp className="text-purple-500 mb-2" size={24} />
+          <p className="text-3xl font-bold text-[#2D2A26]">Rs {Math.round(analytics.customers.lifetimeValue).toLocaleString()}</p>
+          <p className="text-sm text-[#5C4A32]">Lifetime Value</p>
+        </div>
+
+        <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
+          <TrendingUp className="text-orange-500 mb-2" size={24} />
+          <p className="text-3xl font-bold text-[#2D2A26]">{analytics.conversion.conversionRate.toFixed(2)}%</p>
+          <p className="text-sm text-[#5C4A32]">Conversion Rate</p>
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Revenue Chart */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <h3 className="text-lg font-medium text-[#2D2A26] mb-4">Revenue Trend</h3>
-          <div className="h-64 flex items-end gap-1">
-            {data.revenueByDay.map((day, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div
-                  className="w-full bg-gradient-to-t from-[#C4A265] to-[#D4B275] rounded-t transition-all hover:opacity-80"
-                  style={{ height: `${(day.revenue / maxRevenue) * 100}%`, minHeight: day.revenue > 0 ? '4px' : '0' }}
-                  title={`Rs ${day.revenue.toLocaleString()} on ${day.date}`}
-                />
+      {/* Sales Chart */}
+      <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
+        <h3 className="text-xl font-medium text-[#2D2A26] mb-4">Sales Trend</h3>
+        <div className="h-64 flex items-end gap-1">
+          {analytics.sales.map((day: any, i: number) => (
+            <div key={i} className="flex-1 flex flex-col items-center gap-1">
+              <div
+                className="w-full bg-gradient-to-t from-[#C4A265] to-[#D4B275] rounded-t transition-all hover:opacity-80"
+                style={{ height: `${(day.revenue / maxRevenue) * 100}%`, minHeight: day.revenue > 0 ? '4px' : '0' }}
+                title={`Rs ${day.revenue.toLocaleString()} on ${day.date}`}
+              />
+            </div>
+          ))}
+        </div>
+        <div className="flex justify-between mt-2 text-xs text-[#A09080]">
+          <span>{analytics.sales[0]?.date}</span>
+          <span>{analytics.sales[analytics.sales.length - 1]?.date}</span>
+        </div>
+      </div>
+
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Top Products */}
+        <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
+          <h3 className="text-xl font-medium text-[#2D2A26] mb-4">Top Products</h3>
+          <div className="space-y-3">
+            {analytics.products.slice(0, 10).map((product: any, i: number) => (
+              <div key={i} className="flex items-center gap-3">
+                <span className="w-8 h-8 bg-[#C4A265]/10 text-[#C4A265] rounded-full flex items-center justify-center text-sm font-bold">
+                  {i + 1}
+                </span>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-[#2D2A26] truncate">{product.productName}</p>
+                  <p className="text-xs text-[#A09080]">{product.totalSold} sold</p>
+                </div>
+                <span className="text-sm font-medium text-[#C4A265]">Rs {product.revenue.toLocaleString()}</span>
               </div>
             ))}
           </div>
-          <div className="flex justify-between mt-2 text-xs text-[#A09080]">
-            <span>{data.revenueByDay[0]?.date}</span>
-            <span>{data.revenueByDay[data.revenueByDay.length - 1]?.date}</span>
-          </div>
         </div>
 
-        {/* Orders by Status */}
+        {/* Category Performance */}
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <h3 className="text-lg font-medium text-[#2D2A26] mb-4">Orders by Status</h3>
+          <h3 className="text-xl font-medium text-[#2D2A26] mb-4">Category Performance</h3>
           <div className="space-y-3">
-            {Object.entries(data.ordersByStatus).map(([status, count]) => (
-              <div key={status}>
+            {analytics.categories.map((cat: any, i: number) => (
+              <div key={i}>
                 <div className="flex justify-between text-sm mb-1">
-                  <span className="capitalize text-[#5C4A32]">{status}</span>
-                  <span className="font-medium text-[#2D2A26]">{count}</span>
+                  <span className="text-[#5C4A32]">{cat.category}</span>
+                  <span className="font-medium text-[#2D2A26]">Rs {cat.revenue.toLocaleString()}</span>
                 </div>
                 <div className="h-2 bg-[#F0E8DE] rounded-full overflow-hidden">
                   <div
                     className="h-full bg-[#C4A265] rounded-full"
-                    style={{ width: `${(count / data.totalOrders) * 100}%` }}
+                    style={{ width: `${(cat.revenue / analytics.categories[0].revenue) * 100}%` }}
                   />
                 </div>
               </div>
@@ -215,57 +183,80 @@ export default function AnalyticsDashboard() {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-6 mt-6">
-        {/* Top Products */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        {/* Payment Methods */}
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <h3 className="text-lg font-medium text-[#2D2A26] mb-4">Top Selling Products</h3>
+          <h3 className="text-xl font-medium text-[#2D2A26] mb-4">Payment Methods</h3>
           <div className="space-y-3">
-            {data.topProducts.map((product, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <span className="w-8 h-8 bg-[#C4A265]/10 text-[#C4A265] rounded-full flex items-center justify-center text-sm font-bold">
-                  {i + 1}
-                </span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[#2D2A26] truncate">{product.name}</p>
-                  <p className="text-xs text-[#A09080]">{product.quantity} sold</p>
+            {analytics.payments.map((method: any, i: number) => (
+              <div key={i} className="flex items-center justify-between p-3 bg-[#FDF8F3] rounded-lg">
+                <div>
+                  <p className="font-medium text-[#2D2A26] capitalize">{method.method}</p>
+                  <p className="text-xs text-[#A09080]">{method.orders} orders</p>
                 </div>
-                <span className="text-sm font-medium text-[#C4A265]">Rs {product.revenue.toLocaleString()}</span>
+                <div className="text-right">
+                  <p className="font-medium text-[#2D2A26]">{method.percentage.toFixed(1)}%</p>
+                  <p className="text-xs text-[#A09080]">Rs {method.revenue.toLocaleString()}</p>
+                </div>
               </div>
             ))}
-            {data.topProducts.length === 0 && (
-              <p className="text-sm text-[#A09080] text-center py-4">No sales data yet</p>
-            )}
           </div>
         </div>
 
-        {/* Recent Orders */}
+        {/* Top Cities */}
         <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-          <h3 className="text-lg font-medium text-[#2D2A26] mb-4">Recent Orders</h3>
+          <h3 className="text-xl font-medium text-[#2D2A26] mb-4">Top Cities</h3>
           <div className="space-y-3">
-            {data.recentOrders.map(order => (
-              <div key={order.id} className="flex items-center gap-3 p-2 hover:bg-[#FDF8F3] rounded-lg">
-                <div className="w-10 h-10 bg-[#F5EDE4] rounded-full flex items-center justify-center">
-                  <Package size={18} className="text-[#C4A265]" />
+            {analytics.cities.slice(0, 10).map((city: any, i: number) => (
+              <div key={i} className="flex items-center gap-3">
+                <MapPin size={16} className="text-[#C4A265]" />
+                <div className="flex-1">
+                  <p className="text-sm font-medium text-[#2D2A26]">{city.city}</p>
+                  <p className="text-xs text-[#A09080]">{city.orders} orders</p>
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-[#2D2A26]">{order.orderNumber}</p>
-                  <p className="text-xs text-[#A09080]">{order.customer.name}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-medium text-[#2D2A26]">Rs {order.total.toLocaleString()}</p>
-                  <span className={`text-xs px-2 py-0.5 rounded-full ${
-                    order.status === 'delivered' ? 'bg-green-100 text-green-700' :
-                    order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                    'bg-yellow-100 text-yellow-700'
-                  }`}>
-                    {order.status}
-                  </span>
-                </div>
+                <span className="text-sm font-medium text-[#C4A265]">Rs {city.revenue.toLocaleString()}</span>
               </div>
             ))}
-            {data.recentOrders.length === 0 && (
-              <p className="text-sm text-[#A09080] text-center py-4">No orders yet</p>
-            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Peak Times */}
+      <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
+        <h3 className="text-xl font-medium text-[#2D2A26] mb-4">Peak Order Times</h3>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 className="text-sm font-medium text-[#5C4A32] mb-3 flex items-center gap-2">
+              <Clock size={16} />
+              By Hour
+            </h4>
+            <div className="space-y-2">
+              {analytics.time.byHour
+                .sort((a: any, b: any) => b.orders - a.orders)
+                .slice(0, 5)
+                .map((hour: any, i: number) => (
+                  <div key={i} className="flex items-center justify-between text-sm">
+                    <span className="text-[#5C4A32]">{hour.hour}:00</span>
+                    <span className="font-medium text-[#2D2A26]">{hour.orders} orders</span>
+                  </div>
+                ))}
+            </div>
+          </div>
+          <div>
+            <h4 className="text-sm font-medium text-[#5C4A32] mb-3 flex items-center gap-2">
+              <Clock size={16} />
+              By Day
+            </h4>
+            <div className="space-y-2">
+              {analytics.time.byDay
+                .sort((a: any, b: any) => b.orders - a.orders)
+                .map((day: any, i: number) => (
+                  <div key={i} className="flex items-center justify-between text-sm">
+                    <span className="text-[#5C4A32]">{day.day}</span>
+                    <span className="font-medium text-[#2D2A26]">{day.orders} orders</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </div>
       </div>
