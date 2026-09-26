@@ -43,9 +43,19 @@ export default function CheckoutPage() {
 
   const formatPrice = (price: number) => `Rs ${price.toLocaleString()}`;
 
+  const [error, setError] = useState<string>('');
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
     setProcessing(true);
+
+    // Validate form
+    if (!customer.name || !customer.email || !customer.phone || !customer.address || !customer.city || !customer.postalCode) {
+      setError('Please fill in all required fields');
+      setProcessing(false);
+      return;
+    }
 
     const order: Order = {
       id: Date.now().toString(),
@@ -64,24 +74,45 @@ export default function CheckoutPage() {
     };
 
     try {
+      console.log('Submitting order:', order);
+      
       const res = await fetch('/api/orders', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(order)
       });
 
+      console.log('Response status:', res.status);
+
       if (res.ok) {
+        const data = await res.json();
+        console.log('Order created successfully:', data);
+        
+        // Clear cart
         localStorage.removeItem(CART_KEY);
+        
+        // Show success message
+        alert(`Order placed successfully! Your order number is ${order.orderNumber}`);
+        
+        // Redirect to track order page
         router.push(`/track-order?order=${order.orderNumber}`);
+      } else {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('Order creation failed:', errorData);
+        setError(`Failed to place order: ${errorData.error || 'Please try again'}`);
       }
     } catch (error) {
-      alert('Failed to place order. Please try again.');
+      console.error('Error submitting order:', error);
+      setError(`Failed to place order: ${error instanceof Error ? error.message : 'Please try again'}`);
     } finally {
       setProcessing(false);
     }
   };
 
-  if (cart.length === 0) {
+  const [loading, setLoading] = useState(true);
+
+  if (cart.length === 0 && !loading) {
+    router.push('/cart');
     return null;
   }
 
@@ -300,6 +331,13 @@ export default function CheckoutPage() {
                   </div>
                 )}
               </div>
+
+              {/* Error Display */}
+              {error && (
+                <div className="p-4 rounded-lg bg-red-50 border border-red-200">
+                  <p className="text-red-700 text-sm">{error}</p>
+                </div>
+              )}
 
               {/* Submit Button */}
               <button

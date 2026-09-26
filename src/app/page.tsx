@@ -106,6 +106,9 @@ export default function HomePage() {
             image: product.mainImage
           }];
       
+      // Save to localStorage for cart/checkout pages
+      localStorage.setItem('ara_cart', JSON.stringify(newCart));
+      
       // Save for abandoned cart recovery
       saveCartForRecovery(newCart);
       return newCart;
@@ -118,11 +121,19 @@ export default function HomePage() {
       removeFromCart(variantId);
       return;
     }
-    setCart(prev => prev.map(item => item.variantId === variantId ? { ...item, quantity } : item));
+    setCart(prev => {
+      const newCart = prev.map(item => item.variantId === variantId ? { ...item, quantity } : item);
+      localStorage.setItem('ara_cart', JSON.stringify(newCart));
+      return newCart;
+    });
   };
 
   const removeFromCart = (variantId: string) => {
-    setCart(prev => prev.filter(item => item.variantId !== variantId));
+    setCart(prev => {
+      const newCart = prev.filter(item => item.variantId !== variantId);
+      localStorage.setItem('ara_cart', JSON.stringify(newCart));
+      return newCart;
+    });
   };
 
   const toggleWishlist = (productId: string) => {
@@ -157,16 +168,25 @@ export default function HomePage() {
       updatedAt: new Date().toISOString()
     };
 
-    const res = await fetch('/api/orders', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(order)
-    });
+    try {
+      const res = await fetch('/api/orders', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(order)
+      });
 
-    if (res.ok) {
-      setCurrentOrder(order);
-      setCart([]);
-      setView('confirmation');
+      if (res.ok) {
+        setCurrentOrder(order);
+        setCart([]);
+        // Clear cart from localStorage
+        localStorage.removeItem('ara_cart');
+        setView('confirmation');
+      } else {
+        alert('Failed to place order. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error placing order:', error);
+      alert('Failed to place order. Please try again.');
     }
   };
 

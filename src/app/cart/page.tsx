@@ -48,6 +48,13 @@ export default function CartPage() {
     }
   };
 
+  // Sync cart to localStorage whenever it changes
+  useEffect(() => {
+    if (!loading) {
+      localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    }
+  }, [cart, loading]);
+
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 350;
   const orderTotal = cartTotal + shipping;
