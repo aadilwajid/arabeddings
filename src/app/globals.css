@@ -128,3 +128,55 @@ body {
   color: #2D2A26;
   background-color: #FDF8F3;
 }
+
+/* Dark mode styles - using CSS custom properties */
+.dark {
+  color-scheme: dark;
+}
+
+.dark body {
+  color: #f5f5f5;
+  background-color: #1a1a1a;
+}
+
+/* Dark mode overrides using attribute selectors */
+.dark [class*="bg-white"] {
+  background-color: #2d2d2d !important;
+}
+
+.dark [class*="bg-\["] {
+  background-color: #1a1a1a !important;
+}
+
+.dark [class*="text-\[#2D"] {
+  color: #f5f5f5 !important;
+}
+
+.dark [class*="text-\[#5C"] {
+  color: #b0b0b0 !important;
+}
+
+.dark [class*="text-\[#A0"] {
+  color: #808080 !important;
+}
+
+.dark [class*="border-\[#E8"] {
+  border-color: #404040 !important;
+}
+
+.dark [class*="border-\[#F0"] {
+  border-color: #404040 !important;
+}
+
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #2d2d2d !important;
+  color: #f5f5f5 !important;
+  border-color: #404040 !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #808080 !important;
+}

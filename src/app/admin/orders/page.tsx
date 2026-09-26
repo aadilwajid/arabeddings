@@ -2,22 +2,33 @@
 
 import { useState, useEffect } from 'react';
 import { Order, OrderStatus } from '@/types';
-import { Eye, MessageCircle, FileText, Copy, X } from 'lucide-react';
+import { Eye, MessageCircle, FileText, Copy, X, AlertCircle } from 'lucide-react';
 
 export default function AdminOrders() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchOrders();
   }, []);
 
   const fetchOrders = async () => {
-    const res = await fetch('/api/orders');
-    const data = await res.json();
-    setOrders(data);
+    try {
+      setLoading(true);
+      setError(null);
+      const res = await fetch('/api/orders');
+      if (!res.ok) throw new Error('Failed to fetch orders');
+      const data = await res.json();
+      setOrders(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const updateStatus = async (orderId: string, status: OrderStatus) => {
@@ -85,6 +96,41 @@ Status: ${order.status}
     navigator.clipboard.writeText(text);
     alert('Invoice text copied to clipboard!');
   };
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-3xl font-serif text-[#2D2A26]">Orders</h2>
+        <div className="bg-white rounded-2xl border border-[#F0E8DE] p-8">
+          <div className="animate-pulse space-y-4">
+            {[1, 2, 3, 4, 5].map(i => (
+              <div key={i} className="h-16 bg-[#F5EDE4] rounded"></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <div className="flex items-center gap-3">
+          <AlertCircle className="text-red-500" size={24} />
+          <div>
+            <h3 className="font-medium text-red-800">Error Loading Orders</h3>
+            <p className="text-sm text-red-600">{error}</p>
+          </div>
+        </div>
+        <button 
+          onClick={fetchOrders}
+          className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div>

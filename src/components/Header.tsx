@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Menu, X, Search, ShoppingBag, Heart, User } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { DarkModeToggle, CurrencySelector } from './UIComponents';
+import VoiceSearch from './VoiceSearch';
 
 const LOGO_KEY = 'ara_logo';
 
@@ -118,7 +120,16 @@ export default function Header() {
           </nav>
 
           {/* Action Icons */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
+            {/* Dark Mode Toggle */}
+            <DarkModeToggle />
+            
+            {/* Currency Selector */}
+            <CurrencySelector />
+            
+            {/* Voice Search */}
+            <VoiceSearch />
+            
             <Link
               href="/search"
               className="p-2 rounded-full transition-all hover:scale-110"

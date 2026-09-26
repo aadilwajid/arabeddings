@@ -2,163 +2,213 @@
 
 import { useState, useEffect } from 'react';
 import { Product, Order } from '@/types';
-import { Package, ShoppingCart, Users, DollarSign, Plus, Edit, Trash2, Eye } from 'lucide-react';
+import { Package, ShoppingCart, Users, DollarSign, TrendingUp, AlertCircle } from 'lucide-react';
 
 export default function AdminDashboard() {
   const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'products' | 'orders'>('dashboard');
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetch('/api/products').then(res => res.json()).then(setProducts);
-    fetch('/api/orders').then(res => res.json()).then(setOrders);
+    fetchData();
   }, []);
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const [productsRes, ordersRes] = await Promise.all([
+        fetch('/api/products'),
+        fetch('/api/orders')
+      ]);
+
+      if (!productsRes.ok || !ordersRes.ok) {
+        throw new Error('Failed to fetch data');
+      }
+
+      const productsData = await productsRes.json();
+      const ordersData = await ordersRes.json();
+      
+      setProducts(productsData);
+      setOrders(ordersData);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'An error occurred');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const stats = {
     totalProducts: products.length,
     totalOrders: orders.length,
     totalRevenue: orders.reduce((sum, o) => sum + o.total, 0),
-    pendingOrders: orders.filter(o => o.status === 'new' || o.status === 'confirmed').length
+    pendingOrders: orders.filter(o => o.status === 'new' || o.status === 'confirmed').length,
+    recentOrders: orders.slice(0, 5)
   };
 
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <h2 className="text-3xl font-serif text-[#2D2A26]">Dashboard</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[1, 2, 3, 4].map(i => (
+            <div key={i} className="bg-white rounded-2xl p-6 border border-[#F0E8DE] animate-pulse">
+              <div className="h-8 bg-[#F5EDE4] rounded mb-4"></div>
+              <div className="h-4 bg-[#F5EDE4] rounded w-1/2"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-lg p-6">
+        <div className="flex items-center gap-3">
+          <AlertCircle className="text-red-500" size={24} />
+          <div>
+            <h3 className="font-medium text-red-800">Error Loading Dashboard</h3>
+            <p className="text-sm text-red-600">{error}</p>
+          </div>
+        </div>
+        <button 
+          onClick={fetchData}
+          className="mt-4 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+        >
+          Retry
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-[#FDF8F3]">
-      {/* Sidebar */}
-      <div className="fixed left-0 top-0 h-full w-64 bg-[#2D2A26] text-white p-6">
-        <h1 className="text-xl font-serif mb-8">ARA Admin</h1>
-        <nav className="space-y-2">
-          <button onClick={() => setActiveTab('dashboard')} className={`w-full text-left px-4 py-2 rounded-lg ${activeTab === 'dashboard' ? 'bg-[#C4A265]' : 'hover:bg-[#3D3A36]'}`}>Dashboard</button>
-          <button onClick={() => setActiveTab('products')} className={`w-full text-left px-4 py-2 rounded-lg ${activeTab === 'products' ? 'bg-[#C4A265]' : 'hover:bg-[#3D3A36]'}`}>Products</button>
-          <button onClick={() => setActiveTab('orders')} className={`w-full text-left px-4 py-2 rounded-lg ${activeTab === 'orders' ? 'bg-[#C4A265]' : 'hover:bg-[#3D3A36]'}`}>Orders</button>
-        </nav>
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-3xl font-serif text-[#2D2A26]">Dashboard</h2>
+        <button 
+          onClick={fetchData}
+          className="px-4 py-2 bg-[#C4A265] text-white rounded-lg hover:bg-[#D4B275] flex items-center gap-2"
+        >
+          <TrendingUp size={18} />
+          Refresh
+        </button>
       </div>
 
-      {/* Main Content */}
-      <div className="ml-64 p-8">
-        {activeTab === 'dashboard' && (
-          <div>
-            <h2 className="text-3xl font-serif text-[#2D2A26] mb-8">Dashboard</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-                <div className="flex items-center justify-between mb-4">
-                  <Package className="text-[#C4A265]" size={24} />
-                  <span className="text-3xl font-bold text-[#2D2A26]">{stats.totalProducts}</span>
-                </div>
-                <p className="text-sm text-[#5C4A32]">Total Products</p>
-              </div>
-              <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-                <div className="flex items-center justify-between mb-4">
-                  <ShoppingCart className="text-[#C4A265]" size={24} />
-                  <span className="text-3xl font-bold text-[#2D2A26]">{stats.totalOrders}</span>
-                </div>
-                <p className="text-sm text-[#5C4A32]">Total Orders</p>
-              </div>
-              <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-                <div className="flex items-center justify-between mb-4">
-                  <DollarSign className="text-[#C4A265]" size={24} />
-                  <span className="text-3xl font-bold text-[#2D2A26]">Rs {stats.totalRevenue.toLocaleString()}</span>
-                </div>
-                <p className="text-sm text-[#5C4A32]">Total Revenue</p>
-              </div>
-              <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE]">
-                <div className="flex items-center justify-between mb-4">
-                  <Users className="text-[#C4A265]" size={24} />
-                  <span className="text-3xl font-bold text-[#2D2A26]">{stats.pendingOrders}</span>
-                </div>
-                <p className="text-sm text-[#5C4A32]">Pending Orders</p>
-              </div>
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+              <Package className="text-blue-600" size={24} />
             </div>
+            <span className="text-xs text-blue-600 bg-blue-50 px-2 py-1 rounded-full">Products</span>
           </div>
-        )}
+          <p className="text-3xl font-bold text-[#2D2A26]">{stats.totalProducts}</p>
+          <p className="text-sm text-[#5C4A32] mt-1">Total Products</p>
+        </div>
 
-        {activeTab === 'products' && (
-          <div>
-            <div className="flex items-center justify-between mb-8">
-              <h2 className="text-3xl font-serif text-[#2D2A26]">Products</h2>
-              <button className="bg-[#C4A265] text-white px-6 py-2 rounded-lg flex items-center gap-2 hover:bg-[#D4B275]">
-                <Plus size={18} /> Add Product
-              </button>
+        <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+              <ShoppingCart className="text-green-600" size={24} />
             </div>
-            <div className="bg-white rounded-2xl border border-[#F0E8DE] overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-[#F5EDE4]">
-                  <tr>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Product</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Category</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Price From</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Stock</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products.map(product => (
-                    <tr key={product.id} className="border-t border-[#F0E8DE]">
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-3">
-                          <img src={product.mainImage} alt={product.name} className="w-12 h-12 object-cover rounded-lg" />
-                          <span className="font-medium text-[#2D2A26]">{product.name}</span>
-                        </div>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-[#5C4A32]">{product.category}</td>
-                      <td className="px-6 py-4 text-sm text-[#5C4A32]">Rs {product.priceFrom.toLocaleString()}</td>
-                      <td className="px-6 py-4 text-sm text-[#5C4A32]">{product.stock}</td>
-                      <td className="px-6 py-4">
-                        <div className="flex items-center gap-2">
-                          <button className="p-2 hover:bg-[#F5EDE4] rounded-lg"><Eye size={16} /></button>
-                          <button className="p-2 hover:bg-[#F5EDE4] rounded-lg"><Edit size={16} /></button>
-                          <button className="p-2 hover:bg-red-50 text-red-500 rounded-lg"><Trash2 size={16} /></button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <span className="text-xs text-green-600 bg-green-50 px-2 py-1 rounded-full">Orders</span>
           </div>
-        )}
+          <p className="text-3xl font-bold text-[#2D2A26]">{stats.totalOrders}</p>
+          <p className="text-sm text-[#5C4A32] mt-1">Total Orders</p>
+        </div>
 
-        {activeTab === 'orders' && (
-          <div>
-            <h2 className="text-3xl font-serif text-[#2D2A26] mb-8">Orders</h2>
-            <div className="bg-white rounded-2xl border border-[#F0E8DE] overflow-hidden">
-              <table className="w-full">
-                <thead className="bg-[#F5EDE4]">
-                  <tr>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Order #</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Customer</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Total</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Status</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Date</th>
-                    <th className="text-left px-6 py-4 text-sm font-medium text-[#5C4A32]">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map(order => (
-                    <tr key={order.id} className="border-t border-[#F0E8DE]">
-                      <td className="px-6 py-4 text-sm font-medium text-[#2D2A26]">{order.orderNumber}</td>
-                      <td className="px-6 py-4 text-sm text-[#5C4A32]">{order.customer.name}</td>
-                      <td className="px-6 py-4 text-sm text-[#5C4A32]">Rs {order.total.toLocaleString()}</td>
-                      <td className="px-6 py-4">
-                        <span className={`px-3 py-1 rounded-full text-xs font-medium ${order.status === 'delivered' ? 'bg-green-100 text-green-700' : order.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-yellow-100 text-yellow-700'}`}>
-                          {order.status}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-sm text-[#5C4A32]">{new Date(order.createdAt).toLocaleDateString()}</td>
-                      <td className="px-6 py-4">
-                        <button className="p-2 hover:bg-[#F5EDE4] rounded-lg"><Eye size={16} /></button>
-                      </td>
-                    </tr>
-                  ))}
-                  {orders.length === 0 && (
-                    <tr>
-                      <td colSpan={6} className="px-6 py-12 text-center text-[#A09080]">No orders yet</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+        <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center">
+              <DollarSign className="text-purple-600" size={24} />
             </div>
+            <span className="text-xs text-purple-600 bg-purple-50 px-2 py-1 rounded-full">Revenue</span>
+          </div>
+          <p className="text-3xl font-bold text-[#2D2A26]">Rs {stats.totalRevenue.toLocaleString()}</p>
+          <p className="text-sm text-[#5C4A32] mt-1">Total Revenue</p>
+        </div>
+
+        <div className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-shadow">
+          <div className="flex items-center justify-between mb-4">
+            <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
+              <Users className="text-orange-600" size={24} />
+            </div>
+            <span className="text-xs text-orange-600 bg-orange-50 px-2 py-1 rounded-full">Pending</span>
+          </div>
+          <p className="text-3xl font-bold text-[#2D2A26]">{stats.pendingOrders}</p>
+          <p className="text-sm text-[#5C4A32] mt-1">Pending Orders</p>
+        </div>
+      </div>
+
+      {/* Recent Orders */}
+      <div className="bg-white rounded-2xl border border-[#F0E8DE] overflow-hidden">
+        <div className="p-6 border-b border-[#F0E8DE]">
+          <h3 className="text-xl font-medium text-[#2D2A26]">Recent Orders</h3>
+        </div>
+        {stats.recentOrders.length > 0 ? (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-[#F5EDE4]">
+                <tr>
+                  <th className="text-left px-6 py-3 text-sm font-medium text-[#5C4A32]">Order #</th>
+                  <th className="text-left px-6 py-3 text-sm font-medium text-[#5C4A32]">Customer</th>
+                  <th className="text-left px-6 py-3 text-sm font-medium text-[#5C4A32]">Total</th>
+                  <th className="text-left px-6 py-3 text-sm font-medium text-[#5C4A32]">Status</th>
+                  <th className="text-left px-6 py-3 text-sm font-medium text-[#5C4A32]">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {stats.recentOrders.map(order => (
+                  <tr key={order.id} className="border-t border-[#F0E8DE] hover:bg-[#FDF8F3]">
+                    <td className="px-6 py-4 text-sm font-medium text-[#2D2A26]">{order.orderNumber}</td>
+                    <td className="px-6 py-4 text-sm text-[#5C4A32]">{order.customer.name}</td>
+                    <td className="px-6 py-4 text-sm text-[#5C4A32]">Rs {order.total.toLocaleString()}</td>
+                    <td className="px-6 py-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        order.status === 'delivered' ? 'bg-green-100 text-green-700' :
+                        order.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                        'bg-yellow-100 text-yellow-700'
+                      }`}>
+                        {order.status}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-[#5C4A32]">
+                      {new Date(order.createdAt).toLocaleDateString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="p-12 text-center text-[#A09080]">
+            <ShoppingCart size={48} className="mx-auto mb-3 opacity-50" />
+            <p>No orders yet</p>
           </div>
         )}
+      </div>
+
+      {/* Quick Actions */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <a href="/admin/products" className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-all hover:border-[#C4A265]">
+          <Package className="text-[#C4A265] mb-3" size={32} />
+          <h3 className="font-medium text-[#2D2A26] mb-1">Manage Products</h3>
+          <p className="text-sm text-[#5C4A32]">Add, edit, or remove products</p>
+        </a>
+        <a href="/admin/orders" className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-all hover:border-[#C4A265]">
+          <ShoppingCart className="text-[#C4A265] mb-3" size={32} />
+          <h3 className="font-medium text-[#2D2A26] mb-1">View Orders</h3>
+          <p className="text-sm text-[#5C4A32]">Process and manage orders</p>
+        </a>
+        <a href="/admin/analytics" className="bg-white rounded-2xl p-6 border border-[#F0E8DE] hover:shadow-lg transition-all hover:border-[#C4A265]">
+          <TrendingUp className="text-[#C4A265] mb-3" size={32} />
+          <h3 className="font-medium text-[#2D2A26] mb-1">View Analytics</h3>
+          <p className="text-sm text-[#5C4A32]">See sales and performance data</p>
+        </a>
       </div>
     </div>
   );
