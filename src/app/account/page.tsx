@@ -30,7 +30,7 @@ export default function AccountPage() {
 
   return (
     <div className="min-h-screen bg-[#FDF8F3]">
-      <Header cartCount={0} wishlistCount={0} onCartClick={() => window.location.href = '/'} />
+      <Header />
       
       <div className="flex items-center justify-center px-4 py-16">
         <div className="max-w-md w-full">
