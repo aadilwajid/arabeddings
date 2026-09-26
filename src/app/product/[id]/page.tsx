@@ -1,19 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Product } from '@/types';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import QuickViewModal from '@/components/QuickViewModal';
 import { ProductRecommendations, SocialProof, StockAlert, Breadcrumbs } from '@/components/UIComponents';
-import { Heart, ShoppingCart, Share2, ChevronRight, Home, Star, Minus, Plus } from 'lucide-react';
+import { Heart, ShoppingCart, Share2, Star, Minus, Plus } from 'lucide-react';
 import { useApp } from '@/contexts/AppContext';
 
-export default function ProductDetailPage() {
-  const searchParams = useSearchParams();
-  const productId = searchParams.get('product');
+export default function ProductDetailPage({ params }: { params: { id: string } }) {
+  const productId = params.id;
   
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
