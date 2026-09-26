@@ -6,6 +6,7 @@ import { Product } from '@/types';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ProductGridSkeleton } from '@/components/SkeletonLoaders';
+import AdvancedFilters from '@/components/AdvancedFilters';
 import { Search, Filter, ChevronRight, Home } from 'lucide-react';
 
 export default function ShopPage() {
@@ -64,7 +65,16 @@ export default function ShopPage() {
             <p style={{ color: 'var(--color-text-secondary)' }}>{filteredProducts.length} products available</p>
           </div>
 
-          {/* Filters */}
+          {/* Advanced Filters */}
+          <AdvancedFilters
+            products={products}
+            onFilterChange={(filters) => {
+              setSelectedCategory(filters.categories[0] || 'All');
+              setSortBy(filters.sortBy === 'price-asc' ? 'price-asc' : filters.sortBy === 'price-desc' ? 'price-desc' : 'default');
+            }}
+          />
+
+          {/* Quick Filters */}
           <div className="mb-8 space-y-4">
             {/* Search */}
             <div className="relative">
@@ -127,8 +137,9 @@ export default function ShopPage() {
           ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProducts.map(product => (
-                <div
+                <Link
                   key={product.id}
+                  href={`/product/${product.id}`}
                   className="group rounded-2xl overflow-hidden transition-all hover:scale-105"
                   style={{
                     backgroundColor: 'var(--color-surface)',
@@ -173,7 +184,7 @@ export default function ShopPage() {
                       </button>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))}
             </div>
           ) : (

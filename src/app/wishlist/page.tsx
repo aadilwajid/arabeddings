@@ -5,6 +5,7 @@ import { Heart, Trash2, ShoppingBag } from 'lucide-react';
 import { Product } from '@/types';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { WishlistShare } from '@/components/UIComponents';
 
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<string[]>([]);
@@ -68,7 +69,8 @@ export default function WishlistPage() {
           </div>
         ) : wishlistProducts.length > 0 ? (
           <>
-            <div className="flex justify-end mb-6">
+            <div className="flex justify-between items-center mb-6">
+              <WishlistShare wishlistCount={wishlistProducts.length} />
               <button onClick={clearWishlist} className="text-sm text-red-500 hover:underline">
                 Clear All
               </button>
@@ -88,7 +90,7 @@ export default function WishlistPage() {
                         <button onClick={() => removeFromWishlist(product.id)} className="p-2 hover:bg-red-50 text-red-500 rounded-lg">
                           <Trash2 size={16} />
                         </button>
-                        <a href={`/?product=${product.id}#shop`} className="p-2 hover:bg-[#F5EDE4] text-[#5C4A32] rounded-lg">
+                        <a href={`/product/${product.id}`} className="p-2 hover:bg-[#F5EDE4] text-[#5C4A32] rounded-lg">
                           <ShoppingBag size={16} />
                         </a>
                       </div>

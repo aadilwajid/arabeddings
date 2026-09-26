@@ -7,6 +7,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import CityDeliveryEstimate from '@/components/CityDeliveryEstimate';
 import DiscountCodeInput from '@/components/DiscountCodeInput';
+import { GiftWrapping, AddressBook } from '@/components/UIComponents';
 import { ArrowLeft, CreditCard } from 'lucide-react';
 
 const CART_KEY = 'ara_cart';
@@ -27,6 +28,8 @@ export default function CheckoutPage() {
   const [discountCode, setDiscountCode] = useState('');
   const [discountAmount, setDiscountAmount] = useState(0);
   const [processing, setProcessing] = useState(false);
+  const [giftWrapping, setGiftWrapping] = useState(false);
+  const [giftMessage, setGiftMessage] = useState('');
 
   useEffect(() => {
     const savedCart = localStorage.getItem(CART_KEY);
@@ -39,7 +42,8 @@ export default function CheckoutPage() {
 
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const shipping = 350;
-  const finalTotal = cartTotal + shipping - discountAmount;
+  const giftWrappingCost = giftWrapping ? 200 : 0;
+  const finalTotal = cartTotal + shipping - discountAmount + giftWrappingCost;
 
   const formatPrice = (price: number) => `Rs ${price.toLocaleString()}`;
 
@@ -270,6 +274,15 @@ export default function CheckoutPage() {
                 appliedCode={discountCode}
                 appliedDiscount={discountAmount}
               />
+
+              {/* Address Book */}
+              <AddressBook />
+
+              {/* Gift Wrapping */}
+              <GiftWrapping onToggle={(enabled, message) => {
+                setGiftWrapping(enabled);
+                setGiftMessage(message);
+              }} />
 
               {/* Payment Method */}
               <div

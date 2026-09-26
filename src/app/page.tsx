@@ -137,7 +137,7 @@ export default function HomePage() {
             {featuredProducts.map(product => (
               <Link 
                 key={product.id} 
-                href={`/shop?product=${product.id}`}
+                href={`/product/${product.id}`}
                 className="group rounded-2xl overflow-hidden transition-all hover:scale-105 touchable"
                 style={{
                   backgroundColor: 'var(--color-surface)',

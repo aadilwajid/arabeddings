@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { OrderHistory } from '@/components/UIComponents';
 
 export default function AccountPage() {
   const [isLogin, setIsLogin] = useState(true);
@@ -42,6 +43,7 @@ export default function AccountPage() {
               {isLogin ? 'Sign in to your ARA Beddings account' : 'Join the ARA Beddings family'}
             </p>
           </div>
+        </div>
 
         <div className="bg-white rounded-2xl p-8 border border-[#F0E8DE]">
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -132,7 +134,13 @@ export default function AccountPage() {
             </p>
           </div>
         </div>
-      </div>
+
+        {/* Order History - Show when logged in */}
+        {isLogin && (
+          <div className="mt-8">
+            <OrderHistory />
+          </div>
+        )}
       </div>
       
       <Footer />
