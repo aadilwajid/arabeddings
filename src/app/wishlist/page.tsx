@@ -9,12 +9,19 @@ import Footer from '@/components/Footer';
 export default function WishlistPage() {
   const [wishlist, setWishlist] = useState<string[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const saved = localStorage.getItem('wishlist');
     if (saved) setWishlist(JSON.parse(saved));
     
-    fetch('/api/products').then(res => res.json()).then(setProducts);
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
   }, []);
 
   const wishlistProducts = products.filter(p => wishlist.includes(p.id));
@@ -46,7 +53,20 @@ export default function WishlistPage() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {wishlistProducts.length > 0 ? (
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="bg-white rounded-2xl overflow-hidden border border-[#F0E8DE] animate-pulse">
+                <div className="aspect-square bg-[#F5EDE4]" />
+                <div className="p-4 space-y-3">
+                  <div className="h-3 bg-[#F5EDE4] rounded w-1/4" />
+                  <div className="h-4 bg-[#F5EDE4] rounded w-3/4" />
+                  <div className="h-5 bg-[#F5EDE4] rounded w-1/3" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : wishlistProducts.length > 0 ? (
           <>
             <div className="flex justify-end mb-6">
               <button onClick={clearWishlist} className="text-sm text-red-500 hover:underline">
