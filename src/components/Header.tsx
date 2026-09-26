@@ -33,7 +33,7 @@ export default function Header() {
     
     // Load cart and wishlist counts
     const cart = localStorage.getItem('ara_cart');
-    const wishlist = localStorage.getItem('ara_wishlist');
+    const wishlist = localStorage.getItem('wishlist');
     
     if (cart) {
       const items = JSON.parse(cart);
