@@ -30,6 +30,7 @@ export default function CheckoutPage() {
   const [processing, setProcessing] = useState(false);
   const [giftWrapping, setGiftWrapping] = useState(false);
   const [giftMessage, setGiftMessage] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const savedCart = localStorage.getItem(CART_KEY);
@@ -38,6 +39,7 @@ export default function CheckoutPage() {
     } else {
       router.push('/cart');
     }
+    setLoading(false);
   }, [router]);
 
   const cartTotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -112,8 +114,6 @@ export default function CheckoutPage() {
       setProcessing(false);
     }
   };
-
-  const [loading, setLoading] = useState(true);
 
   if (cart.length === 0 && !loading) {
     router.push('/cart');
