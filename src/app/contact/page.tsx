@@ -8,13 +8,47 @@ import Footer from '@/components/Footer';
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: '', email: '', phone: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    if (formData.phone && !/^0[0-9]{10}$/.test(formData.phone.replace(/\s/g, ''))) {
+      newErrors.phone = 'Please enter a valid Pakistani phone number (e.g., 03123456789)';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     // Simulate submission
     setTimeout(() => {
       setSubmitted(true);
       setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      setErrors({});
     }, 500);
   };
 
@@ -149,21 +183,54 @@ export default function ContactPage() {
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-[#5C4A32] mb-2">Name *</label>
-                      <input type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className="w-full px-4 py-3 border border-[#E8DFD5] rounded-xl focus:outline-none focus:border-[#C4A265]" />
+                      <input 
+                        type="text" 
+                        value={formData.name} 
+                        onChange={(e) => {
+                          setFormData({ ...formData, name: e.target.value });
+                          if (errors.name) setErrors({ ...errors, name: '' });
+                        }}
+                        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-[#C4A265] ${errors.name ? 'border-red-500' : 'border-[#E8DFD5]'}`} 
+                      />
+                      {errors.name && <p className="text-red-500 text-xs mt-1">{errors.name}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-[#5C4A32] mb-2">Email *</label>
-                      <input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required className="w-full px-4 py-3 border border-[#E8DFD5] rounded-xl focus:outline-none focus:border-[#C4A265]" />
+                      <input 
+                        type="email" 
+                        value={formData.email} 
+                        onChange={(e) => {
+                          setFormData({ ...formData, email: e.target.value });
+                          if (errors.email) setErrors({ ...errors, email: '' });
+                        }}
+                        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-[#C4A265] ${errors.email ? 'border-red-500' : 'border-[#E8DFD5]'}`} 
+                      />
+                      {errors.email && <p className="text-red-500 text-xs mt-1">{errors.email}</p>}
                     </div>
                   </div>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm font-medium text-[#5C4A32] mb-2">Phone</label>
-                      <input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} className="w-full px-4 py-3 border border-[#E8DFD5] rounded-xl focus:outline-none focus:border-[#C4A265]" />
+                      <input 
+                        type="tel" 
+                        value={formData.phone} 
+                        onChange={(e) => {
+                          setFormData({ ...formData, phone: e.target.value });
+                          if (errors.phone) setErrors({ ...errors, phone: '' });
+                        }}
+                        placeholder="03123456789"
+                        className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-[#C4A265] ${errors.phone ? 'border-red-500' : 'border-[#E8DFD5]'}`} 
+                      />
+                      {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-[#5C4A32] mb-2">Subject *</label>
-                      <select value={formData.subject} onChange={(e) => setFormData({ ...formData, subject: e.target.value })} required className="w-full px-4 py-3 border border-[#E8DFD5] rounded-xl focus:outline-none focus:border-[#C4A265]">
+                      <select 
+                        value={formData.subject} 
+                        onChange={(e) => setFormData({ ...formData, subject: e.target.value })} 
+                        required 
+                        className="w-full px-4 py-3 border border-[#E8DFD5] rounded-xl focus:outline-none focus:border-[#C4A265]"
+                      >
                         <option value="">Select subject</option>
                         <option value="order">Order Inquiry</option>
                         <option value="product">Product Question</option>
@@ -175,7 +242,16 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <label className="block text-sm font-medium text-[#5C4A32] mb-2">Message *</label>
-                    <textarea value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} required rows={6} className="w-full px-4 py-3 border border-[#E8DFD5] rounded-xl focus:outline-none focus:border-[#C4A265] resize-none" />
+                    <textarea 
+                      value={formData.message} 
+                      onChange={(e) => {
+                        setFormData({ ...formData, message: e.target.value });
+                        if (errors.message) setErrors({ ...errors, message: '' });
+                      }}
+                      rows={6} 
+                      className={`w-full px-4 py-3 border rounded-xl focus:outline-none focus:border-[#C4A265] resize-none ${errors.message ? 'border-red-500' : 'border-[#E8DFD5]'}`} 
+                    />
+                    {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
                   </div>
                   <button type="submit" className="w-full bg-[#2D2A26] text-white py-3 rounded-xl font-medium hover:bg-[#C4A265] transition-colors">
                     Send Message

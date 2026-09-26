@@ -1,11 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Product } from '@/types';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { ProductGridSkeleton } from '@/components/SkeletonLoaders';
-import { Search, Filter } from 'lucide-react';
+import { Search, Filter, ChevronRight, Home } from 'lucide-react';
 
 export default function ShopPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -47,6 +48,16 @@ export default function ShopPage() {
       
       <div className="pt-24 pb-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Breadcrumbs */}
+          <nav className="flex items-center gap-2 text-sm mb-6" style={{ color: 'var(--color-text-secondary)' }}>
+            <Link href="/" className="flex items-center gap-1 hover:opacity-70">
+              <Home size={16} />
+              <span>Home</span>
+            </Link>
+            <ChevronRight size={16} />
+            <span style={{ color: 'var(--color-text)' }}>Shop</span>
+          </nav>
+
           {/* Page Header */}
           <div className="mb-8">
             <h1 className="text-4xl font-serif mb-2" style={{ color: 'var(--color-text)' }}>Shop All Products</h1>
