@@ -54,6 +54,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: Settings, label: 'Operations', href: '/admin/operations' },
     { icon: ToggleRight, label: 'Features', href: '/admin/features' },
     { icon: Palette, label: 'Appearance', href: '/admin/appearance' },
+    { icon: Settings, label: 'Shipping', href: '/admin/shipping' },
+    { icon: MessageSquare, label: 'Notifications', href: '/admin/notifications' },
+    { icon: Webhook, label: 'Integrations', href: '/admin/integrations' },
   ];
 
   return (
