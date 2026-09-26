@@ -3,6 +3,8 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Product, CartItem, Size, VariantType, Order, Customer } from '@/types';
 import { Search, ShoppingBag, Menu, X, Star, Minus, Plus, Heart, Trash2, ChevronLeft, ChevronRight, MessageCircle } from 'lucide-react';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
 import BundleBuilder from '@/components/BundleBuilder';
 import CompareBar, { CompareButton } from '@/components/ProductComparison';
 import AbandonedCartNotification, { saveCartForRecovery } from '@/components/AbandonedCartNotification';
@@ -180,61 +182,8 @@ export default function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FDF8F3]">
-      {/* Header */}
-      <header className="sticky top-0 z-50 bg-[#FDF8F3]/95 backdrop-blur-md border-b border-[#E8DFD5]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 md:h-20">
-            <button className="md:hidden p-2" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-
-            <h1 className="text-xl md:text-2xl font-serif tracking-[0.2em] text-[#2D2A26] uppercase">
-              ARA <span className="text-[#C4A265]">BEDDINGS</span>
-            </h1>
-
-            <nav className="hidden md:flex items-center space-x-8">
-              <button onClick={() => setView('home')} className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Home</button>
-              <button onClick={() => setView('shop')} className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Shop</button>
-              <a href="/about" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">About</a>
-              <a href="/services" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Services</a>
-              <a href="/blog" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Blog</a>
-              <a href="/contact" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Contact</a>
-              <a href="/wishlist" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Wishlist</a>
-              <a href="/track-order" className="text-sm text-[#5C4A32] hover:text-[#C4A265]">Track Order</a>
-            </nav>
-
-            <div className="flex items-center space-x-3">
-              <button onClick={() => setView('shop')} className="p-2 text-[#5C4A32] hover:text-[#C4A265]">
-                <Search size={20} />
-              </button>
-              <button onClick={() => setCartOpen(true)} className="relative p-2 text-[#5C4A32] hover:text-[#C4A265]">
-                <ShoppingBag size={20} />
-                {cartCount > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 bg-[#C4A265] text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-[#FDF8F3] border-t border-[#E8DFD5] py-4 px-6">
-            <nav className="flex flex-col space-y-4">
-              <button onClick={() => { setView('home'); setMobileMenuOpen(false); }} className="text-left text-sm text-[#5C4A32]">Home</button>
-              <button onClick={() => { setView('shop'); setMobileMenuOpen(false); }} className="text-left text-sm text-[#5C4A32]">Shop</button>
-              <a href="/about" className="text-sm text-[#5C4A32]">About</a>
-              <a href="/services" className="text-sm text-[#5C4A32]">Services</a>
-              <a href="/blog" className="text-sm text-[#5C4A32]">Blog</a>
-              <a href="/contact" className="text-sm text-[#5C4A32]">Contact</a>
-              <a href="/wishlist" className="text-sm text-[#5C4A32]">Wishlist</a>
-              <a href="/track-order" className="text-sm text-[#5C4A32]">Track Order</a>
-            </nav>
-          </div>
-        )}
-      </header>
+    <div className="min-h-screen" style={{ backgroundColor: 'var(--color-background)' }}>
+      <Header />
 
       {view === 'home' && (
         <>
@@ -391,67 +340,7 @@ export default function HomePage() {
         <RecentlyViewed products={products} onViewProduct={setSelectedProduct} formatPrice={formatPrice} />
       )}
 
-      {/* Footer */}
-      <footer className="bg-[#F5EDE4] border-t border-[#E8DFD5] py-12 mt-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-8">
-            <div className="col-span-2 md:col-span-1">
-              <h4 className="text-lg font-serif tracking-[0.15em] text-[#2D2A26] uppercase mb-4">
-                ARA <span className="text-[#C4A265]">BEDDINGS</span>
-              </h4>
-              <p className="text-sm text-[#5C4A32] leading-relaxed mb-4">
-                Crafting luxury home linen since 2018. Premium quality delivered across Pakistan.
-              </p>
-              <div className="flex gap-3">
-                <a href="https://wa.me/923160143039" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-[#2D2A26] text-white rounded-full flex items-center justify-center hover:bg-[#C4A265] transition-colors">
-                  <MessageCircle size={16} />
-                </a>
-              </div>
-            </div>
-            <div>
-              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Shop</h5>
-              <ul className="space-y-2 text-sm text-[#5C4A32]">
-                <li><button onClick={() => { setSelectedCategory('Bed Sheets'); setView('shop'); }} className="hover:text-[#C4A265]">Bed Sheets</button></li>
-                <li><button onClick={() => { setSelectedCategory('Comforters'); setView('shop'); }} className="hover:text-[#C4A265]">Comforters</button></li>
-                <li><button onClick={() => { setSelectedCategory('Quilt Covers'); setView('shop'); }} className="hover:text-[#C4A265]">Quilt Covers</button></li>
-                <li><button onClick={() => { setSelectedCategory('Kids'); setView('shop'); }} className="hover:text-[#C4A265]">Kids</button></li>
-                <li><button onClick={() => { setSelectedCategory('Accessories'); setView('shop'); }} className="hover:text-[#C4A265]">Accessories</button></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Company</h5>
-              <ul className="space-y-2 text-sm text-[#5C4A32]">
-                <li><a href="/about" className="hover:text-[#C4A265]">About Us</a></li>
-                <li><a href="/services" className="hover:text-[#C4A265]">Services</a></li>
-                <li><a href="/blog" className="hover:text-[#C4A265]">Blog</a></li>
-                <li><a href="/contact" className="hover:text-[#C4A265]">Contact</a></li>
-                <li><a href="/custom-designs" className="hover:text-[#C4A265]">Custom Designs</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Customer Care</h5>
-              <ul className="space-y-2 text-sm text-[#5C4A32]">
-                <li><a href="/track-order" className="hover:text-[#C4A265]">Track Order</a></li>
-                <li><a href="/wishlist" className="hover:text-[#C4A265]">Wishlist</a></li>
-                <li><a href="/account" className="hover:text-[#C4A265]">My Account</a></li>
-                <li><a href="https://wa.me/923160143039" target="_blank" rel="noopener noreferrer" className="hover:text-[#C4A265]">WhatsApp Support</a></li>
-              </ul>
-            </div>
-            <div>
-              <h5 className="text-sm font-semibold text-[#2D2A26] uppercase tracking-wider mb-3">Payment & Shipping</h5>
-              <ul className="space-y-2 text-sm text-[#5C4A32]">
-                <li>Cash on Delivery</li>
-                <li>JazzCash: 03160143039</li>
-                <li>Easypaisa: 03160143039</li>
-                <li className="pt-2 font-medium">Flat Shipping: Rs 350</li>
-              </ul>
-            </div>
-          </div>
-          <div className="pt-8 border-t border-[#E8DFD5] text-center">
-            <p className="text-sm text-[#A09080]">© 2026 ARA Beddings. All rights reserved. | Premium Home Linen & Bedding</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
