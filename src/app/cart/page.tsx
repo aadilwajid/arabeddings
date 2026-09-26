@@ -1,9 +1,10 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { CartItem } from '@/types';
+import { CartItem, Product } from '@/types';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { ProductRecommendations } from '@/components/UIComponents';
 import Link from 'next/link';
 import { ShoppingBag, Minus, Plus, Trash2, ArrowLeft } from 'lucide-react';
 
@@ -12,12 +13,20 @@ const CART_KEY = 'ara_cart';
 export default function CartPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [allProducts, setAllProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const savedCart = localStorage.getItem(CART_KEY);
     if (savedCart) {
       setCart(JSON.parse(savedCart));
     }
+    
+    // Fetch all products for recommendations
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => setAllProducts(data))
+      .catch(() => {});
+    
     setLoading(false);
   }, []);
 
@@ -231,6 +240,13 @@ export default function CartPage() {
           )}
         </div>
       </div>
+
+      {/* Product Recommendations */}
+      {allProducts.length > 0 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <ProductRecommendations products={allProducts} />
+        </div>
+      )}
 
       <Footer />
     </div>
