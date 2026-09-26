@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { Package, ShoppingCart, Users, DollarSign, Settings, Menu as MenuIcon, Image, MessageSquare, LogOut, LayoutDashboard, FileText, ToggleRight, Palette } from 'lucide-react';
+import { Package, ShoppingCart, Users, DollarSign, Settings, Menu as MenuIcon, Image, MessageSquare, LogOut, LayoutDashboard, FileText, ToggleRight, Palette, Shield, Webhook, Download } from 'lucide-react';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -45,6 +45,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { icon: Settings, label: 'Settings', href: '/admin/settings' },
     { icon: DollarSign, label: 'Discounts', href: '/admin/discounts' },
     { icon: FileText, label: 'Analytics', href: '/admin/analytics' },
+    { icon: Package, label: 'Inventory', href: '/admin/inventory' },
+    { icon: Shield, label: 'Audit Logs', href: '/admin/audit' },
+    { icon: Webhook, label: 'Webhooks', href: '/admin/webhooks' },
+    { icon: Download, label: 'Data Export', href: '/admin/exports' },
     { icon: Settings, label: 'Operations', href: '/admin/operations' },
     { icon: ToggleRight, label: 'Features', href: '/admin/features' },
     { icon: Palette, label: 'Appearance', href: '/admin/appearance' },
