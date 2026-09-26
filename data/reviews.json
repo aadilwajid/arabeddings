@@ -1,0 +1,52 @@
+[
+  {
+    "id": "review-001",
+    "productId": "prod-001",
+    "customerName": "Fatima Ahmed",
+    "customerEmail": "fatima@example.com",
+    "rating": 5,
+    "comment": "Absolutely love these sheets! So soft and comfortable. The quality is amazing for the price. Will definitely order again.",
+    "approved": true,
+    "createdAt": "2026-01-15T10:00:00Z"
+  },
+  {
+    "id": "review-002",
+    "productId": "prod-001",
+    "customerName": "Ali Hassan",
+    "customerEmail": "ali@example.com",
+    "rating": 4,
+    "comment": "Great quality sheets. Very comfortable and the fit is perfect. Shipping was fast too.",
+    "approved": true,
+    "createdAt": "2026-01-14T15:00:00Z"
+  },
+  {
+    "id": "review-003",
+    "productId": "prod-002",
+    "customerName": "Sara Khan",
+    "customerEmail": "sara@example.com",
+    "rating": 5,
+    "comment": "The comforter is amazing! So warm and cozy. Perfect for winter. Highly recommended!",
+    "approved": true,
+    "createdAt": "2026-01-16T12:00:00Z"
+  },
+  {
+    "id": "review-004",
+    "productId": "prod-003",
+    "customerName": "Ahmed Raza",
+    "customerEmail": "ahmed@example.com",
+    "rating": 4,
+    "comment": "Beautiful quilt cover. The satin finish is lovely. Good quality for the price.",
+    "approved": false,
+    "createdAt": "2026-01-17T09:00:00Z"
+  },
+  {
+    "id": "review-005",
+    "productId": "prod-004",
+    "customerName": "Ayesha Malik",
+    "customerEmail": "ayesha@example.com",
+    "rating": 5,
+    "comment": "My kids love these sheets! The cartoon design is so cute and the material is very soft.",
+    "approved": true,
+    "createdAt": "2026-01-13T14:00:00Z"
+  }
+]

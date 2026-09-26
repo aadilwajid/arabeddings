@@ -1,0 +1,184 @@
+[
+  {
+    "id": "prod-001",
+    "name": "Premium Egyptian Cotton Sheet Set",
+    "slug": "premium-egyptian-cotton-sheet-set",
+    "category": "Bed Sheets",
+    "description": "Luxurious 800 thread count Egyptian cotton bed sheet set. Incredibly soft, breathable, and durable for the perfect night's sleep. Gets softer with every wash.",
+    "mainImage": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800",
+      "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800"
+    ],
+    "priceFrom": 8500,
+    "compareAt": 12000,
+    "stock": 50,
+    "badge": "Best Seller",
+    "featured": true,
+    "isNew": false,
+    "customizable": true,
+    "variants": [
+      { "id": "var-001-1", "size": "Single", "type": "Bed Sheet Set", "price": 8500, "stock": 15, "sku": "ECS-SIN-001" },
+      { "id": "var-001-2", "size": "Double", "type": "Bed Sheet Set", "price": 10500, "stock": 15, "sku": "ECS-DBL-001" },
+      { "id": "var-001-3", "size": "Queen", "type": "Bed Sheet Set", "price": 12500, "stock": 10, "sku": "ECS-QUE-001" },
+      { "id": "var-001-4", "size": "King", "type": "Bed Sheet Set", "price": 14500, "stock": 10, "sku": "ECS-KNG-001" }
+    ],
+    "createdAt": "2026-01-01T00:00:00Z",
+    "updatedAt": "2026-01-01T00:00:00Z"
+  },
+  {
+    "id": "prod-002",
+    "name": "Luxury Microfiber Comforter Set",
+    "slug": "luxury-microfiber-comforter-set",
+    "category": "Comforters",
+    "description": "Premium comforter set with soft microfiber filling and elegant design. Perfect for all seasons with excellent temperature regulation.",
+    "mainImage": "https://images.unsplash.com/photo-1616627561839-074385245ff6?w=800",
+    "galleryImages": [
+      "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800"
+    ],
+    "priceFrom": 12500,
+    "compareAt": 16000,
+    "stock": 30,
+    "badge": "New",
+    "featured": true,
+    "isNew": true,
+    "customizable": true,
+    "variants": [
+      { "id": "var-002-1", "size": "Single", "type": "Comforter Set", "price": 12500, "stock": 10, "sku": "COM-SIN-001" },
+      { "id": "var-002-2", "size": "Double", "type": "Comforter Set", "price": 15500, "stock": 10, "sku": "COM-DBL-001" },
+      { "id": "var-002-3", "size": "Queen", "type": "Comforter Set", "price": 18500, "stock": 5, "sku": "COM-QUE-001" },
+      { "id": "var-002-4", "size": "King", "type": "Comforter Set", "price": 21500, "stock": 5, "sku": "COM-KNG-001" }
+    ],
+    "createdAt": "2026-01-02T00:00:00Z",
+    "updatedAt": "2026-01-02T00:00:00Z"
+  },
+  {
+    "id": "prod-003",
+    "name": "Elegant Satin Quilt Cover Set",
+    "slug": "elegant-satin-quilt-cover-set",
+    "category": "Quilt Covers",
+    "description": "Beautiful quilt cover set with hidden zipper closure and satin finish. Easy to wash and maintain with a luxurious feel.",
+    "mainImage": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800",
+    "galleryImages": [],
+    "priceFrom": 6500,
+    "stock": 40,
+    "featured": true,
+    "isNew": false,
+    "customizable": true,
+    "variants": [
+      { "id": "var-003-1", "size": "Single", "type": "Quilt Cover Set", "price": 6500, "stock": 12, "sku": "QCS-SIN-001" },
+      { "id": "var-003-2", "size": "Double", "type": "Quilt Cover Set", "price": 8500, "stock": 12, "sku": "QCS-DBL-001" },
+      { "id": "var-003-3", "size": "Queen", "type": "Quilt Cover Set", "price": 10500, "stock": 8, "sku": "QCS-QUE-001" },
+      { "id": "var-003-4", "size": "King", "type": "Quilt Cover Set", "price": 12500, "stock": 8, "sku": "QCS-KNG-001" }
+    ],
+    "createdAt": "2026-01-03T00:00:00Z",
+    "updatedAt": "2026-01-03T00:00:00Z"
+  },
+  {
+    "id": "prod-004",
+    "name": "Kids Cartoon Bed Sheet Set",
+    "slug": "kids-cartoon-bed-sheet-set",
+    "category": "Kids",
+    "description": "Fun and colorful bed sheet set designed for kids. Made with soft, safe materials that are gentle on sensitive skin.",
+    "mainImage": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800",
+    "galleryImages": [],
+    "priceFrom": 4500,
+    "stock": 60,
+    "badge": "Kids Special",
+    "featured": false,
+    "isNew": true,
+    "customizable": true,
+    "variants": [
+      { "id": "var-004-1", "size": "Single", "type": "Bed Sheet Set", "price": 4500, "stock": 30, "sku": "KID-SIN-001" },
+      { "id": "var-004-2", "size": "Double", "type": "Bed Sheet Set", "price": 5500, "stock": 30, "sku": "KID-DBL-001" }
+    ],
+    "createdAt": "2026-01-04T00:00:00Z",
+    "updatedAt": "2026-01-04T00:00:00Z"
+  },
+  {
+    "id": "prod-005",
+    "name": "Velvet Decorative Cushion Cover",
+    "slug": "velvet-decorative-cushion-cover",
+    "category": "Accessories",
+    "description": "Elegant velvet cushion cover to add style to your living room or bedroom. Premium quality with hidden zipper.",
+    "mainImage": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800",
+    "galleryImages": [],
+    "priceFrom": 1200,
+    "compareAt": 1800,
+    "stock": 100,
+    "badge": "Sale",
+    "featured": false,
+    "isNew": false,
+    "customizable": false,
+    "variants": [
+      { "id": "var-005-1", "size": "Single", "type": "Fitted Sheet Only", "price": 1200, "stock": 100, "sku": "ACC-001" }
+    ],
+    "createdAt": "2026-01-05T00:00:00Z",
+    "updatedAt": "2026-01-05T00:00:00Z"
+  },
+  {
+    "id": "prod-006",
+    "name": "Winter Warm Quilt",
+    "slug": "winter-warm-quilt",
+    "category": "Quilts",
+    "description": "Cozy winter quilt made with premium filling for maximum warmth. Perfect for cold Pakistani winters.",
+    "mainImage": "https://images.unsplash.com/photo-1631049552057-403cdb8f0658?w=800",
+    "galleryImages": [],
+    "priceFrom": 9500,
+    "stock": 25,
+    "featured": true,
+    "isNew": false,
+    "customizable": true,
+    "variants": [
+      { "id": "var-006-1", "size": "Single", "type": "Comforter Set", "price": 9500, "stock": 8, "sku": "QUT-SIN-001" },
+      { "id": "var-006-2", "size": "Double", "type": "Comforter Set", "price": 12500, "stock": 8, "sku": "QUT-DBL-001" },
+      { "id": "var-006-3", "size": "Queen", "type": "Comforter Set", "price": 15500, "stock": 5, "sku": "QUT-QUE-001" },
+      { "id": "var-006-4", "size": "King", "type": "Comforter Set", "price": 18500, "stock": 4, "sku": "QUT-KNG-001" }
+    ],
+    "createdAt": "2026-01-06T00:00:00Z",
+    "updatedAt": "2026-01-06T00:00:00Z"
+  },
+  {
+    "id": "prod-007",
+    "name": "Organic Cotton Fitted Sheet",
+    "slug": "organic-cotton-fitted-sheet",
+    "category": "Bed Sheets",
+    "description": "100% organic cotton fitted sheet with deep pockets. Eco-friendly and incredibly comfortable.",
+    "mainImage": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800",
+    "galleryImages": [],
+    "priceFrom": 3500,
+    "stock": 45,
+    "badge": "Eco-Friendly",
+    "featured": false,
+    "isNew": true,
+    "customizable": true,
+    "variants": [
+      { "id": "var-007-1", "size": "Single", "type": "Fitted Sheet Only", "price": 3500, "stock": 15, "sku": "OFS-SIN-001" },
+      { "id": "var-007-2", "size": "Double", "type": "Fitted Sheet Only", "price": 4500, "stock": 15, "sku": "OFS-DBL-001" },
+      { "id": "var-007-3", "size": "Queen", "type": "Fitted Sheet Only", "price": 5500, "stock": 10, "sku": "OFS-QUE-001" },
+      { "id": "var-007-4", "size": "King", "type": "Fitted Sheet Only", "price": 6500, "stock": 5, "sku": "OFS-KNG-001" }
+    ],
+    "createdAt": "2026-01-07T00:00:00Z",
+    "updatedAt": "2026-01-07T00:00:00Z"
+  },
+  {
+    "id": "prod-008",
+    "name": "Luxury Silk Pillowcase Set",
+    "slug": "luxury-silk-pillowcase-set",
+    "category": "Accessories",
+    "description": "Premium silk pillowcases that are gentle on hair and skin. Reduces friction and helps maintain moisture.",
+    "mainImage": "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800",
+    "galleryImages": [],
+    "priceFrom": 2800,
+    "compareAt": 3500,
+    "stock": 80,
+    "featured": true,
+    "isNew": false,
+    "customizable": false,
+    "variants": [
+      { "id": "var-008-1", "size": "Single", "type": "Fitted Sheet Only", "price": 2800, "stock": 80, "sku": "SLK-001" }
+    ],
+    "createdAt": "2026-01-08T00:00:00Z",
+    "updatedAt": "2026-01-08T00:00:00Z"
+  }
+]

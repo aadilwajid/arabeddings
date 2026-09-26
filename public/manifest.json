@@ -1,0 +1,44 @@
+{
+  "name": "ARA Beddings - Luxury Home Linen",
+  "short_name": "ARA Beddings",
+  "description": "Premium luxury bedding delivered across Pakistan. Shop sheets, comforters, quilts and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FDF8F3",
+  "theme_color": "#C4A265",
+  "orientation": "portrait-primary",
+  "lang": "en",
+  "categories": ["shopping", "lifestyle", "home"],
+  "icons": [
+    {
+      "src": "https://image.qwenlm.ai/generated-images/d5eef522-d4a0-4255-b081-96219fd09cfe/_result.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://image.qwenlm.ai/generated-images/d5eef522-d4a0-4255-b081-96219fd09cfe/_result.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Shop Now",
+      "url": "/#shop",
+      "description": "Browse our collection"
+    },
+    {
+      "name": "Track Order",
+      "url": "/track-order",
+      "description": "Track your order status"
+    },
+    {
+      "name": "My Wishlist",
+      "url": "/wishlist",
+      "description": "View saved items"
+    }
+  ]
+}

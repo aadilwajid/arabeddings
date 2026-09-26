@@ -1,0 +1,42 @@
+[
+  {
+    "id": "media-001",
+    "url": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800",
+    "filename": "egyptian-cotton-sheets.jpg",
+    "tags": ["bedsheet", "cotton", "white", "luxury"],
+    "usageCount": 1,
+    "uploadedAt": "2026-01-01T10:00:00Z"
+  },
+  {
+    "id": "media-002",
+    "url": "https://images.unsplash.com/photo-1616627561839-074385245ff6?w=800",
+    "filename": "comforter-set.jpg",
+    "tags": ["comforter", "luxury", "bedroom"],
+    "usageCount": 1,
+    "uploadedAt": "2026-01-02T10:00:00Z"
+  },
+  {
+    "id": "media-003",
+    "url": "https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=800",
+    "filename": "quilt-cover.jpg",
+    "tags": ["quilt", "cover", "elegant"],
+    "usageCount": 1,
+    "uploadedAt": "2026-01-03T10:00:00Z"
+  },
+  {
+    "id": "media-004",
+    "url": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800",
+    "filename": "kids-bedding.jpg",
+    "tags": ["kids", "cartoon", "colorful"],
+    "usageCount": 1,
+    "uploadedAt": "2026-01-04T10:00:00Z"
+  },
+  {
+    "id": "media-005",
+    "url": "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800",
+    "filename": "luxury-bedroom.jpg",
+    "tags": ["luxury", "bedroom", "inspiration"],
+    "usageCount": 1,
+    "uploadedAt": "2026-01-05T10:00:00Z"
+  }
+]
