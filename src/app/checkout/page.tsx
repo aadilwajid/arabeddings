@@ -140,19 +140,19 @@ export default function CheckoutPage() {
             Checkout
           </h1>
 
-          <form onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-8">
+          <form onSubmit={handleSubmit} className="grid lg:grid-cols-3 gap-6 md:gap-8">
             {/* Left Column - Forms */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 md:space-y-6">
               {/* Contact Information */}
               <div
-                className="p-6 rounded-xl"
+                className="p-4 md:p-6 rounded-xl"
                 style={{
                   backgroundColor: 'var(--color-surface)',
                   border: 'var(--border)',
                   borderRadius: 'var(--border-radius)'
                 }}
               >
-                <h2 className="text-lg font-medium mb-4" style={{ color: 'var(--color-text)' }}>
+                <h2 className="text-base md:text-lg font-medium mb-3 md:mb-4" style={{ color: 'var(--color-text)' }}>
                   Contact Information
                 </h2>
                 <div className="space-y-3">
@@ -200,14 +200,14 @@ export default function CheckoutPage() {
 
               {/* Shipping Address */}
               <div
-                className="p-6 rounded-xl"
+                className="p-4 md:p-6 rounded-xl"
                 style={{
                   backgroundColor: 'var(--color-surface)',
                   border: 'var(--border)',
                   borderRadius: 'var(--border-radius)'
                 }}
               >
-                <h2 className="text-lg font-medium mb-4" style={{ color: 'var(--color-text)' }}>
+                <h2 className="text-base md:text-lg font-medium mb-3 md:mb-4" style={{ color: 'var(--color-text)' }}>
                   Shipping Address
                 </h2>
                 <div className="space-y-3">
@@ -224,7 +224,7 @@ export default function CheckoutPage() {
                       color: 'var(--color-text)'
                     }}
                   />
-                  <div className="grid grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <input
                       type="text"
                       value={customer.city}
@@ -356,7 +356,7 @@ export default function CheckoutPage() {
               <button
                 type="submit"
                 disabled={processing}
-                className="w-full py-4 rounded-lg font-medium text-lg transition-colors disabled:opacity-50"
+                className="w-full py-3 md:py-4 rounded-lg font-medium text-base md:text-lg transition-colors disabled:opacity-50"
                 style={{ backgroundColor: 'var(--color-primary)', color: 'white' }}
               >
                 {processing ? 'Processing...' : `Place Order - ${formatPrice(finalTotal)}`}
@@ -366,7 +366,7 @@ export default function CheckoutPage() {
             {/* Right Column - Order Summary */}
             <div>
               <div
-                className="p-6 rounded-xl sticky top-24"
+                className="p-4 md:p-6 rounded-xl lg:sticky lg:top-24"
                 style={{
                   backgroundColor: 'var(--color-surface)',
                   border: 'var(--border)',
@@ -374,26 +374,26 @@ export default function CheckoutPage() {
                   boxShadow: 'var(--shadow)'
                 }}
               >
-                <h2 className="text-lg font-medium mb-4" style={{ color: 'var(--color-text)' }}>
+                <h2 className="text-base md:text-lg font-medium mb-3 md:mb-4" style={{ color: 'var(--color-text)' }}>
                   Order Summary
                 </h2>
                 <div className="space-y-3 mb-4">
                   {cart.map(item => (
-                    <div key={item.variantId} className="flex gap-3">
+                    <div key={item.variantId} className="flex gap-2 md:gap-3">
                       <img
                         src={item.image}
                         alt={item.productName}
-                        className="w-16 h-16 object-cover rounded-lg"
+                        className="w-14 h-14 md:w-16 md:h-16 object-cover rounded-lg flex-shrink-0"
                       />
-                      <div className="flex-1">
-                        <p className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs md:text-sm font-medium line-clamp-2" style={{ color: 'var(--color-text)' }}>
                           {item.productName}
                         </p>
-                        <p className="text-xs" style={{ color: 'var(--color-text-secondary)' }}>
+                        <p className="text-[10px] md:text-xs" style={{ color: 'var(--color-text-secondary)' }}>
                           {item.size} - {item.type} x{item.quantity}
                         </p>
                       </div>
-                      <span className="text-sm font-medium" style={{ color: 'var(--color-text)' }}>
+                      <span className="text-xs md:text-sm font-medium flex-shrink-0" style={{ color: 'var(--color-text)' }}>
                         {formatPrice(item.price * item.quantity)}
                       </span>
                     </div>

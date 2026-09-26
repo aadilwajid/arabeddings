@@ -207,7 +207,7 @@ export default function Header() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div
-            className="md:hidden mt-4 p-6 rounded-2xl"
+            className="md:hidden mt-4 p-4 md:p-6 rounded-2xl"
             style={{
               backgroundColor: 'var(--color-surface)',
               borderRadius: 'var(--border-radius)',
@@ -215,21 +215,34 @@ export default function Header() {
               border: 'var(--border)'
             }}
           >
-            <nav className="flex flex-col gap-4">
+            <nav className="flex flex-col gap-2 md:gap-4">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-base font-medium py-2 border-b transition-colors hover:opacity-70"
+                  className="text-sm md:text-base font-medium py-3 px-2 rounded-lg transition-colors hover:opacity-70"
                   style={{
                     color: 'var(--color-text)',
-                    borderColor: 'var(--color-border)'
+                    backgroundColor: 'var(--color-background)'
                   }}
                 >
                   {link.label}
                 </Link>
               ))}
+              <div className="border-t my-2" style={{ borderColor: 'var(--color-border)' }}></div>
+              <Link
+                href="/account"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-sm md:text-base font-medium py-3 px-2 rounded-lg transition-colors hover:opacity-70 flex items-center gap-3"
+                style={{
+                  color: 'var(--color-text)',
+                  backgroundColor: 'var(--color-background)'
+                }}
+              >
+                <User className="w-5 h-5" />
+                My Account
+              </Link>
             </nav>
           </div>
         )}
