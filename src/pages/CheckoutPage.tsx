@@ -41,7 +41,7 @@ export default function CheckoutPage() {
     }
 
     const orderId = `ord-${Date.now()}`;
-    const orderNumber = `LB-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, '0')}`;
+    const orderNumber = `ARA-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, '0')}`;
 
     const order: Order = {
       id: orderId,
@@ -189,7 +189,7 @@ export default function CheckoutPage() {
               </div>
               <button
                 onClick={() => { if (validateAddress()) setStep(2); }}
-                className="mt-6 px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700"
+                className="mt-6 px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700"
               >
                 Continue to Payment
               </button>
@@ -201,15 +201,15 @@ export default function CheckoutPage() {
             <div className="bg-white rounded-xl border p-6">
               <h2 className="text-lg font-semibold mb-4">Payment Method</h2>
               <div className="space-y-4">
-                <label className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'COD' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                  <input type="radio" name="payment" value="COD" checked={paymentMethod === 'COD'} onChange={() => setPaymentMethod('COD')} className="mt-1 accent-indigo-600" />
+                <label className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'COD' ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/20' : 'border-gray-200 dark:border-gray-600 hover:border-gray-300'}`}>
+                  <input type="radio" name="payment" value="COD" checked={paymentMethod === 'COD'} onChange={() => setPaymentMethod('COD')} className="mt-1 accent-amber-600" />
                   <div className="ml-3">
                     <div className="flex items-center"><Banknote size={20} className="text-gray-700 mr-2" /><span className="font-semibold">Cash on Delivery (COD)</span></div>
                     <p className="text-sm text-gray-500 mt-1">Pay when you receive your order. No additional fees.</p>
                   </div>
                 </label>
-                <label className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'BANK_TRANSFER' ? 'border-indigo-600 bg-indigo-50' : 'border-gray-200 hover:border-gray-300'}`}>
-                  <input type="radio" name="payment" value="BANK_TRANSFER" checked={paymentMethod === 'BANK_TRANSFER'} onChange={() => setPaymentMethod('BANK_TRANSFER')} className="mt-1 accent-indigo-600" />
+                <label className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'BANK_TRANSFER' ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/20' : 'border-gray-200 dark:border-gray-600 hover:border-gray-300'}`}>
+                  <input type="radio" name="payment" value="BANK_TRANSFER" checked={paymentMethod === 'BANK_TRANSFER'} onChange={() => setPaymentMethod('BANK_TRANSFER')} className="mt-1 accent-amber-600" />
                   <div className="ml-3 flex-1">
                     <div className="flex items-center"><CreditCard size={20} className="text-gray-700 mr-2" /><span className="font-semibold">Bank Transfer</span></div>
                     <p className="text-sm text-gray-500 mt-1">Transfer directly to our bank account. Order will be processed after verification.</p>
@@ -236,8 +236,8 @@ export default function CheckoutPage() {
               )}
 
               <div className="mt-6 flex space-x-3">
-                <button onClick={() => setStep(1)} className="px-6 py-3 border text-gray-700 font-medium rounded-lg hover:bg-gray-50">Back</button>
-                <button onClick={() => setStep(3)} className="px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700">Review Order</button>
+                <button onClick={() => setStep(1)} className="px-6 py-3 border dark:border-gray-600 text-gray-700 dark:text-gray-200 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800">Back</button>
+                <button onClick={() => setStep(3)} className="px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700">Review Order</button>
               </div>
             </div>
           )}
@@ -269,7 +269,7 @@ export default function CheckoutPage() {
 
               <div className="mt-6 flex space-x-3">
                 <button onClick={() => setStep(2)} className="px-6 py-3 border text-gray-700 font-medium rounded-lg hover:bg-gray-50">Back</button>
-                <button onClick={handlePlaceOrder} className="flex-1 px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 flex items-center justify-center">
+                <button onClick={handlePlaceOrder} className="flex-1 px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 flex items-center justify-center">
                   <Lock size={16} className="mr-2" /> Place Order — ${total.toFixed(2)}
                 </button>
               </div>

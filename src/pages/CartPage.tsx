@@ -12,7 +12,7 @@ export default function CartPage() {
         <ShoppingBag className="mx-auto text-gray-300 mb-4" size={64} />
         <h1 className="text-2xl font-bold text-gray-900">Your Cart is Empty</h1>
         <p className="mt-2 text-gray-600">Looks like you haven't added anything yet.</p>
-        <Link to="/products" className="mt-6 inline-flex items-center px-6 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">
+        <Link to="/products" className="mt-6 inline-flex items-center px-6 py-3 bg-amber-600 text-white rounded-lg hover:bg-amber-700">
           Start Shopping <ArrowRight className="ml-2" size={18} />
         </Link>
       </div>
@@ -83,7 +83,7 @@ export default function CartPage() {
           </div>
           <Link
             to="/checkout"
-            className="mt-6 w-full flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+            className="mt-6 w-full flex items-center justify-center px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700 transition-colors"
           >
             Proceed to Checkout <ArrowRight className="ml-2" size={18} />
           </Link>

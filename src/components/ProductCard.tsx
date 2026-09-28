@@ -18,8 +18,8 @@ export function ProductCard({ product }: ProductCardProps) {
     : 0;
 
   return (
-    <div className="group bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100">
-      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100">
+    <div className="group bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700">
+      <div className="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-gray-700">
         <Link to={`/products/${product.slug}`}>
           <img
             src={product.images[0]?.url || 'https://via.placeholder.com/400x300?text=Product'}
@@ -34,7 +34,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <Heart size={18} fill={inWishlist ? 'currentColor' : 'none'} />
         </button>
         {product.isFeatured && (
-          <span className="absolute top-3 left-3 bg-indigo-600 text-white text-xs font-medium px-2 py-1 rounded-full">Featured</span>
+          <span className="absolute top-3 left-3 bg-amber-600 text-white text-xs font-medium px-2 py-1 rounded-full">Featured</span>
         )}
         {product.variants.some(v => v.comparePrice && v.comparePrice > v.price) && (
           <span className="absolute bottom-3 left-3 bg-red-500 text-white text-xs font-medium px-2 py-1 rounded-full">Sale</span>
@@ -42,25 +42,25 @@ export function ProductCard({ product }: ProductCardProps) {
       </div>
       <div className="p-4">
         <Link to={`/products/${product.slug}`}>
-          <h3 className="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-1">{product.name}</h3>
+          <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors line-clamp-1">{product.name}</h3>
         </Link>
-        <p className="text-sm text-gray-500 mt-1 line-clamp-1">{product.shortDesc}</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-1 line-clamp-1">{product.shortDesc}</p>
         {avgRating > 0 && (
           <div className="flex items-center mt-2">
             {[...Array(5)].map((_, i) => (
-              <Star key={i} size={14} className={i < Math.round(avgRating) ? 'text-amber-400 fill-amber-400' : 'text-gray-200'} />
+              <Star key={i} size={14} className={i < Math.round(avgRating) ? 'text-amber-400 fill-amber-400' : 'text-gray-200 dark:text-gray-600'} />
             ))}
-            <span className="text-xs text-gray-500 ml-1">({product.reviews.length})</span>
+            <span className="text-xs text-gray-500 dark:text-gray-400 ml-1">({product.reviews.length})</span>
           </div>
         )}
         <div className="flex items-center justify-between mt-3">
           <div>
-            <span className="text-lg font-bold text-gray-900">${minPrice.toFixed(2)}</span>
-            {minPrice !== maxPrice && <span className="text-sm text-gray-500"> - ${maxPrice.toFixed(2)}</span>}
+            <span className="text-lg font-bold text-gray-900 dark:text-white">${minPrice.toFixed(2)}</span>
+            {minPrice !== maxPrice && <span className="text-sm text-gray-500 dark:text-gray-400"> - ${maxPrice.toFixed(2)}</span>}
           </div>
           <Link
             to={`/products/${product.slug}`}
-            className="p-2 bg-indigo-50 text-indigo-600 rounded-lg hover:bg-indigo-100 transition-colors"
+            className="p-2 bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 rounded-lg hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors"
           >
             <ShoppingCart size={18} />
           </Link>
@@ -74,8 +74,8 @@ export function ProductGrid({ products }: { products: Product[] }) {
   if (products.length === 0) {
     return (
       <div className="text-center py-16">
-        <p className="text-gray-500 text-lg">No products found.</p>
-        <Link to="/products" className="text-indigo-600 hover:underline mt-2 inline-block">Browse all products</Link>
+        <p className="text-gray-500 dark:text-gray-400 text-lg">No products found.</p>
+        <Link to="/products" className="text-amber-600 dark:text-amber-400 hover:underline mt-2 inline-block">Browse all products</Link>
       </div>
     );
   }

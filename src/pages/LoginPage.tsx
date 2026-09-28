@@ -33,7 +33,7 @@ export default function LoginPage() {
     }
     const success = login(email, password);
     if (success) {
-      navigate(email === 'admin@bedding.com' ? '/admin' : '/account');
+      navigate(email === 'admin@arabeddings.com' ? '/admin' : '/account');
     } else {
       setError('Invalid credentials');
     }
@@ -42,12 +42,13 @@ export default function LoginPage() {
   return (
     <div className="min-h-[70vh] flex items-center justify-center px-4 py-16">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <span className="text-4xl">🛏️</span>
-          <h1 className="text-3xl font-bold text-gray-900 mt-4">Welcome Back</h1>
-          <p className="mt-2 text-gray-600">Sign in to your LuxeBedding account</p>
+      <div className="text-center mb-8">
+        <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-amber-700 rounded-xl flex items-center justify-center mx-auto">
+          <span className="text-white font-bold text-lg">A</span>
         </div>
-
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mt-4">Welcome Back</h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">Sign in to your ARA BEDDINGS account</p>
+      </div>
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border shadow-sm p-6 space-y-4">
           {error && <div className="bg-red-50 border border-red-200 text-red-700 text-sm rounded-lg p-3">{error}</div>}
 
@@ -70,11 +71,11 @@ export default function LoginPage() {
             <LogIn size={18} className="mr-2" /> Sign In
           </button>
 
-          <div className="bg-gray-50 rounded-lg p-4 text-sm">
-            <p className="font-medium text-gray-700 mb-2">Demo Accounts:</p>
-            <p className="text-gray-600">Customer: <code className="bg-gray-200 px-1 rounded">demo@bedding.com</code></p>
-            <p className="text-gray-600">Admin: <code className="bg-gray-200 px-1 rounded">admin@bedding.com</code></p>
-            <p className="text-gray-500 mt-1">(Any password works for demo)</p>
+          <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 text-sm">
+            <p className="font-medium text-gray-700 dark:text-gray-200 mb-2">Demo Accounts:</p>
+            <p className="text-gray-600 dark:text-gray-400">Customer: <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">demo@arabeddings.com</code></p>
+            <p className="text-gray-600 dark:text-gray-400">Admin: <code className="bg-gray-200 dark:bg-gray-700 px-1 rounded">admin@arabeddings.com</code></p>
+            <p className="text-gray-500 dark:text-gray-500 mt-1">(Any password works for demo)</p>
           </div>
         </form>
       </div>

@@ -55,6 +55,10 @@ interface AppState {
   // Settings
   settings: SiteSettings;
   updateSettings: (settings: Partial<SiteSettings>) => void;
+
+  // Dark Mode
+  darkMode: boolean;
+  toggleDarkMode: () => void;
 }
 
 export const useStore = create<AppState>()(
@@ -64,11 +68,11 @@ export const useStore = create<AppState>()(
       user: null,
       isAdmin: false,
       login: (email: string, _password: string) => {
-        if (email === 'admin@bedding.com') {
-          set({ user: { id: 'admin-1', name: 'Admin User', email: 'admin@bedding.com', role: 'ADMIN', createdAt: '2024-01-01T00:00:00Z' }, isAdmin: true });
+        if (email === 'admin@arabeddings.com') {
+          set({ user: { id: 'admin-1', name: 'Admin', email: 'admin@arabeddings.com', role: 'ADMIN', createdAt: '2024-01-01T00:00:00Z' }, isAdmin: true });
           return true;
         }
-        if (email === 'demo@bedding.com') {
+        if (email === 'demo@arabeddings.com') {
           set({ user: currentUser, isAdmin: false });
           return true;
         }
@@ -178,6 +182,18 @@ export const useStore = create<AppState>()(
       // Settings
       settings: siteSettings,
       updateSettings: (newSettings: Partial<SiteSettings>) => set({ settings: { ...get().settings, ...newSettings } }),
+
+      // Dark Mode
+      darkMode: false,
+      toggleDarkMode: () => {
+        const newMode = !get().darkMode;
+        set({ darkMode: newMode });
+        if (newMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      },
     }),
     {
       name: 'bedding-store',

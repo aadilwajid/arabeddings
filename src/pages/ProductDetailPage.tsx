@@ -25,8 +25,8 @@ export default function ProductDetailPage() {
   if (!product) {
     return (
       <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-        <h1 className="text-2xl font-bold text-gray-900">Product Not Found</h1>
-        <Link to="/products" className="mt-4 text-indigo-600 hover:underline">← Back to products</Link>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Product Not Found</h1>
+        <Link to="/products" className="mt-4 text-amber-600 dark:text-amber-400 hover:underline">← Back to products</Link>
       </div>
     );
   }
@@ -58,7 +58,7 @@ export default function ProductDetailPage() {
       <div className="grid lg:grid-cols-2 gap-12">
         {/* Gallery */}
         <div>
-          <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100 mb-4">
+          <div className="aspect-square rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-700 mb-4">
             <img
               src={product.images[activeImage]?.url || 'https://via.placeholder.com/600x600?text=Product'}
               alt={product.images[activeImage]?.alt || product.name}
@@ -71,7 +71,7 @@ export default function ProductDetailPage() {
                 <button
                   key={img.id}
                   onClick={() => setActiveImage(i)}
-                  className={`aspect-square rounded-lg overflow-hidden border-2 ${activeImage === i ? 'border-indigo-600' : 'border-transparent'}`}
+                  className={`aspect-square rounded-lg overflow-hidden border-2 ${activeImage === i ? 'border-amber-500' : 'border-transparent'}`}
                 >
                   <img src={img.url} alt={img.alt || ''} className="w-full h-full object-cover" />
                 </button>
@@ -82,8 +82,8 @@ export default function ProductDetailPage() {
 
         {/* Product Info */}
         <div>
-          {product.brand && <p className="text-sm text-indigo-600 font-medium mb-1">{product.brand}</p>}
-          <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
+          {product.brand && <p className="text-sm text-amber-600 dark:text-amber-400 font-medium mb-1">{product.brand}</p>}
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{product.name}</h1>
 
           {/* Rating */}
           {avgRating > 0 && (
@@ -101,13 +101,13 @@ export default function ProductDetailPage() {
           <div className="mt-4">
             {selectedVariant ? (
               <div className="flex items-baseline space-x-3">
-                <span className="text-3xl font-bold text-gray-900">${selectedVariant.price.toFixed(2)}</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">${selectedVariant.price.toFixed(2)}</span>
                 {selectedVariant.comparePrice && (
                   <span className="text-lg text-gray-400 line-through">${selectedVariant.comparePrice.toFixed(2)}</span>
                 )}
               </div>
             ) : (
-              <p className="text-lg text-gray-500">Select options to see price</p>
+              <p className="text-lg text-gray-500 dark:text-gray-400">Select options to see price</p>
             )}
           </div>
 
@@ -130,8 +130,8 @@ export default function ProductDetailPage() {
                         onClick={() => setSelectedOptions(prev => ({ ...prev, [option.id]: val.value }))}
                         className={`px-4 py-2 rounded-lg border-2 text-sm font-medium transition-all ${
                           isSelected
-                            ? 'border-indigo-600 bg-indigo-50 text-indigo-700'
-                            : 'border-gray-200 text-gray-700 hover:border-gray-300'
+                            ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                            : 'border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-500'
                         }`}
                       >
                         {val.value}
@@ -168,8 +168,8 @@ export default function ProductDetailPage() {
                 addedToCart
                   ? 'bg-green-500 text-white'
                   : selectedVariant && selectedVariant.stock > 0
-                    ? 'bg-indigo-600 text-white hover:bg-indigo-700'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    ? 'bg-amber-600 text-white hover:bg-amber-700'
+                    : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
               }`}
             >
               {addedToCart ? <><Check size={18} className="mr-2" /> Added!</> : <><ShoppingCart size={18} className="mr-2" /> Add to Cart</>}
