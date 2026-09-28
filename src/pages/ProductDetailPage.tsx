@@ -1,8 +1,10 @@
 import React, { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Heart, ShoppingCart, Star, ChevronRight, Minus, Plus, Check } from 'lucide-react';
+import { Heart, ShoppingCart, Star, ChevronRight, Minus, Plus, Check, Ruler } from 'lucide-react';
 import { useStore } from '../store';
 import { formatPKR } from '../data/pakistan';
+import { ProductGrid } from '../components/ProductCard';
+import SizeGuideModal from '../components/SizeGuide';
 
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -13,8 +15,17 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [activeImage, setActiveImage] = useState(0);
   const [addedToCart, setAddedToCart] = useState(false);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   const inWishlist = product ? isInWishlist(product.id) : false;
+
+  // Get related products (same category, excluding current)
+  const relatedProducts = useMemo(() => {
+    if (!product) return [];
+    return useStore.getState().products
+      .filter(p => p.categoryId === product.categoryId && p.id !== product.id)
+      .slice(0, 4);
+  }, [product]);
 
   const selectedVariant = useMemo(() => {
     if (!product) return null;
@@ -220,8 +231,35 @@ export default function ProductDetailPage() {
               </div>
             </div>
           )}
+
+          {/* Size Guide Button */}
+          {(product.name.toLowerCase().includes('sheet') || 
+            product.name.toLowerCase().includes('duvet') || 
+            product.name.toLowerCase().includes('comforter') ||
+            product.name.toLowerCase().includes('pillow')) && (
+            <div className="mt-6">
+              <button
+                onClick={() => setShowSizeGuide(true)}
+                className="flex items-center gap-2 text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 font-medium text-sm"
+              >
+                <Ruler size={16} />
+                View Size Guide
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* Related Products */}
+      {relatedProducts.length > 0 && (
+        <div className="mt-16 border-t dark:border-gray-700 pt-12">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">You May Also Like</h2>
+          <ProductGrid products={relatedProducts} />
+        </div>
+      )}
+
+      {/* Size Guide Modal */}
+      <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />
     </div>
   );
 }

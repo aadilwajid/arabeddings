@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './components/Layout';
+import { ToastProvider } from './components/Toast';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -13,6 +14,11 @@ import DrugOrderStatusPage from './pages/DrugOrderStatusPage';
 import LoginPage from './pages/LoginPage';
 import AccountPage, { AccountOrdersPage, AccountDrugOrdersPage, AccountAddressesPage } from './pages/AccountPages';
 import AdminDashboard from './pages/AdminDashboard';
+import TrackOrderPage from './pages/TrackOrderPage';
+import ContactPage from './pages/ContactPage';
+import ShippingPage from './pages/ShippingPage';
+import ReturnsPage from './pages/ReturnsPage';
+import AboutPage from './pages/AboutPage';
 
 function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -27,29 +33,36 @@ function ShopLayout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        {/* Shop Routes */}
-        <Route path="/" element={<ShopLayout><HomePage /></ShopLayout>} />
-        <Route path="/products" element={<ShopLayout><ProductsPage /></ShopLayout>} />
-        <Route path="/products/:slug" element={<ShopLayout><ProductDetailPage /></ShopLayout>} />
-        <Route path="/cart" element={<ShopLayout><CartPage /></ShopLayout>} />
-        <Route path="/checkout" element={<ShopLayout><CheckoutPage /></ShopLayout>} />
-        <Route path="/checkout/confirmation/:orderId" element={<ShopLayout><OrderConfirmationPage /></ShopLayout>} />
-        <Route path="/wishlist" element={<ShopLayout><WishlistPage /></ShopLayout>} />
-        <Route path="/drug-order" element={<ShopLayout><DrugOrderPage /></ShopLayout>} />
-        <Route path="/drug-order/:reference" element={<ShopLayout><DrugOrderStatusPage /></ShopLayout>} />
-        <Route path="/login" element={<ShopLayout><LoginPage /></ShopLayout>} />
+      <ToastProvider>
+        <Routes>
+          {/* Shop Routes */}
+          <Route path="/" element={<ShopLayout><HomePage /></ShopLayout>} />
+          <Route path="/products" element={<ShopLayout><ProductsPage /></ShopLayout>} />
+          <Route path="/products/:slug" element={<ShopLayout><ProductDetailPage /></ShopLayout>} />
+          <Route path="/cart" element={<ShopLayout><CartPage /></ShopLayout>} />
+          <Route path="/checkout" element={<ShopLayout><CheckoutPage /></ShopLayout>} />
+          <Route path="/checkout/confirmation/:orderId" element={<ShopLayout><OrderConfirmationPage /></ShopLayout>} />
+          <Route path="/wishlist" element={<ShopLayout><WishlistPage /></ShopLayout>} />
+          <Route path="/drug-order" element={<ShopLayout><DrugOrderPage /></ShopLayout>} />
+          <Route path="/drug-order/:reference" element={<ShopLayout><DrugOrderStatusPage /></ShopLayout>} />
+          <Route path="/login" element={<ShopLayout><LoginPage /></ShopLayout>} />
+          <Route path="/track-order" element={<ShopLayout><TrackOrderPage /></ShopLayout>} />
+          <Route path="/contact" element={<ShopLayout><ContactPage /></ShopLayout>} />
+          <Route path="/shipping" element={<ShopLayout><ShippingPage /></ShopLayout>} />
+          <Route path="/returns" element={<ShopLayout><ReturnsPage /></ShopLayout>} />
+          <Route path="/about" element={<ShopLayout><AboutPage /></ShopLayout>} />
 
-        {/* Account Routes */}
-        <Route path="/account" element={<ShopLayout><AccountPage /></ShopLayout>} />
-        <Route path="/account/orders" element={<ShopLayout><AccountOrdersPage /></ShopLayout>} />
-        <Route path="/account/drug-orders" element={<ShopLayout><AccountDrugOrdersPage /></ShopLayout>} />
-        <Route path="/account/addresses" element={<ShopLayout><AccountAddressesPage /></ShopLayout>} />
+          {/* Account Routes */}
+          <Route path="/account" element={<ShopLayout><AccountPage /></ShopLayout>} />
+          <Route path="/account/orders" element={<ShopLayout><AccountOrdersPage /></ShopLayout>} />
+          <Route path="/account/drug-orders" element={<ShopLayout><AccountDrugOrdersPage /></ShopLayout>} />
+          <Route path="/account/addresses" element={<ShopLayout><AccountAddressesPage /></ShopLayout>} />
 
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminDashboard />} />
-        <Route path="/admin/*" element={<AdminDashboard />} />
-      </Routes>
+          {/* Admin Routes */}
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/*" element={<AdminDashboard />} />
+        </Routes>
+      </ToastProvider>
     </BrowserRouter>
   );
 }

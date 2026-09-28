@@ -69,6 +69,7 @@ export function Header() {
               <Link to="/products?category=bed-sheets" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Sheets</Link>
               <Link to="/products?category=duvet-covers" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Duvets</Link>
               <Link to="/products?category=comforters" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Comforters</Link>
+              <Link to="/track-order" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Track Order</Link>
               <Link to="/drug-order" className="text-amber-600 dark:text-amber-400 hover:text-amber-700 font-semibold transition-colors">Custom Order</Link>
             </nav>
 
@@ -171,7 +172,10 @@ export function Header() {
               <Link to="/products?category=pillowcases" className="block py-3 text-gray-600 dark:text-gray-300">Pillowcases</Link>
               <Link to="/products?category=pillows" className="block py-3 text-gray-600 dark:text-gray-300">Pillows</Link>
               <div className="border-t dark:border-gray-800 my-2" />
+              <Link to="/track-order" className="block py-3 text-gray-700 dark:text-gray-200 font-medium">Track Order</Link>
               <Link to="/drug-order" className="block py-3 text-amber-600 dark:text-amber-400 font-semibold">Custom Order</Link>
+              <Link to="/about" className="block py-3 text-gray-600 dark:text-gray-300">About Us</Link>
+              <Link to="/contact" className="block py-3 text-gray-600 dark:text-gray-300">Contact</Link>
               {!user && <Link to="/login" className="block py-3 text-gray-700 dark:text-gray-200 font-medium">Sign In</Link>}
             </nav>
           </div>
@@ -236,10 +240,21 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4 text-lg">Customer</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/account" className="hover:text-amber-400 transition-colors">My Account</Link></li>
-              <li><Link to="/account/orders" className="hover:text-amber-400 transition-colors">Order Tracking</Link></li>
+              <li><Link to="/track-order" className="hover:text-amber-400 transition-colors">Track Order</Link></li>
               <li><Link to="/drug-order" className="hover:text-amber-400 transition-colors">Custom Orders</Link></li>
               <li><Link to="/wishlist" className="hover:text-amber-400 transition-colors">Wishlist</Link></li>
               <li><Link to="/cart" className="hover:text-amber-400 transition-colors">Shopping Cart</Link></li>
+            </ul>
+          </div>
+
+          {/* Help */}
+          <div>
+            <h4 className="text-white font-semibold mb-4 text-lg">Help</h4>
+            <ul className="space-y-3 text-sm">
+              <li><Link to="/about" className="hover:text-amber-400 transition-colors">About Us</Link></li>
+              <li><Link to="/contact" className="hover:text-amber-400 transition-colors">Contact Us</Link></li>
+              <li><Link to="/shipping" className="hover:text-amber-400 transition-colors">Shipping Info</Link></li>
+              <li><Link to="/returns" className="hover:text-amber-400 transition-colors">Returns & Refunds</Link></li>
             </ul>
           </div>
 

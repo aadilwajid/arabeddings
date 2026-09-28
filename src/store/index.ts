@@ -65,6 +65,21 @@ interface AppState {
   addMedia: (item: MediaItem) => void;
   removeMedia: (id: string) => void;
   updateMedia: (id: string, updates: Partial<MediaItem>) => void;
+
+  // Coupons
+  appliedCoupon: Coupon | null;
+  applyCoupon: (coupon: Coupon) => void;
+  removeCoupon: () => void;
+}
+
+interface Coupon {
+  code: string;
+  discount: number;
+  type: 'percentage' | 'fixed';
+  minOrder: number;
+  maxDiscount?: number;
+  validUntil: string;
+  description: string;
 }
 
 export const useStore = create<AppState>()(
@@ -220,6 +235,11 @@ export const useStore = create<AppState>()(
           media: get().media.map(m => m.id === id ? { ...m, ...updates } : m)
         });
       },
+
+      // Coupons
+      appliedCoupon: null,
+      applyCoupon: (coupon: Coupon) => set({ appliedCoupon: coupon }),
+      removeCoupon: () => set({ appliedCoupon: null }),
     }),
     {
       name: 'bedding-store',

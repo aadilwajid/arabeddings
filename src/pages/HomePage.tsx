@@ -221,6 +221,47 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Quick Links Section */}
+      <section className="py-12 bg-gray-50 dark:bg-gray-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6">
+            <Link to="/track-order" className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Truck className="text-amber-600 dark:text-amber-400" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">Track Your Order</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Real-time order status updates</p>
+                </div>
+              </div>
+            </Link>
+            <Link to="/shipping" className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <Shield className="text-amber-600 dark:text-amber-400" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">Shipping Info</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Free delivery over Rs. 5,000</p>
+                </div>
+              </div>
+            </Link>
+            <Link to="/returns" className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 hover:shadow-lg transition-shadow group">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <RotateCcw className="text-amber-600 dark:text-amber-400" size={24} />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white">Easy Returns</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">30-day hassle-free returns</p>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Custom Order CTA */}
       <section className="py-20 bg-gradient-to-r from-amber-600 to-orange-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
