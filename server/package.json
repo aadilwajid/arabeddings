@@ -1,0 +1,35 @@
+{
+  "name": "ara-beddings-backend",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "ARA BEDDINGS E-Commerce Backend API",
+  "main": "server/index.js",
+  "scripts": {
+    "server": "node server/index.js",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate dev",
+    "db:seed": "node prisma/seed.js",
+    "db:studio": "prisma studio",
+    "db:reset": "prisma migrate reset",
+    "setup": "npm run db:generate && npm run db:migrate && npm run db:seed"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.7.0",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.5",
+    "prisma": "^5.7.0",
+    "tsx": "^4.7.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}
