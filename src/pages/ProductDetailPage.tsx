@@ -183,24 +183,24 @@ export default function ProductDetailPage() {
           </div>
 
           {/* Product Details */}
-          <div className="mt-10 border-t pt-8">
-            <h3 className="font-semibold text-gray-900 mb-3">Product Details</h3>
-            <p className="text-gray-600 leading-relaxed">{product.description}</p>
+          <div className="mt-10 border-t dark:border-gray-700 pt-8">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-3">Product Details</h3>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed">{product.description}</p>
             {product.material && (
               <div className="mt-4 grid grid-cols-2 gap-4">
-                <div><span className="text-sm text-gray-500">Material:</span> <span className="text-sm font-medium text-gray-900">{product.material}</span></div>
-                {selectedVariant && <div><span className="text-sm text-gray-500">SKU:</span> <span className="text-sm font-medium text-gray-900">{selectedVariant.sku}</span></div>}
+                <div><span className="text-sm text-gray-500 dark:text-gray-400">Material:</span> <span className="text-sm font-medium text-gray-900 dark:text-white">{product.material}</span></div>
+                {selectedVariant && <div><span className="text-sm text-gray-500 dark:text-gray-400">SKU:</span> <span className="text-sm font-medium text-gray-900 dark:text-white">{selectedVariant.sku}</span></div>}
               </div>
             )}
           </div>
 
           {/* Reviews */}
           {product.reviews.length > 0 && (
-            <div className="mt-10 border-t pt-8">
-              <h3 className="font-semibold text-gray-900 mb-4">Customer Reviews</h3>
+            <div className="mt-10 border-t dark:border-gray-700 pt-8">
+              <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Customer Reviews</h3>
               <div className="space-y-4">
                 {product.reviews.map(review => (
-                  <div key={review.id} className="bg-gray-50 rounded-lg p-4">
+                  <div key={review.id} className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <div className="flex">

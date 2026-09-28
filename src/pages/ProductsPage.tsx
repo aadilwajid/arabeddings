@@ -136,7 +136,7 @@ export default function ProductsPage() {
           <div className="flex items-center justify-between mb-6">
             <button
               onClick={() => setShowFilters(true)}
-              className="lg:hidden flex items-center space-x-2 text-gray-600 border px-3 py-2 rounded-lg"
+              className="lg:hidden flex items-center space-x-2 text-gray-600 dark:text-gray-300 border dark:border-gray-600 px-3 py-2 rounded-lg"
             >
               <SlidersHorizontal size={16} />
               <span>Filters</span>
@@ -144,7 +144,7 @@ export default function ProductsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="border rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-indigo-500"
+              className="border dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-amber-500"
             >
               <option value="featured">Featured</option>
               <option value="newest">Newest</option>

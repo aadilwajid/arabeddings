@@ -35,13 +35,19 @@ export default function AdminDashboard() {
       <div className="bg-white border-b sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
-            <div className="flex items-center space-x-4">
-              <Link to="/" className="text-lg font-bold text-gray-900">🛏️ LuxeBedding</Link>
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-amber-500 to-amber-700 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-xs">A</span>
+              </div>
+              <Link to="/" className="text-lg font-bold text-gray-900">
+                <span>ARA</span>
+                <span className="font-light text-amber-600 ml-1">BEDDINGS</span>
+              </Link>
               <span className="text-sm text-gray-500">/ Admin</span>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-sm text-gray-600">{user.email}</span>
-              <Link to="/" className="text-sm text-indigo-600 hover:underline">View Store</Link>
+              <Link to="/" className="text-sm text-amber-600 hover:underline">View Store</Link>
             </div>
           </div>
           {/* Tabs */}
@@ -51,7 +57,7 @@ export default function AdminDashboard() {
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center space-x-2 px-4 py-3 text-sm font-medium border-b-2 whitespace-nowrap ${
-                  activeTab === tab.id ? 'border-indigo-600 text-indigo-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+                  activeTab === tab.id ? 'border-amber-600 text-amber-600' : 'border-transparent text-gray-500 hover:text-gray-700'
                 }`}
               >
                 <tab.icon size={16} />
@@ -210,7 +216,7 @@ function OrdersTab() {
                       onClick={() => updateOrderStatus(order.id, status)}
                       className={`px-3 py-1.5 text-xs font-medium rounded-lg ${
                         status === 'CANCELLED' ? 'bg-red-100 text-red-700 hover:bg-red-200' :
-                        'bg-indigo-100 text-indigo-700 hover:bg-indigo-200'
+                        'bg-amber-100 text-amber-700 hover:bg-amber-200'
                       }`}
                     >
                       → {status}

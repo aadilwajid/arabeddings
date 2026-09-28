@@ -81,11 +81,11 @@ export default function DrugOrderPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="text-center mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Custom / Special Order</h1>
-        <p className="mt-2 text-gray-600">Need custom sizes, bulk orders, or specialty bedding? Fill out the form below and our team will provide a personalized quote.</p>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Custom / Special Order</h1>
+        <p className="mt-2 text-gray-600 dark:text-gray-400">Need custom sizes, bulk orders, or specialty bedding? Fill out the form below and our team will provide a personalized quote.</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border p-6 space-y-6">
+      <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 space-y-6">
         {/* Contact Info */}
         <div>
           <h2 className="font-semibold text-gray-900 mb-4">Contact Information</h2>
@@ -167,7 +167,7 @@ export default function DrugOrderPage() {
           <textarea value={form.notes} onChange={e => setForm({...form, notes: e.target.value})} rows={4} className="w-full border rounded-lg px-3 py-2" placeholder="Any special requirements, deadlines, or additional details..." />
         </div>
 
-        <button type="submit" className="w-full flex items-center justify-center px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700">
+        <button type="submit" className="w-full flex items-center justify-center px-6 py-3 bg-amber-600 text-white font-medium rounded-lg hover:bg-amber-700">
           <Send size={18} className="mr-2" /> Submit Custom Order Request
         </button>
       </form>
@@ -175,13 +175,13 @@ export default function DrugOrderPage() {
       {/* Previous Drug Orders */}
       {drugOrders.length > 0 && (
         <div className="mt-12">
-          <h2 className="text-xl font-bold text-gray-900 mb-4">Your Custom Orders</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Your Custom Orders</h2>
           <div className="space-y-3">
             {drugOrders.map(order => (
-              <div key={order.id} className="bg-white rounded-lg border p-4 flex items-center justify-between">
+              <div key={order.id} className="bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 p-4 flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">{order.itemType}</p>
-                  <p className="text-sm text-gray-500">Ref: {order.reference} • Qty: {order.quantity}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">{order.itemType}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Ref: {order.reference} • Qty: {order.quantity}</p>
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className={`px-3 py-1 text-xs font-medium rounded-full ${
@@ -192,7 +192,7 @@ export default function DrugOrderPage() {
                     order.status === 'REJECTED' ? 'bg-red-100 text-red-700' :
                     'bg-gray-100 text-gray-700'
                   }`}>{order.status}</span>
-                  <button onClick={() => navigate(`/drug-order/${order.reference}`)} className="text-indigo-600 text-sm hover:underline">View</button>
+                  <button onClick={() => navigate(`/drug-order/${order.reference}`)} className="text-amber-600 dark:text-amber-400 text-sm hover:underline">View</button>
                 </div>
               </div>
             ))}
