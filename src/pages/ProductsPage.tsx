@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { SlidersHorizontal, X } from 'lucide-react';
+import { SlidersHorizontal, X, Grid3X3, LayoutGrid } from 'lucide-react';
 import { useStore } from '../store';
 import { ProductGrid } from '../components/ProductCard';
 
@@ -8,12 +8,46 @@ export default function ProductsPage() {
   const { products, categories } = useStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
+  const [gridCols, setGridCols] = useState(3);
 
   const categorySlug = searchParams.get('category') || '';
   const searchQuery = searchParams.get('search') || '';
   const [selectedCategory, setSelectedCategory] = useState(categorySlug);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [selectedSize, setSelectedSize] = useState('');
+  const [selectedColor, setSelectedColor] = useState('');
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 50000]);
+  const [inStockOnly, setInStockOnly] = useState(false);
   const [sortBy, setSortBy] = useState('featured');
+
+  // Sync with URL params
+  useEffect(() => {
+    setSelectedCategory(categorySlug);
+  }, [categorySlug]);
+
+  // Get all available sizes and colors from products
+  const allSizes = useMemo(() => {
+    const sizes = new Set<string>();
+    products.forEach(p => {
+      p.options.forEach(opt => {
+        if (opt.name.toLowerCase() === 'size') {
+          opt.values.forEach(v => sizes.add(v.value));
+        }
+      });
+    });
+    return Array.from(sizes);
+  }, [products]);
+
+  const allColors = useMemo(() => {
+    const colors = new Set<string>();
+    products.forEach(p => {
+      p.options.forEach(opt => {
+        if (opt.name.toLowerCase() === 'color') {
+          opt.values.forEach(v => colors.add(v.value));
+        }
+      });
+    });
+    return Array.from(colors);
+  }, [products]);
 
   const filteredProducts = useMemo(() => {
     let result = [...products];
@@ -30,15 +64,38 @@ export default function ProductsPage() {
       result = result.filter(p =>
         p.name.toLowerCase().includes(q) ||
         p.description.toLowerCase().includes(q) ||
-        p.material?.toLowerCase().includes(q)
+        p.material?.toLowerCase().includes(q) ||
+        p.brand?.toLowerCase().includes(q)
+      );
+    }
+
+    // Size filter
+    if (selectedSize) {
+      result = result.filter(p =>
+        p.variants.some(v => v.optionValues.some(ov => ov.value === selectedSize))
+      );
+    }
+
+    // Color filter
+    if (selectedColor) {
+      result = result.filter(p =>
+        p.variants.some(v => v.optionValues.some(ov => ov.value === selectedColor))
       );
     }
 
     // Price filter
     result = result.filter(p => {
-      const minPrice = Math.min(...p.variants.filter(v => v.isActive).map(v => v.price));
-      return minPrice >= priceRange[0] && minPrice <= priceRange[1];
+      const prices = p.variants.filter(v => v.isActive).map(v => v.price);
+      if (prices.length === 0) return false;
+      const minPrice = Math.min(...prices);
+      const maxPrice = Math.max(...prices);
+      return minPrice <= priceRange[1] && maxPrice >= priceRange[0];
     });
+
+    // In stock filter
+    if (inStockOnly) {
+      result = result.filter(p => p.variants.some(v => v.isActive && v.stock > 0));
+    }
 
     // Sort
     switch (sortBy) {
@@ -50,20 +107,27 @@ export default function ProductsPage() {
     }
 
     return result;
-  }, [products, selectedCategory, searchQuery, priceRange, sortBy, categories]);
+  }, [products, selectedCategory, searchQuery, selectedSize, selectedColor, priceRange, inStockOnly, sortBy, categories]);
 
   const clearFilters = () => {
     setSelectedCategory('');
-    setPriceRange([0, 500]);
+    setSelectedSize('');
+    setSelectedColor('');
+    setPriceRange([0, 50000]);
+    setInStockOnly(false);
     setSearchParams({});
   };
 
+  const hasActiveFilters = selectedCategory || selectedSize || selectedColor || priceRange[1] < 50000 || inStockOnly;
   const activeCategory = categories.find(c => c.slug === selectedCategory);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
       <div className="mb-8">
+        <nav className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+          <span className="hover:text-amber-600 cursor-pointer">Home</span> / <span className="text-gray-900 dark:text-white">{activeCategory ? activeCategory.name : searchQuery ? 'Search Results' : 'All Products'}</span>
+        </nav>
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
           {activeCategory ? activeCategory.name : searchQuery ? `Search: "${searchQuery}"` : 'All Products'}
         </h1>
@@ -72,20 +136,20 @@ export default function ProductsPage() {
 
       <div className="flex gap-8">
         {/* Filters Sidebar */}
-        <aside className={`${showFilters ? 'fixed inset-0 z-50 bg-white p-6 overflow-y-auto' : 'hidden'} lg:block lg:relative lg:w-64 flex-shrink-0`}>
+        <aside className={`${showFilters ? 'fixed inset-0 z-50 bg-white dark:bg-gray-900 p-6 overflow-y-auto' : 'hidden'} lg:block lg:relative lg:w-64 flex-shrink-0`}>
           <div className="flex items-center justify-between mb-6 lg:hidden">
-            <h2 className="text-lg font-semibold">Filters</h2>
-            <button onClick={() => setShowFilters(false)}><X size={24} /></button>
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Filters</h2>
+            <button onClick={() => setShowFilters(false)} className="text-gray-500"><X size={24} /></button>
           </div>
 
           {/* Categories */}
           <div className="mb-6">
-            <h3 className="font-semibold text-gray-900 mb-3">Category</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">Category</h3>
             <ul className="space-y-2">
               <li>
                 <button
                   onClick={() => { setSelectedCategory(''); setSearchParams({}); }}
-                  className={`text-sm ${!selectedCategory ? 'text-indigo-600 font-medium' : 'text-gray-600 hover:text-gray-900'}`}
+                  className={`text-sm block w-full text-left py-1 ${!selectedCategory ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                 >
                   All Products
                 </button>
@@ -94,7 +158,7 @@ export default function ProductsPage() {
                 <li key={cat.id}>
                   <button
                     onClick={() => { setSelectedCategory(cat.slug); setSearchParams({ category: cat.slug }); }}
-                    className={`text-sm ${selectedCategory === cat.slug ? 'text-indigo-600 font-medium' : 'text-gray-600 hover:text-gray-900'}`}
+                    className={`text-sm block w-full text-left py-1 ${selectedCategory === cat.slug ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
                   >
                     {cat.name}
                   </button>
@@ -103,28 +167,82 @@ export default function ProductsPage() {
             </ul>
           </div>
 
+          {/* Size Filter */}
+          <div className="mb-6">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">Size</h3>
+            <div className="flex flex-wrap gap-2">
+              {allSizes.map(size => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(selectedSize === size ? '' : size)}
+                  className={`px-3 py-1 text-xs rounded-full border ${
+                    selectedSize === size
+                      ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-300'
+                  }`}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Color Filter */}
+          <div className="mb-6">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">Color</h3>
+            <div className="flex flex-wrap gap-2">
+              {allColors.map(color => (
+                <button
+                  key={color}
+                  onClick={() => setSelectedColor(selectedColor === color ? '' : color)}
+                  className={`px-3 py-1 text-xs rounded-full border ${
+                    selectedColor === color
+                      ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400'
+                      : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-300'
+                  }`}
+                >
+                  {color}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Price Range */}
           <div className="mb-6">
-            <h3 className="font-semibold text-gray-900 mb-3">Price Range</h3>
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-3 text-sm uppercase tracking-wide">Price Range</h3>
             <div className="space-y-2">
               <input
                 type="range"
                 min="0"
-                max="500"
+                max="50000"
+                step="1000"
                 value={priceRange[1]}
                 onChange={(e) => setPriceRange([priceRange[0], parseInt(e.target.value)])}
-                className="w-full accent-indigo-600"
+                className="w-full accent-amber-600"
               />
-              <div className="flex justify-between text-sm text-gray-600">
-                <span>${priceRange[0]}</span>
-                <span>${priceRange[1]}</span>
+              <div className="flex justify-between text-sm text-gray-600 dark:text-gray-400">
+                <span>Rs. 0</span>
+                <span>Rs. {priceRange[1].toLocaleString()}</span>
               </div>
             </div>
           </div>
 
+          {/* In Stock */}
+          <div className="mb-6">
+            <label className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={inStockOnly}
+                onChange={(e) => setInStockOnly(e.target.checked)}
+                className="accent-amber-600"
+              />
+              <span className="text-sm text-gray-700 dark:text-gray-300">In Stock Only</span>
+            </label>
+          </div>
+
           {/* Clear Filters */}
-          {(selectedCategory || priceRange[1] < 500) && (
-            <button onClick={clearFilters} className="text-sm text-indigo-600 hover:underline">
+          {hasActiveFilters && (
+            <button onClick={clearFilters} className="text-sm text-amber-600 dark:text-amber-400 hover:underline font-medium">
               Clear all filters
             </button>
           )}
@@ -133,7 +251,7 @@ export default function ProductsPage() {
         {/* Product Grid */}
         <div className="flex-1">
           {/* Toolbar */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6 bg-white dark:bg-gray-800 rounded-lg border dark:border-gray-700 p-3">
             <button
               onClick={() => setShowFilters(true)}
               className="lg:hidden flex items-center space-x-2 text-gray-600 dark:text-gray-300 border dark:border-gray-600 px-3 py-2 rounded-lg"
@@ -141,17 +259,19 @@ export default function ProductsPage() {
               <SlidersHorizontal size={16} />
               <span>Filters</span>
             </button>
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="border dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-amber-500"
-            >
-              <option value="featured">Featured</option>
-              <option value="newest">Newest</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-              <option value="name">Name A-Z</option>
-            </select>
+            <div className="flex items-center space-x-4 ml-auto">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-amber-500"
+              >
+                <option value="featured">Featured</option>
+                <option value="newest">Newest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name">Name A-Z</option>
+              </select>
+            </div>
           </div>
 
           <ProductGrid products={filteredProducts} />
