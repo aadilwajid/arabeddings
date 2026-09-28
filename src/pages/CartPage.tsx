@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useStore } from '../store';
 import { formatPKR } from '../data/pakistan';
+import { CouponInput, calculateDiscount } from '../components/CouponInput';
 
 export default function CartPage() {
-  const { cart, updateCartQuantity, removeFromCart, cartTotal, settings } = useStore();
+  const { cart, updateCartQuantity, removeFromCart, cartTotal, settings, appliedCoupon } = useStore();
 
   if (cart.length === 0) {
     return (
@@ -21,8 +22,9 @@ export default function CartPage() {
   }
 
   const subtotal = cartTotal();
-  const shipping = subtotal >= settings.freeShippingThreshold ? 0 : 250;
-  const total = subtotal + shipping;
+  const discount = calculateDiscount(subtotal, appliedCoupon);
+  const shipping = (subtotal - discount) >= settings.freeShippingThreshold ? 0 : 250;
+  const total = subtotal - discount + shipping;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -70,12 +72,25 @@ export default function CartPage() {
               <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
               <span className="font-medium text-gray-900 dark:text-white">{formatPKR(subtotal)}</span>
             </div>
+            
+            {/* Coupon Input */}
+            <div className="py-2">
+              <CouponInput />
+            </div>
+
+            {discount > 0 && (
+              <div className="flex justify-between text-green-600 dark:text-green-400">
+                <span>Discount</span>
+                <span className="font-medium">-{formatPKR(discount)}</span>
+              </div>
+            )}
+
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Shipping</span>
               <span className="font-medium text-gray-900 dark:text-white">{shipping === 0 ? <span className="text-green-600 dark:text-green-400">FREE</span> : formatPKR(shipping)}</span>
             </div>
-            {subtotal < settings.freeShippingThreshold && (
-              <p className="text-xs text-amber-600 dark:text-amber-400">Add {formatPKR(settings.freeShippingThreshold - subtotal)} more for free shipping!</p>
+            {(subtotal - discount) < settings.freeShippingThreshold && (
+              <p className="text-xs text-amber-600 dark:text-amber-400">Add {formatPKR(settings.freeShippingThreshold - (subtotal - discount))} more for free shipping!</p>
             )}
             <div className="border-t dark:border-gray-700 pt-3 flex justify-between">
               <span className="font-semibold text-gray-900 dark:text-white">Total</span>
