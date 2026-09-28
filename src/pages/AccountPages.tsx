@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Package, Heart, MapPin, LogOut, Clock } from 'lucide-react';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 export default function AccountPage() {
   const { user, orders, drugOrders, wishlist, addresses, logout } = useStore();
@@ -68,7 +69,7 @@ export default function AccountPage() {
                     <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(order.createdAt).toLocaleDateString()} • {order.items.length} item(s)</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-900 dark:text-white">${order.total.toFixed(2)}</p>
+                    <p className="font-bold text-gray-900 dark:text-white">{formatPKR(order.total)}</p>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       order.status === 'DELIVERED' ? 'bg-green-100 text-green-700' :
                       order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-700' :
@@ -130,7 +131,7 @@ export function AccountOrdersPage() {
                   <p className="text-sm text-gray-500 dark:text-gray-400">Placed on {new Date(order.createdAt).toLocaleDateString()}</p>
                 </div>
                 <div className="text-right">
-                  <p className="font-bold text-lg text-gray-900 dark:text-white">${order.total.toFixed(2)}</p>
+                  <p className="font-bold text-lg text-gray-900 dark:text-white">{formatPKR(order.total)}</p>
                   <span className={`text-xs px-3 py-1 rounded-full font-medium ${
                     order.status === 'DELIVERED' ? 'bg-green-100 text-green-700' :
                     order.status === 'SHIPPED' ? 'bg-blue-100 text-blue-700' :
@@ -144,7 +145,7 @@ export function AccountOrdersPage() {
                 {order.items.map(item => (
                   <div key={item.id} className="flex items-center justify-between text-sm">
                     <span className="text-gray-700 dark:text-gray-300">{item.productName} <span className="text-gray-400 dark:text-gray-500">({item.variantName})</span> × {item.quantity}</span>
-                    <span className="font-medium text-gray-900 dark:text-white">${item.total.toFixed(2)}</span>
+                    <span className="font-medium text-gray-900 dark:text-white">{formatPKR(item.total)}</span>
                   </div>
                 ))}
               </div>
@@ -206,7 +207,7 @@ export function AccountDrugOrdersPage() {
                 <div><span className="text-gray-500 dark:text-gray-400">Qty:</span> <span className="font-medium text-gray-900 dark:text-white">{order.quantity}</span></div>
                 {order.size && <div><span className="text-gray-500 dark:text-gray-400">Size:</span> <span className="font-medium text-gray-900 dark:text-white">{order.size}</span></div>}
                 {order.fabric && <div><span className="text-gray-500 dark:text-gray-400">Fabric:</span> <span className="font-medium text-gray-900 dark:text-white">{order.fabric}</span></div>}
-                {order.quotedPrice && <div><span className="text-gray-500 dark:text-gray-400">Quote:</span> <span className="font-bold text-green-700 dark:text-green-400">${order.quotedPrice.toFixed(2)}</span></div>}
+                {order.quotedPrice && <div><span className="text-gray-500 dark:text-gray-400">Quote:</span> <span className="font-bold text-green-700 dark:text-green-400">{formatPKR(order.quotedPrice)}</span></div>}
               </div>
               {order.adminNotes && (
                 <div className="mt-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">

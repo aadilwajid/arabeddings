@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem, WishlistItem, Order, DrugOrder, User, Address, OrderStatus, DrugOrderStatus, PaymentStatus } from '../types';
+import { CartItem, WishlistItem, Order, DrugOrder, User, Address, OrderStatus, DrugOrderStatus, PaymentStatus, MediaItem } from '../types';
 import { products as initialProducts, currentUser, sampleOrders, sampleDrugOrders, shippingZones, siteSettings, categories } from '../data/mock';
 import type { Product, Category, ShippingZone, SiteSettings } from '../types';
 
@@ -59,6 +59,12 @@ interface AppState {
   // Dark Mode
   darkMode: boolean;
   toggleDarkMode: () => void;
+
+  // Media
+  media: MediaItem[];
+  addMedia: (item: MediaItem) => void;
+  removeMedia: (id: string) => void;
+  updateMedia: (id: string, updates: Partial<MediaItem>) => void;
 }
 
 export const useStore = create<AppState>()(
@@ -178,7 +184,7 @@ export const useStore = create<AppState>()(
 
       // Addresses
       addresses: [
-        { id: 'addr-1', userId: 'u-1', fullName: 'Demo Customer', phone: '+1 (555) 123-4567', line1: '123 Main St', city: 'New York', state: 'NY', postalCode: '10001', country: 'US', isDefault: true },
+        { id: 'addr-1', userId: 'u-1', fullName: 'Ahmed Khan', phone: '+92 321 1234567', line1: 'House 45, Street 12', line2: 'DHA Phase 5', city: 'Lahore', state: 'Punjab', postalCode: '54000', country: 'PK', isDefault: true },
       ],
       addAddress: (address: Address) => set({ addresses: [...get().addresses, address] }),
       removeAddress: (id: string) => set({ addresses: get().addresses.filter(a => a.id !== id) }),
@@ -204,6 +210,16 @@ export const useStore = create<AppState>()(
           document.documentElement.classList.remove('dark');
         }
       },
+
+      // Media
+      media: [],
+      addMedia: (item: MediaItem) => set({ media: [item, ...get().media] }),
+      removeMedia: (id: string) => set({ media: get().media.filter(m => m.id !== id) }),
+      updateMedia: (id: string, updates: Partial<MediaItem>) => {
+        set({
+          media: get().media.map(m => m.id === id ? { ...m, ...updates } : m)
+        });
+      },
     }),
     {
       name: 'bedding-store',
@@ -217,6 +233,7 @@ export const useStore = create<AppState>()(
         addresses: state.addresses,
         darkMode: state.darkMode,
         settings: state.settings,
+        media: state.media,
       }),
     }
   )

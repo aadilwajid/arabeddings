@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Clock, CheckCircle, XCircle, DollarSign, ArrowLeft } from 'lucide-react';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 export default function DrugOrderStatusPage() {
   const { reference } = useParams<{ reference: string }>();
@@ -116,7 +117,7 @@ export default function DrugOrderStatusPage() {
             <div className="flex items-center space-x-2">
               <DollarSign className="text-purple-600" size={20} />
               <div>
-                <p className="font-medium text-purple-900">Quoted Price: ${order.quotedPrice.toFixed(2)}</p>
+                <p className="font-medium text-purple-900 dark:text-purple-300">Quoted Price: {formatPKR(order.quotedPrice)}</p>
                 <p className="text-sm text-purple-700">Our team has reviewed your request and provided this quote.</p>
               </div>
             </div>

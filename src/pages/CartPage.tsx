@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 export default function CartPage() {
-  const { cart, updateCartQuantity, removeFromCart, cartTotal } = useStore();
+  const { cart, updateCartQuantity, removeFromCart, cartTotal, settings } = useStore();
 
   if (cart.length === 0) {
     return (
@@ -20,7 +21,7 @@ export default function CartPage() {
   }
 
   const subtotal = cartTotal();
-  const shipping = subtotal >= 150 ? 0 : 9.99;
+  const shipping = subtotal >= settings.freeShippingThreshold ? 0 : 250;
   const total = subtotal + shipping;
 
   return (
@@ -51,7 +52,7 @@ export default function CartPage() {
                       <button onClick={() => updateCartQuantity(item.id, item.quantity + 1)} className="px-2 py-1 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"><Plus size={14} /></button>
                     </div>
                     <div className="flex items-center space-x-4">
-                      <span className="font-bold text-gray-900 dark:text-white">${((variant?.price || 0) * item.quantity).toFixed(2)}</span>
+                      <span className="font-bold text-gray-900 dark:text-white">{formatPKR((variant?.price || 0) * item.quantity)}</span>
                       <button onClick={() => removeFromCart(item.id)} className="text-red-400 hover:text-red-600"><Trash2 size={18} /></button>
                     </div>
                   </div>
@@ -67,18 +68,18 @@ export default function CartPage() {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Subtotal</span>
-              <span className="font-medium text-gray-900 dark:text-white">${subtotal.toFixed(2)}</span>
+              <span className="font-medium text-gray-900 dark:text-white">{formatPKR(subtotal)}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600 dark:text-gray-400">Shipping</span>
-              <span className="font-medium text-gray-900 dark:text-white">{shipping === 0 ? <span className="text-green-600 dark:text-green-400">FREE</span> : `$${shipping.toFixed(2)}`}</span>
+              <span className="font-medium text-gray-900 dark:text-white">{shipping === 0 ? <span className="text-green-600 dark:text-green-400">FREE</span> : formatPKR(shipping)}</span>
             </div>
-            {subtotal < 150 && (
-              <p className="text-xs text-amber-600 dark:text-amber-400">Add ${(150 - subtotal).toFixed(2)} more for free shipping!</p>
+            {subtotal < settings.freeShippingThreshold && (
+              <p className="text-xs text-amber-600 dark:text-amber-400">Add {formatPKR(settings.freeShippingThreshold - subtotal)} more for free shipping!</p>
             )}
             <div className="border-t dark:border-gray-700 pt-3 flex justify-between">
               <span className="font-semibold text-gray-900 dark:text-white">Total</span>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">${total.toFixed(2)}</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white">{formatPKR(total)}</span>
             </div>
           </div>
           <Link

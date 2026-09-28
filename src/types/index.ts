@@ -224,4 +224,16 @@ export interface SiteSettings {
   storeName: string;
   storeEmail: string;
   storePhone: string;
+  logo?: string;
+}
+
+// ─── MEDIA ─────────────────────────────────────────────
+export interface MediaItem {
+  id: string;
+  url: string;
+  name: string;
+  type: 'image' | 'document' | 'other';
+  size: number;
+  uploadedAt: string;
+  alt?: string;
 }

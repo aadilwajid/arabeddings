@@ -6,7 +6,7 @@ export const categories: Category[] = [
   { id: 'cat-3', name: 'Pillowcases', slug: 'pillowcases', description: 'Silky, soft pillowcases for perfect sleep', sortOrder: 3 },
   { id: 'cat-4', name: 'Comforters', slug: 'comforters', description: 'Warm, cozy comforters for every climate', sortOrder: 4 },
   { id: 'cat-5', name: 'Blankets', slug: 'blankets', description: 'Throw blankets and bed blankets', sortOrder: 5 },
-  { id: 'cat-6', name: 'Pillow Inserts', slug: 'pillow-inserts', description: 'Quality pillow inserts in all firmness levels', sortOrder: 6 },
+  { id: 'cat-6', name: 'Pillows', slug: 'pillows', description: 'Quality pillows in all firmness levels', sortOrder: 6 },
 ];
 
 const productImages = {
@@ -38,29 +38,28 @@ const productImages = {
 };
 
 const reviews: Review[] = [
-  { id: 'rev-1', userId: 'u-1', userName: 'Sarah M.', productId: 'prod-1', rating: 5, title: 'Absolutely love these!', body: 'The softest sheets I have ever slept on. Worth every penny. The sateen weave is incredibly smooth.', isApproved: true, createdAt: '2024-11-15T10:00:00Z' },
-  { id: 'rev-2', userId: 'u-2', userName: 'James K.', productId: 'prod-1', rating: 4, title: 'Great quality', body: 'Very comfortable, though they wrinkle a bit after washing. Still the best sheets I own.', isApproved: true, createdAt: '2024-11-20T14:30:00Z' },
-  { id: 'rev-3', userId: 'u-3', userName: 'Emily R.', productId: 'prod-2', rating: 5, title: 'Cool and breathable', body: 'Perfect for hot sleepers. The bamboo fabric is amazing — temperature regulating all night.', isApproved: true, createdAt: '2024-12-01T09:00:00Z' },
-  { id: 'rev-4', userId: 'u-1', userName: 'Sarah M.', productId: 'prod-4', rating: 5, title: 'Hotel luxury at home', body: 'This duvet cover feels like a five-star hotel. The sateen finish is gorgeous.', isApproved: true, createdAt: '2024-12-05T16:00:00Z' },
-  { id: 'rev-5', userId: 'u-4', userName: 'Michael T.', productId: 'prod-5', rating: 4, title: 'Warm and cozy', body: 'Great comforter for winter. Not too heavy, perfect warmth level.', isApproved: true, createdAt: '2024-12-10T11:00:00Z' },
-  { id: 'rev-6', userId: 'u-5', userName: 'Lisa P.', productId: 'prod-6', rating: 5, title: 'Beautiful craftsmanship', body: 'The herringbone weave is stunning. Gets softer with every wash.', isApproved: true, createdAt: '2024-12-12T08:00:00Z' },
-  { id: 'rev-7', userId: 'u-2', userName: 'James K.', productId: 'prod-3', rating: 4, title: 'Crisp and clean', body: 'Love the percale feel. Very breathable for summer months.', isApproved: true, createdAt: '2024-12-15T13:00:00Z' },
+  { id: 'rev-1', userId: 'u-1', userName: 'Ayesha S.', productId: 'prod-1', rating: 5, title: 'Best sheets ever!', body: 'The softest sheets I have ever slept on. Worth every rupee. The sateen weave is incredibly smooth.', isApproved: true, createdAt: '2024-11-15T10:00:00Z' },
+  { id: 'rev-2', userId: 'u-2', userName: 'Bilal K.', productId: 'prod-1', rating: 4, title: 'Great quality', body: 'Very comfortable, though they wrinkle a bit after washing. Still the best sheets I own.', isApproved: true, createdAt: '2024-11-20T14:30:00Z' },
+  { id: 'rev-3', userId: 'u-3', userName: 'Fatima R.', productId: 'prod-2', rating: 5, title: 'Cool and breathable', body: 'Perfect for hot summers in Karachi. The bamboo fabric is amazing — temperature regulating all night.', isApproved: true, createdAt: '2024-12-01T09:00:00Z' },
+  { id: 'rev-4', userId: 'u-1', userName: 'Ayesha S.', productId: 'prod-4', rating: 5, title: 'Hotel luxury at home', body: 'This duvet cover feels like a five-star hotel. The sateen finish is gorgeous.', isApproved: true, createdAt: '2024-12-05T16:00:00Z' },
+  { id: 'rev-5', userId: 'u-4', userName: 'Hassan T.', productId: 'prod-5', rating: 4, title: 'Warm and cozy', body: 'Great comforter for winter in Islamabad. Not too heavy, perfect warmth level.', isApproved: true, createdAt: '2024-12-10T11:00:00Z' },
+  { id: 'rev-6', userId: 'u-5', userName: 'Zainab P.', productId: 'prod-6', rating: 5, title: 'Beautiful craftsmanship', body: 'The herringbone weave is stunning. Gets softer with every wash.', isApproved: true, createdAt: '2024-12-12T08:00:00Z' },
 ];
 
+// Pakistani bed sizes: Single (3x6.5ft), Double (4x6.5ft), Queen (5x6.5ft), King (6x6.5ft)
 export const products: Product[] = [
   {
     id: 'prod-1', name: 'ARA Signature Egyptian Cotton Sheet Set', slug: 'ara-signature-egyptian-cotton-sheet-set',
-    description: 'Experience the pinnacle of luxury with our ARA Signature Egyptian cotton sheet set. Featuring a 600-thread-count sateen weave, these sheets offer unparalleled softness and durability. Each set includes a flat sheet, fitted sheet with 17" deep pockets, and two pillowcases. Pre-washed for immediate softness and treated with our exclusive ARA StaySoft™ finish that maintains fabric quality wash after wash. OEKO-TEX® certified.',
+    description: 'Experience the pinnacle of luxury with our ARA Signature Egyptian cotton sheet set. Featuring a 600-thread-count sateen weave, these sheets offer unparalleled softness and durability. Each set includes a flat sheet, fitted sheet with deep pockets, and two pillowcases. Pre-washed for immediate softness and treated with our exclusive ARA StaySoft finish.',
     shortDesc: '600TC Egyptian cotton, buttery soft sateen weave',
-    categoryId: 'cat-1', brand: 'ARA BEDDINGS', material: 'Egyptian Cotton', basePrice: 149.99,
+    categoryId: 'cat-1', brand: 'ARA BEDDINGS', material: 'Egyptian Cotton', basePrice: 8500,
     isActive: true, isFeatured: true, images: productImages.sheets1, createdAt: '2024-01-15T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
-        { id: 'ov-1', optionId: 'opt-1', value: 'Twin', sortOrder: 0 },
-        { id: 'ov-2', optionId: 'opt-1', value: 'Full', sortOrder: 1 },
+        { id: 'ov-1', optionId: 'opt-1', value: 'Single', sortOrder: 0 },
+        { id: 'ov-2', optionId: 'opt-1', value: 'Double', sortOrder: 1 },
         { id: 'ov-3', optionId: 'opt-1', value: 'Queen', sortOrder: 2 },
         { id: 'ov-4', optionId: 'opt-1', value: 'King', sortOrder: 3 },
-        { id: 'ov-4b', optionId: 'opt-1', value: 'Cal King', sortOrder: 4 },
       ]},
       { id: 'opt-2', name: 'Color', values: [
         { id: 'ov-5', optionId: 'opt-2', value: 'White', sortOrder: 0 },
@@ -71,30 +70,28 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-1', productId: 'prod-1', sku: 'ARA-ECS-TW-WH', price: 149.99, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Twin' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-2', productId: 'prod-1', sku: 'ARA-ECS-TW-IV', price: 149.99, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Twin' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
-      { id: 'var-3', productId: 'prod-1', sku: 'ARA-ECS-FU-WH', price: 169.99, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-4', productId: 'prod-1', sku: 'ARA-ECS-FU-NV', price: 169.99, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full' }, { optionId: 'opt-2', optionName: 'Color', value: 'Navy' }] },
-      { id: 'var-5', productId: 'prod-1', sku: 'ARA-ECS-QN-WH', price: 189.99, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-6', productId: 'prod-1', sku: 'ARA-ECS-QN-IV', price: 189.99, stock: 22, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
-      { id: 'var-7', productId: 'prod-1', sku: 'ARA-ECS-QN-SG', price: 189.99, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Sage' }] },
-      { id: 'var-7b', productId: 'prod-1', sku: 'ARA-ECS-QN-CH', price: 189.99, stock: 10, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Charcoal' }] },
-      { id: 'var-8', productId: 'prod-1', sku: 'ARA-ECS-KG-WH', price: 219.99, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-9', productId: 'prod-1', sku: 'ARA-ECS-KG-NV', price: 219.99, stock: 8, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'Navy' }] },
-      { id: 'var-9b', productId: 'prod-1', sku: 'ARA-ECS-CK-WH', price: 229.99, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Cal King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-1', productId: 'prod-1', sku: 'ARA-ECS-SN-WH', price: 8500, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Single' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-2', productId: 'prod-1', sku: 'ARA-ECS-SN-IV', price: 8500, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Single' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
+      { id: 'var-3', productId: 'prod-1', sku: 'ARA-ECS-DB-WH', price: 10500, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Double' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-4', productId: 'prod-1', sku: 'ARA-ECS-DB-NV', price: 10500, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Double' }, { optionId: 'opt-2', optionName: 'Color', value: 'Navy' }] },
+      { id: 'var-5', productId: 'prod-1', sku: 'ARA-ECS-QN-WH', price: 12500, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-6', productId: 'prod-1', sku: 'ARA-ECS-QN-IV', price: 12500, stock: 22, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
+      { id: 'var-7', productId: 'prod-1', sku: 'ARA-ECS-QN-SG', price: 12500, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Sage' }] },
+      { id: 'var-8', productId: 'prod-1', sku: 'ARA-ECS-KG-WH', price: 15500, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-9', productId: 'prod-1', sku: 'ARA-ECS-KG-NV', price: 15500, stock: 8, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'Navy' }] },
     ],
     reviews: reviews.filter(r => r.productId === 'prod-1'),
   },
   {
     id: 'prod-2', name: 'ARA Cool Bamboo Lyocell Sheet Set', slug: 'ara-cool-bamboo-lyocell-sheet-set',
-    description: 'Sleep cool and sustainably with our ARA Cool bamboo lyocell sheets. Naturally temperature-regulating, moisture-wicking, and hypoallergenic. The 400-thread-count twill weave provides a silky-smooth feel that gets softer with every wash. OEKO-TEX certified and produced using a closed-loop process. Ideal for hot sleepers and sensitive skin.',
+    description: 'Sleep cool and sustainably with our ARA Cool bamboo lyocell sheets. Naturally temperature-regulating, moisture-wicking, and hypoallergenic. Ideal for Pakistani summers.',
     shortDesc: 'Eco-friendly bamboo, naturally cooling & hypoallergenic',
-    categoryId: 'cat-1', brand: 'ARA BEDDINGS', material: 'Bamboo Lyocell', basePrice: 129.99,
+    categoryId: 'cat-1', brand: 'ARA BEDDINGS', material: 'Bamboo Lyocell', basePrice: 9500,
     isActive: true, isFeatured: true, images: productImages.sheets2, createdAt: '2024-02-01T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
-        { id: 'ov-1', optionId: 'opt-1', value: 'Twin', sortOrder: 0 },
-        { id: 'ov-2', optionId: 'opt-1', value: 'Full', sortOrder: 1 },
+        { id: 'ov-1', optionId: 'opt-1', value: 'Single', sortOrder: 0 },
+        { id: 'ov-2', optionId: 'opt-1', value: 'Double', sortOrder: 1 },
         { id: 'ov-3', optionId: 'opt-1', value: 'Queen', sortOrder: 2 },
         { id: 'ov-4', optionId: 'opt-1', value: 'King', sortOrder: 3 },
       ]},
@@ -106,24 +103,24 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-10', productId: 'prod-2', sku: 'ARA-BLS-TW-NAT', price: 129.99, stock: 35, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Twin' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
-      { id: 'var-11', productId: 'prod-2', sku: 'ARA-BLS-QN-NAT', price: 169.99, stock: 28, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
-      { id: 'var-12', productId: 'prod-2', sku: 'ARA-BLS-QN-EUC', price: 169.99, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Eucalyptus' }] },
-      { id: 'var-12b', productId: 'prod-2', sku: 'ARA-BLS-QN-LAV', price: 169.99, stock: 14, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Lavender' }] },
-      { id: 'var-13', productId: 'prod-2', sku: 'ARA-BLS-KG-NAT', price: 199.99, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
+      { id: 'var-10', productId: 'prod-2', sku: 'ARA-BLS-SN-NAT', price: 9500, stock: 35, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Single' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
+      { id: 'var-11', productId: 'prod-2', sku: 'ARA-BLS-QN-NAT', price: 13500, stock: 28, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
+      { id: 'var-12', productId: 'prod-2', sku: 'ARA-BLS-QN-EUC', price: 13500, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Eucalyptus' }] },
+      { id: 'var-13', productId: 'prod-2', sku: 'ARA-BLS-KG-NAT', price: 16500, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
     ],
     reviews: reviews.filter(r => r.productId === 'prod-2'),
   },
   {
     id: 'prod-3', name: 'ARA Crisp Percale Cotton Duvet Cover', slug: 'ara-crisp-percale-cotton-duvet-cover',
-    description: 'Crisp, cool, and perfectly tailored. Our ARA Crisp percale cotton duvet cover features a tight one-over-one-under weave that creates a breathable, matte-finish fabric. Corner ties keep your duvet in place, and the hidden button closure gives a clean look. Gets softer and more luxurious with every wash. Made from long-staple cotton for superior strength.',
+    description: 'Crisp, cool, and perfectly tailored. Our ARA Crisp percale cotton duvet cover features a tight weave that creates a breathable, matte-finish fabric.',
     shortDesc: 'Crisp percale weave, breathable long-staple cotton',
-    categoryId: 'cat-2', brand: 'ARA BEDDINGS', material: 'Percale Cotton', basePrice: 119.99,
+    categoryId: 'cat-2', brand: 'ARA BEDDINGS', material: 'Percale Cotton', basePrice: 7500,
     isActive: true, isFeatured: false, images: productImages.duvet1, createdAt: '2024-03-10T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
-        { id: 'ov-1', optionId: 'opt-1', value: 'Twin', sortOrder: 0 },
-        { id: 'ov-2', optionId: 'opt-1', value: 'Full/Queen', sortOrder: 1 },
+        { id: 'ov-1', optionId: 'opt-1', value: 'Single', sortOrder: 0 },
+        { id: 'ov-2', optionId: 'opt-1', value: 'Double', sortOrder: 1 },
+        { id: 'ov-3', optionId: 'opt-1', value: 'Queen', sortOrder: 2 },
         { id: 'ov-4', optionId: 'opt-1', value: 'King', sortOrder: 3 },
       ]},
       { id: 'opt-2', name: 'Color', values: [
@@ -134,23 +131,23 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-14', productId: 'prod-3', sku: 'ARA-PCD-TW-WH', price: 119.99, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Twin' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-15', productId: 'prod-3', sku: 'ARA-PCD-FQ-WH', price: 149.99, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-16', productId: 'prod-3', sku: 'ARA-PCD-FQ-DB', price: 149.99, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Dusty Blue' }] },
-      { id: 'var-16b', productId: 'prod-3', sku: 'ARA-PCD-FQ-TR', price: 149.99, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Terracotta' }] },
-      { id: 'var-17', productId: 'prod-3', sku: 'ARA-PCD-KG-WH', price: 179.99, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-14', productId: 'prod-3', sku: 'ARA-PCD-SN-WH', price: 7500, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Single' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-15', productId: 'prod-3', sku: 'ARA-PCD-QN-WH', price: 10500, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-16', productId: 'prod-3', sku: 'ARA-PCD-QN-DB', price: 10500, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Dusty Blue' }] },
+      { id: 'var-17', productId: 'prod-3', sku: 'ARA-PCD-KG-WH', price: 13500, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
     ],
     reviews: reviews.filter(r => r.productId === 'prod-3'),
   },
   {
     id: 'prod-4', name: 'ARA Luxe Sateen Duvet Cover Set', slug: 'ara-luxe-sateen-duvet-cover-set',
-    description: 'Indulge in the silky smoothness of our ARA Luxe sateen duvet cover set. The four-over-one-under weave creates a lustrous, drapey fabric that feels like sleeping on a cloud. Includes duvet cover and two matching shams. Enzyme-washed for immediate softness. Corner ties and hidden button closure for a polished look.',
+    description: 'Indulge in the silky smoothness of our ARA Luxe sateen duvet cover set. Includes duvet cover and two matching shams.',
     shortDesc: 'Silky sateen, includes matching shams',
-    categoryId: 'cat-2', brand: 'ARA BEDDINGS', material: 'Cotton Sateen', basePrice: 159.99,
+    categoryId: 'cat-2', brand: 'ARA BEDDINGS', material: 'Cotton Sateen', basePrice: 11500,
     isActive: true, isFeatured: true, images: productImages.duvet1, createdAt: '2024-03-15T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
-        { id: 'ov-2', optionId: 'opt-1', value: 'Full/Queen', sortOrder: 1 },
+        { id: 'ov-2', optionId: 'opt-1', value: 'Double', sortOrder: 1 },
+        { id: 'ov-3', optionId: 'opt-1', value: 'Queen', sortOrder: 2 },
         { id: 'ov-4', optionId: 'opt-1', value: 'King', sortOrder: 3 },
       ]},
       { id: 'opt-2', name: 'Color', values: [
@@ -161,23 +158,23 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-18', productId: 'prod-4', sku: 'ARA-SDC-FQ-WH', price: 159.99, comparePrice: 199.99, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-19', productId: 'prod-4', sku: 'ARA-SDC-FQ-BL', price: 159.99, comparePrice: 199.99, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Blush' }] },
-      { id: 'var-19b', productId: 'prod-4', sku: 'ARA-SDC-FQ-CH', price: 159.99, comparePrice: 199.99, stock: 8, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Champagne' }] },
-      { id: 'var-20', productId: 'prod-4', sku: 'ARA-SDC-KG-WH', price: 189.99, comparePrice: 229.99, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-18', productId: 'prod-4', sku: 'ARA-SDC-QN-WH', price: 11500, comparePrice: 14500, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-19', productId: 'prod-4', sku: 'ARA-SDC-QN-BL', price: 11500, comparePrice: 14500, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Blush' }] },
+      { id: 'var-20', productId: 'prod-4', sku: 'ARA-SDC-KG-WH', price: 14500, comparePrice: 17500, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
     ],
     reviews: reviews.filter(r => r.productId === 'prod-4'),
   },
   {
-    id: 'prod-5', name: 'ARA Cloud All-Season Down Comforter', slug: 'ara-cloud-all-season-down-comforter',
-    description: 'Our signature ARA Cloud all-season comforter filled with 750-fill-power white goose down. Baffle-box construction prevents cold spots, while the 400TC cotton shell is breathable and quiet. Light enough for summer warmth, cozy enough for winter. Comes with a cotton storage bag. RDS (Responsible Down Standard) certified.',
-    shortDesc: '750-fill RDS goose down, baffle-box construction',
-    categoryId: 'cat-4', brand: 'ARA BEDDINGS', material: 'Goose Down', basePrice: 249.99,
+    id: 'prod-5', name: 'ARA Cloud All-Season Comforter', slug: 'ara-cloud-all-season-comforter',
+    description: 'Our signature ARA Cloud all-season comforter filled with premium microfiber. Perfect for Pakistani weather — light enough for summer, warm enough for winter.',
+    shortDesc: 'Premium microfiber fill, all-season comfort',
+    categoryId: 'cat-4', brand: 'ARA BEDDINGS', material: 'Microfiber', basePrice: 15000,
     isActive: true, isFeatured: true, images: productImages.comforter1, createdAt: '2024-04-01T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
-        { id: 'ov-1', optionId: 'opt-1', value: 'Twin', sortOrder: 0 },
-        { id: 'ov-2', optionId: 'opt-1', value: 'Full/Queen', sortOrder: 1 },
+        { id: 'ov-1', optionId: 'opt-1', value: 'Single', sortOrder: 0 },
+        { id: 'ov-2', optionId: 'opt-1', value: 'Double', sortOrder: 1 },
+        { id: 'ov-3', optionId: 'opt-1', value: 'Queen', sortOrder: 2 },
         { id: 'ov-4', optionId: 'opt-1', value: 'King', sortOrder: 3 },
       ]},
       { id: 'opt-2', name: 'Color', values: [
@@ -186,18 +183,18 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-21', productId: 'prod-5', sku: 'ARA-ADC-TW-WH', price: 249.99, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Twin' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-22', productId: 'prod-5', sku: 'ARA-ADC-FQ-WH', price: 329.99, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-23', productId: 'prod-5', sku: 'ARA-ADC-FQ-IV', price: 329.99, stock: 10, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Full/Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
-      { id: 'var-24', productId: 'prod-5', sku: 'ARA-ADC-KG-WH', price: 399.99, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-21', productId: 'prod-5', sku: 'ARA-ACC-SN-WH', price: 15000, stock: 15, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Single' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-22', productId: 'prod-5', sku: 'ARA-ACC-QN-WH', price: 24000, stock: 20, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-23', productId: 'prod-5', sku: 'ARA-ACC-QN-IV', price: 24000, stock: 10, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
+      { id: 'var-24', productId: 'prod-5', sku: 'ARA-ACC-KG-WH', price: 29000, stock: 12, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
     ],
     reviews: reviews.filter(r => r.productId === 'prod-5'),
   },
   {
     id: 'prod-6', name: 'ARA Artisan Handwoven Throw Blanket', slug: 'ara-artisan-handwoven-throw-blanket',
-    description: 'Artisan-crafted from 100% GOTS-certified organic cotton, this ARA Artisan throw blanket adds texture and warmth to any space. The herringbone weave pattern is timeless, and the hand-knotted fringed edges add a handcrafted touch. Perfect for layering on beds or draping over sofas. Each piece is unique.',
-    shortDesc: 'GOTS organic cotton, artisan herringbone weave',
-    categoryId: 'cat-5', brand: 'ARA BEDDINGS', material: 'Organic Cotton', basePrice: 79.99,
+    description: 'Artisan-crafted from 100% organic cotton, this ARA Artisan throw blanket adds texture and warmth to any space. The herringbone weave pattern is timeless.',
+    shortDesc: 'Organic cotton, artisan herringbone weave',
+    categoryId: 'cat-5', brand: 'ARA BEDDINGS', material: 'Organic Cotton', basePrice: 4500,
     isActive: true, isFeatured: false, images: productImages.blanket1, createdAt: '2024-04-15T10:00:00Z',
     options: [
       { id: 'opt-2', name: 'Color', values: [
@@ -208,18 +205,18 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-25', productId: 'prod-6', sku: 'ARA-HTB-NAT', price: 79.99, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
-      { id: 'var-26', productId: 'prod-6', sku: 'ARA-HTB-CHA', price: 79.99, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Charcoal' }] },
-      { id: 'var-27', productId: 'prod-6', sku: 'ARA-HTB-SAG', price: 84.99, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Sage' }] },
-      { id: 'var-27b', productId: 'prod-6', sku: 'ARA-HTB-RST', price: 84.99, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Rust' }] },
+      { id: 'var-25', productId: 'prod-6', sku: 'ARA-HTB-NAT', price: 4500, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
+      { id: 'var-26', productId: 'prod-6', sku: 'ARA-HTB-CHA', price: 4500, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Charcoal' }] },
+      { id: 'var-27', productId: 'prod-6', sku: 'ARA-HTB-SAG', price: 4900, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Sage' }] },
+      { id: 'var-27b', productId: 'prod-6', sku: 'ARA-HTB-RST', price: 4900, stock: 18, isActive: true, optionValues: [{ optionId: 'opt-2', optionName: 'Color', value: 'Rust' }] },
     ],
     reviews: reviews.filter(r => r.productId === 'prod-6'),
   },
   {
     id: 'prod-7', name: 'ARA Cloud Hypoallergenic Pillow Pair', slug: 'ara-cloud-hypoallergenic-pillow-pair',
-    description: 'Sleep allergy-free with our ARA Cloud premium down-alternative pillows. Filled with advanced cluster fiber that mimics the loft and support of real down without the allergens. The cotton cover is breathable and features gusseted edges for proper neck support. Set of 2 pillows. Machine washable.',
+    description: 'Sleep allergy-free with our ARA Cloud premium down-alternative pillows. Filled with advanced cluster fiber. Set of 2 pillows. Machine washable.',
     shortDesc: 'Down-alternative, gusseted edge, set of 2',
-    categoryId: 'cat-6', brand: 'ARA BEDDINGS', material: 'Down Alternative', basePrice: 69.99,
+    categoryId: 'cat-6', brand: 'ARA BEDDINGS', material: 'Down Alternative', basePrice: 3500,
     isActive: true, isFeatured: false, images: productImages.pillow1, createdAt: '2024-05-01T10:00:00Z',
     options: [
       { id: 'opt-16', name: 'Firmness', values: [
@@ -227,24 +224,19 @@ export const products: Product[] = [
         { id: 'ov-17', optionId: 'opt-16', value: 'Medium', sortOrder: 1 },
         { id: 'ov-18', optionId: 'opt-16', value: 'Firm', sortOrder: 2 },
       ]},
-      { id: 'opt-1', name: 'Size', values: [
-        { id: 'ov-19', optionId: 'opt-1', value: 'Standard', sortOrder: 0 },
-        { id: 'ov-20', optionId: 'opt-1', value: 'Queen', sortOrder: 1 },
-        { id: 'ov-21', optionId: 'opt-1', value: 'King', sortOrder: 2 },
-      ]},
     ],
     variants: [
-      { id: 'var-28', productId: 'prod-7', sku: 'ARA-HPP-SF-STD', price: 69.99, stock: 50, isActive: true, optionValues: [{ optionId: 'opt-16', optionName: 'Firmness', value: 'Soft' }, { optionId: 'opt-1', optionName: 'Size', value: 'Standard' }] },
-      { id: 'var-29', productId: 'prod-7', sku: 'ARA-HPP-MD-QN', price: 79.99, stock: 45, isActive: true, optionValues: [{ optionId: 'opt-16', optionName: 'Firmness', value: 'Medium' }, { optionId: 'opt-1', optionName: 'Size', value: 'Queen' }] },
-      { id: 'var-30', productId: 'prod-7', sku: 'ARA-HPP-FR-KG', price: 89.99, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-16', optionName: 'Firmness', value: 'Firm' }, { optionId: 'opt-1', optionName: 'Size', value: 'King' }] },
+      { id: 'var-28', productId: 'prod-7', sku: 'ARA-HPP-SF', price: 3500, stock: 50, isActive: true, optionValues: [{ optionId: 'opt-16', optionName: 'Firmness', value: 'Soft' }] },
+      { id: 'var-29', productId: 'prod-7', sku: 'ARA-HPP-MD', price: 3900, stock: 45, isActive: true, optionValues: [{ optionId: 'opt-16', optionName: 'Firmness', value: 'Medium' }] },
+      { id: 'var-30', productId: 'prod-7', sku: 'ARA-HPP-FR', price: 4200, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-16', optionName: 'Firmness', value: 'Firm' }] },
     ],
     reviews: [],
   },
   {
     id: 'prod-8', name: 'ARA French Linen Pillowcase Pair', slug: 'ara-french-linen-pillowcase-pair',
-    description: 'French flax linen pillowcases that regulate temperature and wick moisture for the perfect sleep temperature. The natural texture softens beautifully over time. Envelope closure keeps pillows secure. Pre-washed for immediate comfort. Stone-washed for a lived-in softness.',
+    description: 'French flax linen pillowcases that regulate temperature and wick moisture. Envelope closure keeps pillows secure. Pre-washed for immediate comfort.',
     shortDesc: 'French flax linen, stone-washed, envelope closure',
-    categoryId: 'cat-3', brand: 'ARA BEDDINGS', material: 'French Linen', basePrice: 59.99,
+    categoryId: 'cat-3', brand: 'ARA BEDDINGS', material: 'French Linen', basePrice: 3200,
     isActive: true, isFeatured: false, images: productImages.sheets1, createdAt: '2024-05-15T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
@@ -260,18 +252,18 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-31', productId: 'prod-8', sku: 'ARA-LPC-STD-NAT', price: 59.99, stock: 60, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Standard' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
-      { id: 'var-32', productId: 'prod-8', sku: 'ARA-LPC-QN-IV', price: 64.99, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
-      { id: 'var-33', productId: 'prod-8', sku: 'ARA-LPC-QN-SG', price: 64.99, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Sage' }] },
-      { id: 'var-34', productId: 'prod-8', sku: 'ARA-LPC-KG-CHA', price: 69.99, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'Charcoal' }] },
+      { id: 'var-31', productId: 'prod-8', sku: 'ARA-LPC-STD-NAT', price: 3200, stock: 60, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Standard' }, { optionId: 'opt-2', optionName: 'Color', value: 'Natural' }] },
+      { id: 'var-32', productId: 'prod-8', sku: 'ARA-LPC-QN-IV', price: 3600, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Ivory' }] },
+      { id: 'var-33', productId: 'prod-8', sku: 'ARA-LPC-QN-SG', price: 3600, stock: 25, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'Sage' }] },
+      { id: 'var-34', productId: 'prod-8', sku: 'ARA-LPC-KG-CHA', price: 4000, stock: 30, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'Charcoal' }] },
     ],
     reviews: [],
   },
   {
     id: 'prod-9', name: 'ARA Hotel Collection Pillowcase Set', slug: 'ara-hotel-collection-pillowcase-set',
-    description: 'Bring five-star hotel luxury home with our ARA Hotel Collection pillowcases. 500-thread-count sateen weave with a silky, lustrous finish. Envelope closure. Set of 4 pillowcases. Used in luxury hotels worldwide.',
+    description: 'Bring five-star hotel luxury home with our ARA Hotel Collection pillowcases. 500-thread-count sateen weave. Set of 4 pillowcases.',
     shortDesc: '500TC sateen, set of 4, hotel quality',
-    categoryId: 'cat-3', brand: 'ARA BEDDINGS', material: 'Cotton Sateen', basePrice: 49.99,
+    categoryId: 'cat-3', brand: 'ARA BEDDINGS', material: 'Cotton Sateen', basePrice: 2800,
     isActive: true, isFeatured: true, images: productImages.pillow1, createdAt: '2024-06-01T10:00:00Z',
     options: [
       { id: 'opt-1', name: 'Size', values: [
@@ -285,56 +277,76 @@ export const products: Product[] = [
       ]},
     ],
     variants: [
-      { id: 'var-35', productId: 'prod-9', sku: 'ARA-HPC-STD-WH', price: 49.99, stock: 80, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Standard' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-36', productId: 'prod-9', sku: 'ARA-HPC-QN-WH', price: 54.99, stock: 60, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
-      { id: 'var-37', productId: 'prod-9', sku: 'ARA-HPC-KG-WH', price: 59.99, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-35', productId: 'prod-9', sku: 'ARA-HPC-STD-WH', price: 2800, stock: 80, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Standard' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-36', productId: 'prod-9', sku: 'ARA-HPC-QN-WH', price: 3200, stock: 60, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'Queen' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
+      { id: 'var-37', productId: 'prod-9', sku: 'ARA-HPC-KG-WH', price: 3600, stock: 40, isActive: true, optionValues: [{ optionId: 'opt-1', optionName: 'Size', value: 'King' }, { optionId: 'opt-2', optionName: 'Color', value: 'White' }] },
     ],
     reviews: [],
   },
 ];
 
 export const currentUser: User = {
-  id: 'u-1', name: 'Demo Customer', email: 'demo@arabeddings.com', phone: '+1 (555) 123-4567', role: 'CUSTOMER', createdAt: '2024-01-01T00:00:00Z',
+  id: 'u-1', name: 'Ahmed Khan', email: 'demo@arabeddings.com', phone: '+92 321 1234567', role: 'CUSTOMER', createdAt: '2024-01-01T00:00:00Z',
 };
 
 export const adminUser: User = {
-  id: 'admin-1', name: 'Admin', email: 'admin@arabeddings.com', phone: '+1 (555) 000-0000', role: 'ADMIN', createdAt: '2024-01-01T00:00:00Z',
+  id: 'admin-1', name: 'Admin', email: 'admin@arabeddings.com', phone: '+92 300 0000000', role: 'ADMIN', createdAt: '2024-01-01T00:00:00Z',
 };
 
 export const shippingZones: ShippingZone[] = [
   {
-    id: 'zone-1', name: 'Domestic (US)', countries: ['US'], isActive: true,
+    id: 'zone-1', name: 'Punjab', countries: ['PK'], isActive: true,
     methods: [
-      { id: 'sm-1', zoneId: 'zone-1', name: 'Standard Shipping', rate: 9.99, freeOverAmount: 150, minDays: 5, maxDays: 7, isActive: true },
-      { id: 'sm-2', zoneId: 'zone-1', name: 'Express Shipping', rate: 19.99, freeOverAmount: 300, minDays: 2, maxDays: 3, isActive: true },
+      { id: 'sm-1', zoneId: 'zone-1', name: 'Standard Delivery', rate: 250, freeOverAmount: 5000, minDays: 3, maxDays: 5, isActive: true },
+      { id: 'sm-2', zoneId: 'zone-1', name: 'Express Delivery', rate: 500, freeOverAmount: 10000, minDays: 1, maxDays: 2, isActive: true },
     ],
   },
   {
-    id: 'zone-2', name: 'Canada', countries: ['CA'], isActive: true,
+    id: 'zone-2', name: 'Sindh', countries: ['PK'], isActive: true,
     methods: [
-      { id: 'sm-3', zoneId: 'zone-2', name: 'Standard International', rate: 24.99, freeOverAmount: 250, minDays: 7, maxDays: 14, isActive: true },
+      { id: 'sm-3', zoneId: 'zone-2', name: 'Standard Delivery', rate: 300, freeOverAmount: 5000, minDays: 3, maxDays: 5, isActive: true },
+      { id: 'sm-4', zoneId: 'zone-2', name: 'Express Delivery', rate: 550, freeOverAmount: 10000, minDays: 1, maxDays: 2, isActive: true },
+    ],
+  },
+  {
+    id: 'zone-3', name: 'Khyber Pakhtunkhwa', countries: ['PK'], isActive: true,
+    methods: [
+      { id: 'sm-5', zoneId: 'zone-3', name: 'Standard Delivery', rate: 350, freeOverAmount: 5000, minDays: 4, maxDays: 6, isActive: true },
+      { id: 'sm-6', zoneId: 'zone-3', name: 'Express Delivery', rate: 600, freeOverAmount: 10000, minDays: 2, maxDays: 3, isActive: true },
+    ],
+  },
+  {
+    id: 'zone-4', name: 'Balochistan', countries: ['PK'], isActive: true,
+    methods: [
+      { id: 'sm-7', zoneId: 'zone-4', name: 'Standard Delivery', rate: 400, freeOverAmount: 5000, minDays: 5, maxDays: 7, isActive: true },
+    ],
+  },
+  {
+    id: 'zone-5', name: 'Gilgit-Baltistan & AJK', countries: ['PK'], isActive: true,
+    methods: [
+      { id: 'sm-8', zoneId: 'zone-5', name: 'Standard Delivery', rate: 450, freeOverAmount: 5000, minDays: 5, maxDays: 7, isActive: true },
     ],
   },
 ];
 
 export const siteSettings: SiteSettings = {
-  bankTransferDetails: 'Bank: First National Bank\nAccount Name: ARA BEDDINGS LLC\nAccount Number: 1234567890\nRouting Number: 021000021\nSWIFT: FNBKUS33\n\nPlease include your order number in the transfer reference.',
-  freeShippingThreshold: 150,
+  bankTransferDetails: 'Bank: Meezan Bank Limited\nAccount Title: ARA BEDDINGS\nAccount Number: 0123-4567-8901-2345\nIBAN: PK36MEZN0012345678901234\nBranch: Main Branch, Karachi\n\nPlease include your order number in the transfer reference.',
+  freeShippingThreshold: 5000,
   storeName: 'ARA BEDDINGS',
   storeEmail: 'hello@arabeddings.com',
-  storePhone: '+1 (555) 987-6543',
+  storePhone: '+92 321 1234567',
 };
 
 export const sampleOrders: Order[] = [
   {
     id: 'ord-1', orderNumber: 'ARA-2024-001', userId: 'u-1', status: 'DELIVERED',
-    subtotal: 189.99, shippingFee: 0, taxAmount: 15.20, discountAmount: 0, total: 205.19, currency: 'USD',
+    subtotal: 12500, shippingFee: 0, taxAmount: 0, discountAmount: 0, total: 12500, currency: 'PKR',
     items: [
-      { id: 'oi-1', productId: 'prod-1', variantId: 'var-5', productName: 'ARA Signature Egyptian Cotton Sheet Set', variantName: 'Queen / White', sku: 'ARA-ECS-QN-WH', unitPrice: 189.99, quantity: 1, total: 189.99 },
+      { id: 'oi-1', productId: 'prod-1', variantId: 'var-5', productName: 'ARA Signature Egyptian Cotton Sheet Set', variantName: 'Queen / White', sku: 'ARA-ECS-QN-WH', unitPrice: 12500, quantity: 1, total: 12500 },
     ],
-    payment: { id: 'pay-1', orderId: 'ord-1', method: 'COD', status: 'VERIFIED', amount: 205.19 },
-    shippingAddress: { id: 'addr-1', userId: 'u-1', fullName: 'Demo Customer', phone: '+1 (555) 123-4567', line1: '123 Main St', city: 'New York', state: 'NY', postalCode: '10001', country: 'US', isDefault: true },
-    shippingMethod: { id: 'sm-1', zoneId: 'zone-1', name: 'Standard Shipping', rate: 9.99, freeOverAmount: 150, isActive: true },
+    payment: { id: 'pay-1', orderId: 'ord-1', method: 'COD', status: 'VERIFIED', amount: 12500 },
+    shippingAddress: { id: 'addr-1', userId: 'u-1', fullName: 'Ahmed Khan', phone: '+92 321 1234567', line1: 'House 45, Street 12', line2: 'DHA Phase 5', city: 'Lahore', state: 'Punjab', postalCode: '54000', country: 'PK', isDefault: true },
+    shippingMethod: { id: 'sm-1', zoneId: 'zone-1', name: 'Standard Delivery', rate: 250, freeOverAmount: 5000, isActive: true },
     statusHistory: [
       { id: 'sh-1', status: 'PENDING', createdAt: '2024-11-15T10:00:00Z' },
       { id: 'sh-2', status: 'CONFIRMED', createdAt: '2024-11-15T12:00:00Z' },
@@ -345,13 +357,13 @@ export const sampleOrders: Order[] = [
   },
   {
     id: 'ord-2', orderNumber: 'ARA-2024-002', userId: 'u-1', status: 'SHIPPED',
-    subtotal: 329.99, shippingFee: 0, taxAmount: 26.40, discountAmount: 0, total: 356.39, currency: 'USD',
+    subtotal: 24000, shippingFee: 0, taxAmount: 0, discountAmount: 0, total: 24000, currency: 'PKR',
     items: [
-      { id: 'oi-2', productId: 'prod-5', variantId: 'var-22', productName: 'ARA Cloud All-Season Down Comforter', variantName: 'Full/Queen / White', sku: 'ARA-ADC-FQ-WH', unitPrice: 329.99, quantity: 1, total: 329.99 },
+      { id: 'oi-2', productId: 'prod-5', variantId: 'var-22', productName: 'ARA Cloud All-Season Comforter', variantName: 'Queen / White', sku: 'ARA-ACC-QN-WH', unitPrice: 24000, quantity: 1, total: 24000 },
     ],
-    payment: { id: 'pay-2', orderId: 'ord-2', method: 'BANK_TRANSFER', status: 'VERIFIED', amount: 356.39, reference: 'BT-2024-789', verifiedAt: '2024-12-02T10:00:00Z' },
-    shippingAddress: { id: 'addr-1', userId: 'u-1', fullName: 'Demo Customer', phone: '+1 (555) 123-4567', line1: '123 Main St', city: 'New York', state: 'NY', postalCode: '10001', country: 'US', isDefault: true },
-    shippingMethod: { id: 'sm-1', zoneId: 'zone-1', name: 'Standard Shipping', rate: 9.99, freeOverAmount: 150, isActive: true },
+    payment: { id: 'pay-2', orderId: 'ord-2', method: 'BANK_TRANSFER', status: 'VERIFIED', amount: 24000, reference: 'BT-2024-789', verifiedAt: '2024-12-02T10:00:00Z' },
+    shippingAddress: { id: 'addr-1', userId: 'u-1', fullName: 'Ahmed Khan', phone: '+92 321 1234567', line1: 'House 45, Street 12', line2: 'DHA Phase 5', city: 'Lahore', state: 'Punjab', postalCode: '54000', country: 'PK', isDefault: true },
+    shippingMethod: { id: 'sm-1', zoneId: 'zone-1', name: 'Standard Delivery', rate: 250, freeOverAmount: 5000, isActive: true },
     statusHistory: [
       { id: 'sh-5', status: 'PENDING', createdAt: '2024-12-01T10:00:00Z' },
       { id: 'sh-6', status: 'CONFIRMED', createdAt: '2024-12-02T11:00:00Z' },
@@ -363,9 +375,9 @@ export const sampleOrders: Order[] = [
 
 export const sampleDrugOrders: DrugOrder[] = [
   {
-    id: 'do-1', reference: 'DR-2024-001', userId: 'u-1', fullName: 'Demo Customer', email: 'demo@arabeddings.com', phone: '+1 (555) 123-4567',
-    itemType: 'Custom Sheets', size: 'Olympic Queen', quantity: 50, fabric: 'Egyptian Cotton 800TC', color: 'White',
-    deliveryAddress: '456 Hotel Blvd, Suite 200, Miami, FL 33101', notes: 'Need custom size for Olympic Queen beds. Hotel chain order.',
-    status: 'QUOTED', quotedPrice: 4500.00, createdAt: '2024-12-10T10:00:00Z',
+    id: 'do-1', reference: 'ARA-CUSTOM-2024-001', userId: 'u-1', fullName: 'Ahmed Khan', email: 'demo@arabeddings.com', phone: '+92 321 1234567',
+    itemType: 'Custom Sheets', size: 'King Extra Long', quantity: 50, fabric: 'Egyptian Cotton 800TC', color: 'White',
+    deliveryAddress: 'Pearl Continental Hotel, Club Road, Karachi, Sindh', notes: 'Hotel chain order. Need custom size for King Extra Long beds.',
+    status: 'QUOTED', quotedPrice: 450000, createdAt: '2024-12-10T10:00:00Z',
   },
 ];

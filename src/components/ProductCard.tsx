@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Heart, Star, ShoppingCart } from 'lucide-react';
 import { Product } from '../types';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 interface ProductCardProps {
   product: Product;
@@ -55,8 +56,8 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
         <div className="flex items-center justify-between mt-3">
           <div>
-            <span className="text-lg font-bold text-gray-900 dark:text-white">${minPrice.toFixed(2)}</span>
-            {minPrice !== maxPrice && <span className="text-sm text-gray-500 dark:text-gray-400"> - ${maxPrice.toFixed(2)}</span>}
+            <span className="text-lg font-bold text-gray-900 dark:text-white">{formatPKR(minPrice)}</span>
+            {minPrice !== maxPrice && <span className="text-sm text-gray-500 dark:text-gray-400"> - {formatPKR(maxPrice)}</span>}
           </div>
           <Link
             to={`/products/${product.slug}`}
