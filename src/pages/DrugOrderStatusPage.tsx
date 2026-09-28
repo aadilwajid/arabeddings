@@ -29,11 +29,11 @@ export default function DrugOrderStatusPage() {
         <ArrowLeft size={16} className="mr-1" /> Back to Custom Orders
       </Link>
 
-      <div className="bg-white rounded-xl border p-6 mb-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 mb-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Custom Order Status</h1>
-            <p className="text-gray-500 font-mono mt-1">{order.reference}</p>
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Custom Order Status</h1>
+            <p className="text-gray-500 dark:text-gray-400 font-mono mt-1">{order.reference}</p>
           </div>
           <span className={`px-4 py-2 text-sm font-medium rounded-full ${
             isRejected || isCancelled ? 'bg-red-100 text-red-700' :
@@ -52,14 +52,14 @@ export default function DrugOrderStatusPage() {
                 <React.Fragment key={step}>
                   <div className="flex flex-col items-center">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                      i <= currentStepIndex ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-500'
+                      i <= currentStepIndex ? 'bg-amber-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'
                     }`}>
                       {i <= currentStepIndex ? <CheckCircle size={16} /> : i + 1}
                     </div>
-                    <span className="text-xs text-gray-500 mt-1 text-center">{step.replace('_', ' ')}</span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">{step.replace('_', ' ')}</span>
                   </div>
                   {i < statusSteps.length - 1 && (
-                    <div className={`flex-1 h-0.5 mx-2 ${i < currentStepIndex ? 'bg-indigo-400' : 'bg-gray-200'}`} />
+                    <div className={`flex-1 h-0.5 mx-2 ${i < currentStepIndex ? 'bg-amber-400' : 'bg-gray-200 dark:bg-gray-700'}`} />
                   )}
                 </React.Fragment>
               ))}
@@ -79,35 +79,35 @@ export default function DrugOrderStatusPage() {
 
         {/* Order Details */}
         <div className="grid grid-cols-2 gap-4 text-sm">
-          <div className="bg-gray-50 rounded-lg p-3">
-            <p className="text-gray-500">Item Type</p>
-            <p className="font-medium text-gray-900">{order.itemType}</p>
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+            <p className="text-gray-500 dark:text-gray-400">Item Type</p>
+            <p className="font-medium text-gray-900 dark:text-white">{order.itemType}</p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-3">
-            <p className="text-gray-500">Quantity</p>
-            <p className="font-medium text-gray-900">{order.quantity}</p>
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+            <p className="text-gray-500 dark:text-gray-400">Quantity</p>
+            <p className="font-medium text-gray-900 dark:text-white">{order.quantity}</p>
           </div>
           {order.size && (
-            <div className="bg-gray-50 rounded-lg p-3">
-              <p className="text-gray-500">Size</p>
-              <p className="font-medium text-gray-900">{order.size}</p>
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <p className="text-gray-500 dark:text-gray-400">Size</p>
+              <p className="font-medium text-gray-900 dark:text-white">{order.size}</p>
             </div>
           )}
           {order.fabric && (
-            <div className="bg-gray-50 rounded-lg p-3">
-              <p className="text-gray-500">Fabric</p>
-              <p className="font-medium text-gray-900">{order.fabric}</p>
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <p className="text-gray-500 dark:text-gray-400">Fabric</p>
+              <p className="font-medium text-gray-900 dark:text-white">{order.fabric}</p>
             </div>
           )}
           {order.color && (
-            <div className="bg-gray-50 rounded-lg p-3">
-              <p className="text-gray-500">Color</p>
-              <p className="font-medium text-gray-900">{order.color}</p>
+            <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+              <p className="text-gray-500 dark:text-gray-400">Color</p>
+              <p className="font-medium text-gray-900 dark:text-white">{order.color}</p>
             </div>
           )}
-          <div className="bg-gray-50 rounded-lg p-3">
-            <p className="text-gray-500">Submitted</p>
-            <p className="font-medium text-gray-900">{new Date(order.createdAt).toLocaleDateString()}</p>
+          <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+            <p className="text-gray-500 dark:text-gray-400">Submitted</p>
+            <p className="font-medium text-gray-900 dark:text-white">{new Date(order.createdAt).toLocaleDateString()}</p>
           </div>
         </div>
 
@@ -129,15 +129,15 @@ export default function DrugOrderStatusPage() {
           </div>
         )}
 
-        <div className="mt-4 bg-gray-50 rounded-lg p-3">
-          <p className="text-gray-500">Delivery Address</p>
-          <p className="font-medium text-gray-900">{order.deliveryAddress}</p>
+        <div className="mt-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+          <p className="text-gray-500 dark:text-gray-400">Delivery Address</p>
+          <p className="font-medium text-gray-900 dark:text-white">{order.deliveryAddress}</p>
         </div>
 
         {order.notes && (
-          <div className="mt-4 bg-gray-50 rounded-lg p-3">
-            <p className="text-gray-500">Your Notes</p>
-            <p className="text-gray-700">{order.notes}</p>
+          <div className="mt-4 bg-gray-50 dark:bg-gray-700/50 rounded-lg p-3">
+            <p className="text-gray-500 dark:text-gray-400">Your Notes</p>
+            <p className="text-gray-700 dark:text-gray-300">{order.notes}</p>
           </div>
         )}
       </div>

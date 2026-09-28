@@ -147,9 +147,19 @@ export const useStore = create<AppState>()(
       },
       verifyPayment: (orderId: string) => {
         set({
-          orders: get().orders.map(o => o.id === orderId ? {
-            ...o, payment: { ...o.payment, status: 'VERIFIED' as PaymentStatus, verifiedAt: new Date().toISOString() }
-          } : o)
+          orders: get().orders.map(o => {
+            if (o.id !== orderId) return o;
+            const now = new Date().toISOString();
+            const updates: Partial<Order> = {
+              payment: { ...o.payment, status: 'VERIFIED' as PaymentStatus, verifiedAt: now }
+            };
+            // Auto-confirm order if still pending
+            if (o.status === 'PENDING') {
+              updates.status = 'CONFIRMED';
+              updates.statusHistory = [...o.statusHistory, { id: `sh-${Date.now()}`, status: 'CONFIRMED', note: 'Payment verified', createdAt: now }];
+            }
+            return { ...o, ...updates };
+          })
         });
       },
 
@@ -205,6 +215,8 @@ export const useStore = create<AppState>()(
         orders: state.orders,
         drugOrders: state.drugOrders,
         addresses: state.addresses,
+        darkMode: state.darkMode,
+        settings: state.settings,
       }),
     }
   )

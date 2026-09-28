@@ -104,7 +104,7 @@ export default function CheckoutPage() {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Checkout</h1>
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">Checkout</h1>
 
       {/* Steps */}
       <div className="flex items-center mb-8">
@@ -127,8 +127,8 @@ export default function CheckoutPage() {
         <div className="lg:col-span-2">
           {/* Step 1: Shipping */}
           {step === 1 && (
-            <div className="bg-white rounded-xl border p-6">
-              <h2 className="text-lg font-semibold mb-4">Shipping Address</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Shipping Address</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-1">Full Name *</label>
@@ -198,8 +198,8 @@ export default function CheckoutPage() {
 
           {/* Step 2: Payment */}
           {step === 2 && (
-            <div className="bg-white rounded-xl border p-6">
-              <h2 className="text-lg font-semibold mb-4">Payment Method</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Payment Method</h2>
               <div className="space-y-4">
                 <label className={`flex items-start p-4 border-2 rounded-xl cursor-pointer transition-all ${paymentMethod === 'COD' ? 'border-amber-500 bg-amber-50 dark:bg-amber-900/20' : 'border-gray-200 dark:border-gray-600 hover:border-gray-300'}`}>
                   <input type="radio" name="payment" value="COD" checked={paymentMethod === 'COD'} onChange={() => setPaymentMethod('COD')} className="mt-1 accent-amber-600" />
@@ -244,8 +244,8 @@ export default function CheckoutPage() {
 
           {/* Step 3: Review */}
           {step === 3 && (
-            <div className="bg-white rounded-xl border p-6">
-              <h2 className="text-lg font-semibold mb-4">Review Your Order</h2>
+            <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Review Your Order</h2>
 
               <div className="space-y-4">
                 <div className="bg-gray-50 rounded-lg p-4">
@@ -278,8 +278,8 @@ export default function CheckoutPage() {
         </div>
 
         {/* Order Summary Sidebar */}
-        <div className="bg-white rounded-xl border p-6 h-fit sticky top-24">
-          <h2 className="text-lg font-semibold mb-4">Order Summary</h2>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 h-fit sticky top-24">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Order Summary</h2>
           <div className="space-y-2 text-sm">
             {cart.map(item => (
               <div key={item.id} className="flex justify-between">
