@@ -1,23 +1,27 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { SlidersHorizontal, X, Grid3X3, LayoutGrid } from 'lucide-react';
+import { SlidersHorizontal, X, Grid3X3, LayoutGrid, Search, Filter, ChevronDown } from 'lucide-react';
 import { useStore } from '../store';
 import { ProductGrid } from '../components/ProductCard';
+import { formatPKR } from '../data/pakistan';
 
 export default function ProductsPage() {
   const { products, categories } = useStore();
   const [searchParams, setSearchParams] = useSearchParams();
   const [showFilters, setShowFilters] = useState(false);
   const [gridCols, setGridCols] = useState(3);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const categorySlug = searchParams.get('category') || '';
   const searchQuery = searchParams.get('search') || '';
   const [selectedCategory, setSelectedCategory] = useState(categorySlug);
   const [selectedSize, setSelectedSize] = useState('');
   const [selectedColor, setSelectedColor] = useState('');
+  const [selectedMaterial, setSelectedMaterial] = useState('');
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 50000]);
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sortBy, setSortBy] = useState('featured');
+  const [showSortDropdown, setShowSortDropdown] = useState(false);
 
   // Sync with URL params
   useEffect(() => {
@@ -132,6 +136,39 @@ export default function ProductsPage() {
           {activeCategory ? activeCategory.name : searchQuery ? `Search: "${searchQuery}"` : 'All Products'}
         </h1>
         <p className="mt-2 text-gray-600 dark:text-gray-400">{filteredProducts.length} products found</p>
+        
+        {/* Active Filters */}
+        {hasActiveFilters && (
+          <div className="flex flex-wrap gap-2 mt-4">
+            {selectedCategory && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-sm">
+                Category: {activeCategory?.name}
+                <button onClick={() => { setSelectedCategory(''); setSearchParams({}); }} className="ml-1 hover:text-amber-900">
+                  <X size={14} />
+                </button>
+              </span>
+            )}
+            {selectedSize && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-sm">
+                Size: {selectedSize}
+                <button onClick={() => setSelectedSize('')} className="ml-1 hover:text-amber-900">
+                  <X size={14} />
+                </button>
+              </span>
+            )}
+            {selectedColor && (
+              <span className="inline-flex items-center gap-1 px-3 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 rounded-full text-sm">
+                Color: {selectedColor}
+                <button onClick={() => setSelectedColor('')} className="ml-1 hover:text-amber-900">
+                  <X size={14} />
+                </button>
+              </span>
+            )}
+            <button onClick={clearFilters} className="text-sm text-amber-600 dark:text-amber-400 hover:underline font-medium">
+              Clear all
+            </button>
+          </div>
+        )}
       </div>
 
       <div className="flex gap-8">
@@ -256,21 +293,57 @@ export default function ProductsPage() {
               onClick={() => setShowFilters(true)}
               className="lg:hidden flex items-center space-x-2 text-gray-600 dark:text-gray-300 border dark:border-gray-600 px-3 py-2 rounded-lg"
             >
-              <SlidersHorizontal size={16} />
+              <Filter size={16} />
               <span>Filters</span>
             </button>
             <div className="flex items-center space-x-4 ml-auto">
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
-                className="border dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200 rounded-lg px-3 py-2 text-sm text-gray-700 focus:ring-2 focus:ring-amber-500"
-              >
-                <option value="featured">Featured</option>
-                <option value="newest">Newest</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="name">Name A-Z</option>
-              </select>
+              {/* View Mode Toggle */}
+              <div className="hidden md:flex items-center border dark:border-gray-600 rounded-lg overflow-hidden">
+                <button
+                  onClick={() => setViewMode('grid')}
+                  className={`p-2 ${viewMode === 'grid' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' : 'text-gray-500 dark:text-gray-400'}`}
+                >
+                  <Grid3X3 size={18} />
+                </button>
+                <button
+                  onClick={() => setViewMode('list')}
+                  className={`p-2 ${viewMode === 'list' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400' : 'text-gray-500 dark:text-gray-400'}`}
+                >
+                  <LayoutGrid size={18} />
+                </button>
+              </div>
+
+              {/* Sort Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowSortDropdown(!showSortDropdown)}
+                  className="flex items-center gap-2 border dark:border-gray-600 dark:bg-gray-700 rounded-lg px-3 py-2 text-sm text-gray-700 dark:text-gray-200"
+                >
+                  Sort by: {sortBy === 'featured' ? 'Featured' : sortBy === 'newest' ? 'Newest' : sortBy === 'price-low' ? 'Price: Low-High' : sortBy === 'price-high' ? 'Price: High-Low' : 'Name'}
+                  <ChevronDown size={16} />
+                </button>
+                {showSortDropdown && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border dark:border-gray-700 z-10">
+                    {[
+                      { value: 'featured', label: 'Featured' },
+                      { value: 'newest', label: 'Newest' },
+                      { value: 'price-low', label: 'Price: Low to High' },
+                      { value: 'price-high', label: 'Price: High to Low' },
+                      { value: 'name', label: 'Name A-Z' },
+                    ].map(option => (
+                      <button
+                        key={option.value}
+                        onClick={() => { setSortBy(option.value); setShowSortDropdown(false); }}
+                        className={`block w-full text-left px-4 py-2 text-sm hover:bg-gray-50 dark:hover:bg-gray-700 ${
+                          sortBy === option.value ? 'text-amber-600 dark:text-amber-400 font-medium' : 'text-gray-700 dark:text-gray-200'
+                        }`}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
 

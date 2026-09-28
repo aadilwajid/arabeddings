@@ -206,6 +206,17 @@ export default function ProductDetailPage() {
             )}
           </div>
 
+          {/* Shipping Info */}
+          <div className="mt-8 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+            <h3 className="font-semibold text-amber-900 dark:text-amber-300 mb-2">Shipping Information</h3>
+            <ul className="text-sm text-amber-800 dark:text-amber-200 space-y-1">
+              <li>✓ Free shipping on orders over Rs. 5,000</li>
+              <li>✓ Delivery within 3-5 business days</li>
+              <li>✓ Cash on Delivery available</li>
+              <li>✓ 30-day easy returns</li>
+            </ul>
+          </div>
+
           {/* Reviews */}
           {product.reviews.length > 0 && (
             <div className="mt-10 border-t dark:border-gray-700 pt-8">

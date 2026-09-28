@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, Shield, RotateCcw, Award, Leaf, ChevronRight } from 'lucide-react';
+import { ArrowRight, Truck, Shield, RotateCcw, Award, Leaf, ChevronRight, Star, TrendingUp, Sparkles } from 'lucide-react';
 import { useStore } from '../store';
 import { ProductGrid } from '../components/ProductCard';
 import { formatPKR } from '../data/pakistan';
@@ -9,22 +9,51 @@ export default function HomePage() {
   const { products, categories } = useStore();
   const featured = products.filter(p => p.isFeatured);
   const newArrivals = products.slice(0, 4);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroSlides = [
+    {
+      title: "Transform Your Sleep with Luxury Bedding",
+      subtitle: "Premium Egyptian Cotton Collection",
+      image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80",
+      cta: "Shop Now"
+    },
+    {
+      title: "Cool & Comfortable Bamboo Bedding",
+      subtitle: "Perfect for Pakistani Summers",
+      image: "https://images.unsplash.com/photo-1616627561839-074385245ff6?w=1200&q=80",
+      cta: "Explore Collection"
+    },
+    {
+      title: "Handcrafted Artisan Blankets",
+      subtitle: "Organic Cotton, Timeless Design",
+      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80",
+      cta: "View Collection"
+    }
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="bg-white dark:bg-gray-900">
-      {/* Hero Section */}
+      {/* Hero Carousel Section */}
       <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-orange-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <div className="inline-flex items-center bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm font-medium px-4 py-2 rounded-full">
-                <Award size={16} className="mr-2" />
-                Premium Quality Bedding
+                <Sparkles size={16} className="mr-2" />
+                {heroSlides[currentSlide].subtitle}
               </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
-                Transform Your Sleep with{' '}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-500">
+                {heroSlides[currentSlide].title.split(' ').slice(0, -2).join(' ')}{' '}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400">
-                  Luxury Bedding
+                  {heroSlides[currentSlide].title.split(' ').slice(-2).join(' ')}
                 </span>
               </h1>
               <p className="text-lg text-gray-600 dark:text-gray-300 max-w-lg">
@@ -35,7 +64,7 @@ export default function HomePage() {
                   to="/products" 
                   className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all shadow-lg shadow-amber-600/20 transform hover:scale-105"
                 >
-                  Shop Collection
+                  {heroSlides[currentSlide].cta}
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
                 <Link 
@@ -44,6 +73,18 @@ export default function HomePage() {
                 >
                   Custom Orders
                 </Link>
+              </div>
+              {/* Carousel Indicators */}
+              <div className="flex space-x-2 pt-4">
+                {heroSlides.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentSlide ? 'w-8 bg-amber-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
+                    }`}
+                  />
+                ))}
               </div>
               <div className="flex items-center space-x-6 pt-4">
                 <div className="flex items-center space-x-2">
@@ -63,9 +104,9 @@ export default function HomePage() {
             <div className="relative">
               <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
                 <img
-                  src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80"
+                  src={heroSlides[currentSlide].image}
                   alt="Luxury ARA BEDDINGS"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-all duration-500"
                 />
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-5 border dark:border-gray-700 transform -rotate-3">
@@ -83,6 +124,30 @@ export default function HomePage() {
                 <p className="text-xs text-gray-500 dark:text-gray-400">Starting from</p>
                 <p className="text-2xl font-bold text-amber-600 dark:text-amber-400">{formatPKR(2800)}</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick Stats Section */}
+      <section className="py-12 bg-gradient-to-r from-amber-600 to-orange-600">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-white">
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">50K+</div>
+              <div className="text-amber-100 text-sm">Happy Customers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">100+</div>
+              <div className="text-amber-100 text-sm">Products</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">4.9★</div>
+              <div className="text-amber-100 text-sm">Average Rating</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl font-bold mb-2">24/7</div>
+              <div className="text-amber-100 text-sm">Customer Support</div>
             </div>
           </div>
         </div>
@@ -162,7 +227,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between mb-10">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">Featured Products</h2>
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="text-amber-600 dark:text-amber-400" size={24} />
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">Featured Products</h2>
+              </div>
               <p className="text-gray-600 dark:text-gray-400">Our most loved ARA bedding essentials</p>
             </div>
             <Link 
@@ -174,6 +242,59 @@ export default function HomePage() {
             </Link>
           </div>
           <ProductGrid products={featured} />
+        </div>
+      </section>
+
+      {/* Customer Reviews Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-800/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">What Our Customers Say</h2>
+            <p className="text-gray-600 dark:text-gray-400">Trusted by thousands across Pakistan</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Ayesha Siddiqui",
+                location: "Lahore",
+                rating: 5,
+                review: "Best bedding I've ever purchased! The Egyptian cotton sheets are incredibly soft and the quality is outstanding. Highly recommend ARA BEDDINGS!",
+                avatar: "AS"
+              },
+              {
+                name: "Ahmed Khan",
+                location: "Karachi",
+                rating: 5,
+                review: "Ordered custom bedding for our hotel and the quality exceeded our expectations. The team was professional and delivered on time. Will order again!",
+                avatar: "AK"
+              },
+              {
+                name: "Fatima Ali",
+                location: "Islamabad",
+                rating: 5,
+                review: "The bamboo sheets are perfect for Pakistani summers. So cool and comfortable. The delivery was fast and the packaging was beautiful.",
+                avatar: "FA"
+              }
+            ].map((review, index) => (
+              <div key={index} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow">
+                <div className="flex items-center gap-1 mb-4">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} size={16} className="text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
+                <p className="text-gray-600 dark:text-gray-300 mb-6 italic">"{review.review}"</p>
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center text-white font-bold">
+                    {review.avatar}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-gray-900 dark:text-white">{review.name}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{review.location}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
