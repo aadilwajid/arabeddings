@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Heart, ShoppingCart, Star, ChevronRight, Minus, Plus, Check } from 'lucide-react';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -101,9 +102,9 @@ export default function ProductDetailPage() {
           <div className="mt-4">
             {selectedVariant ? (
               <div className="flex items-baseline space-x-3">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">${selectedVariant.price.toFixed(2)}</span>
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">{formatPKR(selectedVariant.price)}</span>
                 {selectedVariant.comparePrice && (
-                  <span className="text-lg text-gray-400 line-through">${selectedVariant.comparePrice.toFixed(2)}</span>
+                  <span className="text-lg text-gray-400 line-through">{formatPKR(selectedVariant.comparePrice)}</span>
                 )}
               </div>
             ) : (

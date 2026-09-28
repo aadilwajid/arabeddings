@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { CheckCircle, Package, CreditCard, Truck } from 'lucide-react';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 export default function OrderConfirmationPage() {
   const { orderId } = useParams<{ orderId: string }>();
@@ -38,15 +39,15 @@ export default function OrderConfirmationPage() {
                 <span className="text-gray-500 ml-2">({item.variantName})</span>
                 <span className="text-gray-400 ml-2">× {item.quantity}</span>
               </div>
-              <span className="font-medium">${item.total.toFixed(2)}</span>
+              <span className="font-medium">{formatPKR(item.total)}</span>
             </div>
           ))}
         </div>
-        <div className="border-t mt-4 pt-4 space-y-2 text-sm">
-          <div className="flex justify-between"><span className="text-gray-600">Subtotal</span><span>${order.subtotal.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span className="text-gray-600">Shipping</span><span>{order.shippingFee === 0 ? 'FREE' : `$${order.shippingFee.toFixed(2)}`}</span></div>
-          <div className="flex justify-between"><span className="text-gray-600">Tax</span><span>${order.taxAmount.toFixed(2)}</span></div>
-          <div className="border-t pt-2 flex justify-between"><span className="font-bold">Total</span><span className="text-xl font-bold">${order.total.toFixed(2)}</span></div>
+        <div className="border-t dark:border-gray-700 mt-4 pt-4 space-y-2 text-sm">
+          <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Subtotal</span><span className="text-gray-900 dark:text-white">{formatPKR(order.subtotal)}</span></div>
+          <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Shipping</span><span className="text-gray-900 dark:text-white">{order.shippingFee === 0 ? 'FREE' : formatPKR(order.shippingFee)}</span></div>
+          <div className="flex justify-between"><span className="text-gray-600 dark:text-gray-400">Tax</span><span className="text-gray-900 dark:text-white">{formatPKR(order.taxAmount)}</span></div>
+          <div className="border-t dark:border-gray-700 pt-2 flex justify-between"><span className="font-bold text-gray-900 dark:text-white">Total</span><span className="text-xl font-bold text-gray-900 dark:text-white">{formatPKR(order.total)}</span></div>
         </div>
       </div>
 

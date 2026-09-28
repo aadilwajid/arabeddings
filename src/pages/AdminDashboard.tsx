@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { BarChart3, Package, ShoppingCart, CreditCard, Truck, Users, Settings, ClipboardList, ChevronDown, Check, X, Eye, TrendingUp, DollarSign } from 'lucide-react';
+import { BarChart3, Package, ShoppingCart, CreditCard, Truck, Users, Settings, ClipboardList, ChevronDown, Check, X, Eye, TrendingUp, DollarSign, Upload, Image as ImageIcon, Trash2 } from 'lucide-react';
 import { useStore } from '../store';
 import { OrderStatus, DrugOrderStatus, PaymentStatus } from '../types';
+import { formatPKR } from '../data/pakistan';
 
 export default function AdminDashboard() {
   const { user, orders, drugOrders, products, settings } = useStore();
@@ -86,7 +87,7 @@ function OverviewTab({ totalRevenue, pendingOrders, pendingPayments }: { totalRe
   const { orders, products, drugOrders } = useStore();
 
   const stats = [
-    { label: 'Total Revenue', value: `$${totalRevenue.toFixed(2)}`, icon: DollarSign, color: 'bg-green-50 text-green-600' },
+    { label: 'Total Revenue', value: formatPKR(totalRevenue), icon: DollarSign, color: 'bg-green-50 text-green-600' },
     { label: 'Total Orders', value: orders.length, icon: ShoppingCart, color: 'bg-blue-50 text-blue-600' },
     { label: 'Pending Orders', value: pendingOrders, icon: Package, color: 'bg-yellow-50 text-yellow-600' },
     { label: 'Pending Payments', value: pendingPayments, icon: CreditCard, color: 'bg-red-50 text-red-600' },
@@ -128,7 +129,7 @@ function OverviewTab({ totalRevenue, pendingOrders, pendingPayments }: { totalRe
                   <td className="py-3 text-gray-600">{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td className="py-3"><StatusBadge status={order.status} /></td>
                   <td className="py-3"><PaymentBadge status={order.payment.status} /></td>
-                  <td className="py-3 text-right font-medium">${order.total.toFixed(2)}</td>
+                  <td className="py-3 text-right font-medium">{formatPKR(order.total)}</td>
                 </tr>
               ))}
             </tbody>
@@ -177,7 +178,7 @@ function OrdersTab() {
                       <p className="text-xs text-gray-500">{new Date(o.createdAt).toLocaleDateString()}</p>
                     </td>
                     <td className="px-4 py-3"><StatusBadge status={o.status} /></td>
-                    <td className="px-4 py-3 text-right font-medium">${o.total.toFixed(2)}</td>
+                    <td className="px-4 py-3 text-right font-medium">{formatPKR(o.total)}</td>
                     <td className="px-4 py-3"><Eye size={16} className="text-gray-400" /></td>
                   </tr>
                 ))}
@@ -198,7 +199,7 @@ function OrdersTab() {
               <div>
                 <p className="text-gray-500">Items</p>
                 {order.items.map(item => (
-                  <p key={item.id} className="text-gray-700">{item.productName} ({item.variantName}) × {item.quantity} — ${item.total.toFixed(2)}</p>
+                  <p key={item.id} className="text-gray-700 dark:text-gray-300">{item.productName} ({item.variantName}) x {item.quantity} — {formatPKR(item.total)}</p>
                 ))}
               </div>
               <div>
@@ -266,7 +267,7 @@ function ProductsTab() {
                     </div>
                   </td>
                   <td className="px-4 py-3 text-gray-600">{useStore.getState().categories.find(c => c.id === p.categoryId)?.name}</td>
-                  <td className="px-4 py-3 text-gray-600">${Math.min(...prices).toFixed(2)} - ${Math.max(...prices).toFixed(2)}</td>
+                  <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{formatPKR(Math.min(...prices))} - {formatPKR(Math.max(...prices))}</td>
                   <td className="px-4 py-3 text-gray-600">{p.variants.length}</td>
                   <td className="px-4 py-3">
                     <span className={`font-medium ${totalStock < 20 ? 'text-red-600' : 'text-green-600'}`}>{totalStock}</span>
@@ -307,7 +308,7 @@ function PaymentsTab() {
                   <h3 className="font-bold text-gray-900">{order.orderNumber}</h3>
                   <p className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</p>
                   <p className="text-sm text-gray-600 mt-1">Reference: <span className="font-mono font-medium">{order.payment.reference}</span></p>
-                  <p className="text-lg font-bold text-gray-900 mt-2">${order.total.toFixed(2)}</p>
+                  <p className="text-lg font-bold text-gray-900 dark:text-white mt-2">{formatPKR(order.total)}</p>
                 </div>
                 <div className="flex items-center space-x-3">
                   <button
@@ -364,7 +365,7 @@ function DrugOrdersTab() {
               </div>
               <p className="text-sm text-gray-600 mb-2"><strong>Address:</strong> {order.deliveryAddress}</p>
               {order.notes && <p className="text-sm text-gray-600 mb-4"><strong>Notes:</strong> {order.notes}</p>}
-              {order.quotedPrice && <p className="text-sm font-bold text-green-700 mb-4">Quoted: ${order.quotedPrice.toFixed(2)}</p>}
+              {order.quotedPrice && <p className="text-sm font-bold text-green-700 dark:text-green-400 mb-4">Quoted: {formatPKR(order.quotedPrice)}</p>}
 
               {/* Admin Actions */}
               <div className="border-t pt-4 mt-4">
@@ -449,8 +450,8 @@ function ShippingTab() {
                     <p className="text-sm text-gray-500">{method.minDays}-{method.maxDays} days</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-900">${method.rate.toFixed(2)}</p>
-                    {method.freeOverAmount && <p className="text-xs text-green-600">Free over ${method.freeOverAmount}</p>}
+                    <p className="font-bold text-gray-900 dark:text-white">{formatPKR(method.rate)}</p>
+                    {method.freeOverAmount && <p className="text-xs text-green-600 dark:text-green-400">Free over {formatPKR(method.freeOverAmount)}</p>}
                   </div>
                 </div>
               ))}
@@ -493,7 +494,7 @@ function CustomersTab() {
               <tr key={i} className="border-b">
                 <td className="px-4 py-3 font-medium text-gray-900">{customer.name}</td>
                 <td className="px-4 py-3 text-gray-600">{customer.orders}</td>
-                <td className="px-4 py-3 text-right font-medium">${customer.totalSpent.toFixed(2)}</td>
+                <td className="px-4 py-3 text-right font-medium">{formatPKR(customer.totalSpent)}</td>
               </tr>
             ))}
           </tbody>

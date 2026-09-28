@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Heart, Trash2, ShoppingCart } from 'lucide-react';
 import { useStore } from '../store';
+import { formatPKR } from '../data/pakistan';
 
 export default function WishlistPage() {
   const { wishlist, toggleWishlist, addToCart } = useStore();
@@ -36,7 +37,7 @@ export default function WishlistPage() {
                 <Link to={`/products/${product.slug}`}>
                   <h3 className="font-semibold text-gray-900 dark:text-white hover:text-amber-600 dark:hover:text-amber-400 line-clamp-1">{product.name}</h3>
                 </Link>
-                <p className="text-lg font-bold text-gray-900 dark:text-white mt-2">From ${minPrice.toFixed(2)}</p>
+                <p className="text-lg font-bold text-gray-900 dark:text-white mt-2">From {formatPKR(minPrice)}</p>
                 <div className="flex items-center space-x-2 mt-3">
                   <Link to={`/products/${product.slug}`} className="flex-1 flex items-center justify-center px-3 py-2 bg-amber-600 text-white text-sm font-medium rounded-lg hover:bg-amber-700">
                     <ShoppingCart size={14} className="mr-1" /> Select Options
