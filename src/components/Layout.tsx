@@ -49,9 +49,13 @@ export function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-white font-bold text-xl">A</span>
-              </div>
+              {useStore.getState().settings.logo ? (
+                <img src={useStore.getState().settings.logo} alt="ARA BEDDINGS" className="h-12 object-contain" />
+              ) : (
+                <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center shadow-lg">
+                  <span className="text-white font-bold text-xl">A</span>
+                </div>
+              )}
               <div>
                 <div className="text-xl font-bold text-gray-900 dark:text-white tracking-tight">ARA</div>
                 <div className="text-xs font-medium text-amber-600 dark:text-amber-400 -mt-1">BEDDINGS</div>
@@ -185,9 +189,13 @@ export function Footer() {
           {/* Brand */}
           <div>
             <div className="flex items-center space-x-3 mb-4">
-              <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-xl">A</span>
-              </div>
+              {useStore.getState().settings.logo ? (
+                <img src={useStore.getState().settings.logo} alt="ARA BEDDINGS" className="h-12 object-contain" />
+              ) : (
+                <div className="w-12 h-12 bg-gradient-to-br from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                  <span className="text-white font-bold text-xl">A</span>
+                </div>
+              )}
               <div>
                 <div className="text-xl font-bold text-white tracking-tight">ARA</div>
                 <div className="text-xs font-medium text-amber-400 -mt-1">BEDDINGS</div>

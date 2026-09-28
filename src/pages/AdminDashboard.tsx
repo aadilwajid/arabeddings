@@ -27,13 +27,14 @@ export default function AdminDashboard() {
     { id: 'drug-orders', label: 'Custom Orders', icon: ClipboardList },
     { id: 'shipping', label: 'Shipping', icon: Truck },
     { id: 'customers', label: 'Customers', icon: Users },
+    { id: 'media', label: 'Media', icon: ImageIcon },
     { id: 'settings', label: 'Settings', icon: Settings },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       {/* Admin Header */}
-      <div className="bg-white border-b sticky top-0 z-40">
+      <div className="bg-white dark:bg-gray-800 border-b dark:border-gray-700 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14">
             <div className="flex items-center space-x-2">
@@ -77,6 +78,7 @@ export default function AdminDashboard() {
         {activeTab === 'drug-orders' && <DrugOrdersTab />}
         {activeTab === 'shipping' && <ShippingTab />}
         {activeTab === 'customers' && <CustomersTab />}
+        {activeTab === 'media' && <MediaManagerTab />}
         {activeTab === 'settings' && <SettingsTab />}
       </div>
     </div>
@@ -97,24 +99,24 @@ function OverviewTab({ totalRevenue, pendingOrders, pendingPayments }: { totalRe
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Dashboard Overview</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Dashboard Overview</h2>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         {stats.map(stat => (
-          <div key={stat.label} className="bg-white rounded-xl border p-4">
+          <div key={stat.label} className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4">
             <div className={`inline-flex p-2 rounded-lg ${stat.color} mb-2`}><stat.icon size={20} /></div>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-            <p className="text-xs text-gray-500">{stat.label}</p>
+            <p className="text-2xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">{stat.label}</p>
           </div>
         ))}
       </div>
 
       {/* Recent Orders */}
-      <div className="bg-white rounded-xl border p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Recent Orders</h3>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Recent Orders</h3>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b text-left text-gray-500">
+              <tr className="border-b dark:border-gray-700 text-left text-gray-500 dark:text-gray-400">
                 <th className="pb-3 font-medium">Order</th>
                 <th className="pb-3 font-medium">Date</th>
                 <th className="pb-3 font-medium">Status</th>
@@ -124,12 +126,12 @@ function OverviewTab({ totalRevenue, pendingOrders, pendingPayments }: { totalRe
             </thead>
             <tbody>
               {orders.slice(0, 5).map(order => (
-                <tr key={order.id} className="border-b last:border-0">
-                  <td className="py-3 font-medium text-gray-900">{order.orderNumber}</td>
-                  <td className="py-3 text-gray-600">{new Date(order.createdAt).toLocaleDateString()}</td>
+                <tr key={order.id} className="border-b dark:border-gray-700 last:border-0">
+                  <td className="py-3 font-medium text-gray-900 dark:text-white">{order.orderNumber}</td>
+                  <td className="py-3 text-gray-600 dark:text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</td>
                   <td className="py-3"><StatusBadge status={order.status} /></td>
                   <td className="py-3"><PaymentBadge status={order.payment.status} /></td>
-                  <td className="py-3 text-right font-medium">{formatPKR(order.total)}</td>
+                  <td className="py-3 text-right font-medium text-gray-900 dark:text-white">{formatPKR(order.total)}</td>
                 </tr>
               ))}
             </tbody>
@@ -157,13 +159,13 @@ function OrdersTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Manage Orders</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Manage Orders</h2>
       <div className="grid lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl border overflow-hidden">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-50 text-left text-gray-500">
+                <tr className="bg-gray-50 dark:bg-gray-700 text-left text-gray-500 dark:text-gray-400">
                   <th className="px-4 py-3 font-medium">Order</th>
                   <th className="px-4 py-3 font-medium">Status</th>
                   <th className="px-4 py-3 font-medium text-right">Total</th>
@@ -172,10 +174,10 @@ function OrdersTab() {
               </thead>
               <tbody>
                 {orders.map(o => (
-                  <tr key={o.id} className={`border-b cursor-pointer hover:bg-gray-50 ${selectedOrder === o.id ? 'bg-indigo-50' : ''}`} onClick={() => setSelectedOrder(o.id)}>
+                  <tr key={o.id} className={`border-b dark:border-gray-700 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 ${selectedOrder === o.id ? 'bg-amber-50 dark:bg-amber-900/20' : ''}`} onClick={() => setSelectedOrder(o.id)}>
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{o.orderNumber}</p>
-                      <p className="text-xs text-gray-500">{new Date(o.createdAt).toLocaleDateString()}</p>
+                      <p className="font-medium text-gray-900 dark:text-white">{o.orderNumber}</p>
+                      <p className="text-xs text-gray-500 dark:text-gray-400">{new Date(o.createdAt).toLocaleDateString()}</p>
                     </td>
                     <td className="px-4 py-3"><StatusBadge status={o.status} /></td>
                     <td className="px-4 py-3 text-right font-medium">{formatPKR(o.total)}</td>
@@ -188,13 +190,13 @@ function OrdersTab() {
         </div>
 
         {order && (
-          <div className="bg-white rounded-xl border p-6">
-            <h3 className="font-bold text-lg text-gray-900 mb-4">{order.orderNumber}</h3>
+          <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+            <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-4">{order.orderNumber}</h3>
             <div className="space-y-4 text-sm">
               <div>
-                <p className="text-gray-500">Customer</p>
-                <p className="font-medium">{order.shippingAddress.fullName}</p>
-                <p className="text-gray-600">{order.shippingAddress.line1}, {order.shippingAddress.city}</p>
+                <p className="text-gray-500 dark:text-gray-400">Customer</p>
+                <p className="font-medium text-gray-900 dark:text-white">{order.shippingAddress.fullName}</p>
+                <p className="text-gray-600 dark:text-gray-300">{order.shippingAddress.line1}, {order.shippingAddress.city}</p>
               </div>
               <div>
                 <p className="text-gray-500">Items</p>
@@ -238,11 +240,11 @@ function ProductsTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Products ({products.length})</h2>
-      <div className="bg-white rounded-xl border overflow-hidden">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Products ({products.length})</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50 text-left text-gray-500">
+            <tr className="bg-gray-50 dark:bg-gray-700 text-left text-gray-500 dark:text-gray-400">
               <th className="px-4 py-3 font-medium">Product</th>
               <th className="px-4 py-3 font-medium">Category</th>
               <th className="px-4 py-3 font-medium">Price Range</th>
@@ -293,21 +295,21 @@ function PaymentsTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Payment Verification</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Payment Verification</h2>
       {pendingBankTransfers.length === 0 ? (
-        <div className="bg-white rounded-xl border p-8 text-center">
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-8 text-center">
           <Check className="mx-auto text-green-500 mb-2" size={40} />
-          <p className="text-gray-600">All payments verified. No pending bank transfers.</p>
+          <p className="text-gray-600 dark:text-gray-400">All payments verified. No pending bank transfers.</p>
         </div>
       ) : (
         <div className="space-y-4">
           {pendingBankTransfers.map(order => (
-            <div key={order.id} className="bg-white rounded-xl border p-6">
+            <div key={order.id} className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h3 className="font-bold text-gray-900">{order.orderNumber}</h3>
-                  <p className="text-sm text-gray-500">{new Date(order.createdAt).toLocaleDateString()}</p>
-                  <p className="text-sm text-gray-600 mt-1">Reference: <span className="font-mono font-medium">{order.payment.reference}</span></p>
+                  <h3 className="font-bold text-gray-900 dark:text-white">{order.orderNumber}</h3>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(order.createdAt).toLocaleDateString()}</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">Reference: <span className="font-mono font-medium">{order.payment.reference}</span></p>
                   <p className="text-lg font-bold text-gray-900 dark:text-white mt-2">{formatPKR(order.total)}</p>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -334,9 +336,9 @@ function DrugOrdersTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Custom / Drug Orders</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Custom Orders</h2>
       {drugOrders.length === 0 ? (
-        <p className="text-gray-500">No custom orders yet.</p>
+        <p className="text-gray-500 dark:text-gray-400">No custom orders yet.</p>
       ) : (
         <div className="space-y-4">
           {drugOrders.map(order => (
@@ -425,29 +427,29 @@ function ShippingTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Shipping Configuration</h2>
-      <div className="bg-white rounded-xl border p-6 mb-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Free Shipping Threshold</h3>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Shipping Configuration</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 mb-6">
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Free Shipping Threshold</h3>
         <div className="flex items-center space-x-4">
           <div className="flex items-center space-x-2">
-            <span className="text-gray-600">$</span>
-            <input type="number" value={threshold} onChange={e => setThreshold(e.target.value)} className="border rounded-lg px-3 py-2 w-32" />
+            <span className="text-gray-600 dark:text-gray-400">Rs.</span>
+            <input type="number" value={threshold} onChange={e => setThreshold(e.target.value)} className="border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 w-32" />
           </div>
-          <button onClick={() => updateSettings({ freeShippingThreshold: parseFloat(threshold) || 0 })} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">Save</button>
+          <button onClick={() => updateSettings({ freeShippingThreshold: parseFloat(threshold) || 0 })} className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">Save</button>
         </div>
-        <p className="text-sm text-gray-500 mt-2">Orders above this amount get free standard shipping.</p>
+        <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">Orders above this amount get free standard shipping.</p>
       </div>
 
       <div className="space-y-4">
         {shippingZones.map(zone => (
-          <div key={zone.id} className="bg-white rounded-xl border p-6">
-            <h3 className="font-semibold text-gray-900 mb-3">{zone.name}</h3>
+          <div key={zone.id} className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+            <h3 className="font-semibold text-gray-900 dark:text-white mb-3">{zone.name}</h3>
             <div className="space-y-2">
               {zone.methods.map(method => (
-                <div key={method.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                <div key={method.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg">
                   <div>
-                    <p className="font-medium text-gray-900">{method.name}</p>
-                    <p className="text-sm text-gray-500">{method.minDays}-{method.maxDays} days</p>
+                    <p className="font-medium text-gray-900 dark:text-white">{method.name}</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">{method.minDays}-{method.maxDays} days</p>
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-gray-900 dark:text-white">{formatPKR(method.rate)}</p>
@@ -479,11 +481,11 @@ function CustomersTab() {
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Customers</h2>
-      <div className="bg-white rounded-xl border overflow-hidden">
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Customers</h2>
+      <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-gray-50 text-left text-gray-500">
+            <tr className="bg-gray-50 dark:bg-gray-700 text-left text-gray-500 dark:text-gray-400">
               <th className="px-4 py-3 font-medium">Name</th>
               <th className="px-4 py-3 font-medium">Orders</th>
               <th className="px-4 py-3 font-medium text-right">Total Spent</th>
@@ -491,10 +493,10 @@ function CustomersTab() {
           </thead>
           <tbody>
             {Object.values(customers).map((customer, i) => (
-              <tr key={i} className="border-b">
-                <td className="px-4 py-3 font-medium text-gray-900">{customer.name}</td>
-                <td className="px-4 py-3 text-gray-600">{customer.orders}</td>
-                <td className="px-4 py-3 text-right font-medium">{formatPKR(customer.totalSpent)}</td>
+              <tr key={i} className="border-b dark:border-gray-700">
+                <td className="px-4 py-3 font-medium text-gray-900 dark:text-white">{customer.name}</td>
+                <td className="px-4 py-3 text-gray-600 dark:text-gray-400">{customer.orders}</td>
+                <td className="px-4 py-3 text-right font-medium text-gray-900 dark:text-white">{formatPKR(customer.totalSpent)}</td>
               </tr>
             ))}
           </tbody>
@@ -504,31 +506,163 @@ function CustomersTab() {
   );
 }
 
+function MediaManagerTab() {
+  const { media, addMedia, removeMedia } = useStore();
+  const [uploading, setUploading] = useState(false);
+
+  const handleUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+
+    setUploading(true);
+    Array.from(files).forEach(file => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const url = event.target?.result as string;
+        addMedia({
+          id: `media-${Date.now()}-${Math.random()}`,
+          url,
+          name: file.name,
+          type: file.type.startsWith('image/') ? 'image' : 'document',
+          size: file.size,
+          uploadedAt: new Date().toISOString(),
+        });
+      };
+      reader.readAsDataURL(file);
+    });
+    setTimeout(() => setUploading(false), 1000);
+  };
+
+  const formatSize = (bytes: number) => {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  };
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Media Library</h2>
+        <label className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm cursor-pointer">
+          <Upload size={16} className="inline mr-2" />
+          Upload Files
+          <input type="file" multiple accept="image/*" onChange={handleUpload} className="hidden" />
+        </label>
+      </div>
+
+      {uploading && (
+        <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 mb-6">
+          <p className="text-amber-800 dark:text-amber-200">Uploading files...</p>
+        </div>
+      )}
+
+      {media.length === 0 ? (
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-12 text-center">
+          <ImageIcon className="mx-auto text-gray-300 dark:text-gray-600 mb-4" size={48} />
+          <p className="text-gray-500 dark:text-gray-400">No media files yet. Upload images to get started.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {media.map(item => (
+            <div key={item.id} className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 overflow-hidden group">
+              <div className="aspect-square bg-gray-100 dark:bg-gray-700 relative">
+                {item.type === 'image' ? (
+                  <img src={item.url} alt={item.name} className="w-full h-full object-cover" />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center">
+                    <span className="text-4xl">📄</span>
+                  </div>
+                )}
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                  <button
+                    onClick={() => removeMedia(item.id)}
+                    className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
+              </div>
+              <div className="p-3">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{item.name}</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">{formatSize(item.size)}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function SettingsTab() {
   const { settings, updateSettings } = useStore();
   const [bankDetails, setBankDetails] = useState(settings.bankTransferDetails);
   const [storeName, setStoreName] = useState(settings.storeName);
+  const [storeEmail, setStoreEmail] = useState(settings.storeEmail);
+  const [storePhone, setStorePhone] = useState(settings.storePhone);
+  const [logo, setLogo] = useState(settings.logo || '');
+
+  const handleLogoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const url = event.target?.result as string;
+      setLogo(url);
+    };
+    reader.readAsDataURL(file);
+  };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Store Settings</h2>
+      <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Store Settings</h2>
       <div className="space-y-6">
-        <div className="bg-white rounded-xl border p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">General</h3>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">General</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Store Name</label>
-              <input type="text" value={storeName} onChange={e => setStoreName(e.target.value)} className="border rounded-lg px-3 py-2 w-full max-w-md" />
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Store Name</label>
+              <input type="text" value={storeName} onChange={e => setStoreName(e.target.value)} className="border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 w-full max-w-md" />
             </div>
-            <button onClick={() => updateSettings({ storeName })} className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">Save</button>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Store Email</label>
+              <input type="email" value={storeEmail} onChange={e => setStoreEmail(e.target.value)} className="border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 w-full max-w-md" />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Store Phone</label>
+              <input type="tel" value={storePhone} onChange={e => setStorePhone(e.target.value)} className="border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 w-full max-w-md" />
+            </div>
+            <button onClick={() => updateSettings({ storeName, storeEmail, storePhone })} className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">Save</button>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Bank Transfer Details</h3>
-          <p className="text-sm text-gray-500 mb-3">These details are shown to customers who choose bank transfer at checkout.</p>
-          <textarea value={bankDetails} onChange={e => setBankDetails(e.target.value)} rows={8} className="border rounded-lg px-3 py-2 w-full font-mono text-sm" />
-          <button onClick={() => updateSettings({ bankTransferDetails: bankDetails })} className="mt-3 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 text-sm">Save</button>
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Store Logo</h3>
+          <div className="space-y-4">
+            {logo && (
+              <div className="mb-4">
+                <img src={logo} alt="Store Logo" className="h-20 object-contain" />
+              </div>
+            )}
+            <label className="inline-flex items-center px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm cursor-pointer">
+              <Upload size={16} className="mr-2" />
+              Upload Logo
+              <input type="file" accept="image/*" onChange={handleLogoUpload} className="hidden" />
+            </label>
+            {logo && (
+              <button onClick={() => { setLogo(''); updateSettings({ logo: '' }); }} className="ml-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 text-sm">Remove Logo</button>
+            )}
+            {logo && (
+              <button onClick={() => updateSettings({ logo })} className="ml-2 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">Save Logo</button>
+            )}
+          </div>
+        </div>
+
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">Bank Transfer Details</h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mb-3">These details are shown to customers who choose bank transfer at checkout.</p>
+          <textarea value={bankDetails} onChange={e => setBankDetails(e.target.value)} rows={8} className="border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 w-full font-mono text-sm" />
+          <button onClick={() => updateSettings({ bankTransferDetails: bankDetails })} className="mt-3 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">Save</button>
         </div>
       </div>
     </div>
@@ -539,7 +673,7 @@ function SettingsTab() {
 function StatusBadge({ status }: { status: string }) {
   const colors: Record<string, string> = {
     'PENDING': 'bg-yellow-100 text-yellow-700',
-    'CONFIRMED': 'bg-indigo-100 text-indigo-700',
+    'CONFIRMED': 'bg-amber-100 text-amber-700',
     'PROCESSING': 'bg-blue-100 text-blue-700',
     'SHIPPED': 'bg-cyan-100 text-cyan-700',
     'DELIVERED': 'bg-green-100 text-green-700',

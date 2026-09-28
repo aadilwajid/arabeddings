@@ -39,7 +39,7 @@ export default function DrugOrderPage() {
     e.preventDefault();
     if (!validate()) return;
 
-    const reference = `ARA-DR-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, '0')}`;
+    const reference = `ARA-CUSTOM-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 9999)).padStart(4, '0')}`;
     const drugOrder: DrugOrder = {
       id: `do-${Date.now()}`,
       reference,
