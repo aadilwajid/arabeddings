@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { CreditCard, Banknote, Check, Lock } from 'lucide-react';
+import { CreditCard, Banknote, Check, Lock, Truck, MapPin, Package } from 'lucide-react';
 import { useStore } from '../store';
 import { Order, PaymentMethod } from '../types';
 import { pakistanProvinces, getCitiesByProvince, formatPKR } from '../data/pakistan';
@@ -136,7 +136,12 @@ export default function CheckoutPage() {
           {/* Step 1: Shipping */}
           {step === 1 && (
             <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Shipping Address</h2>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 bg-amber-100 dark:bg-amber-900/30 rounded-lg flex items-center justify-center">
+                  <Truck className="text-amber-600 dark:text-amber-400" size={20} />
+                </div>
+                <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Shipping Address</h2>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Full Name *</label>
