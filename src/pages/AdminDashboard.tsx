@@ -61,6 +61,7 @@ export default function AdminDashboard() {
     { id: 'overview', label: 'Overview', icon: BarChart3 },
     { id: 'orders', label: 'Orders', icon: ShoppingCart },
     { id: 'products', label: 'Products', icon: Package },
+    { id: 'hero', label: 'Hero Slides', icon: ImageIcon },
     { id: 'payments', label: 'Payments', icon: CreditCard },
     { id: 'drug-orders', label: 'Custom Orders', icon: ClipboardList },
     { id: 'shipping', label: 'Shipping', icon: Truck },
@@ -114,6 +115,7 @@ export default function AdminDashboard() {
         {activeTab === 'overview' && <OverviewTab totalRevenue={totalRevenue} pendingOrders={pendingOrders} pendingPayments={pendingPayments} salesData={salesData} categoryData={categoryData} topProducts={topProducts} />}
         {activeTab === 'orders' && <OrdersTab />}
         {activeTab === 'products' && <ProductsTab />}
+        {activeTab === 'hero' && <HeroSlidesTab />}
         {activeTab === 'payments' && <PaymentsTab />}
         {activeTab === 'drug-orders' && <DrugOrdersTab />}
         {activeTab === 'shipping' && <ShippingTab />}
@@ -822,6 +824,200 @@ function SettingsTab() {
           <textarea value={bankDetails} onChange={e => setBankDetails(e.target.value)} rows={8} className="border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2 w-full font-mono text-sm" />
           <button onClick={() => updateSettings({ bankTransferDetails: bankDetails })} className="mt-3 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">Save</button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+function HeroSlidesTab() {
+  const { heroSlides, addHeroSlide, updateHeroSlide, removeHeroSlide } = useStore();
+  const [showForm, setShowForm] = useState(false);
+  const [editingSlide, setEditingSlide] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    subtitle: '',
+    image: '',
+    cta: '',
+    ctaLink: '/products',
+    isActive: true,
+  });
+
+  const handleSubmit = () => {
+    if (editingSlide) {
+      updateHeroSlide(editingSlide, formData);
+      setEditingSlide(null);
+    } else {
+      addHeroSlide({
+        id: `slide-${Date.now()}`,
+        ...formData,
+        sortOrder: heroSlides.length,
+      });
+    }
+    setFormData({ title: '', subtitle: '', image: '', cta: '', ctaLink: '/products', isActive: true });
+    setShowForm(false);
+  };
+
+  const handleEdit = (slide: any) => {
+    setEditingSlide(slide.id);
+    setFormData({
+      title: slide.title,
+      subtitle: slide.subtitle,
+      image: slide.image,
+      cta: slide.cta,
+      ctaLink: slide.ctaLink,
+      isActive: slide.isActive,
+    });
+    setShowForm(true);
+  };
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const url = event.target?.result as string;
+      setFormData({ ...formData, image: url });
+    };
+    reader.readAsDataURL(file);
+  };
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Hero Slides</h2>
+        <button
+          onClick={() => { setShowForm(true); setEditingSlide(null); setFormData({ title: '', subtitle: '', image: '', cta: '', ctaLink: '/products', isActive: true }); }}
+          className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm"
+        >
+          + Add Slide
+        </button>
+      </div>
+
+      {showForm && (
+        <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-6 mb-6">
+          <h3 className="font-semibold text-gray-900 dark:text-white mb-4">
+            {editingSlide ? 'Edit Slide' : 'Add New Slide'}
+          </h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title *</label>
+              <input
+                type="text"
+                value={formData.title}
+                onChange={e => setFormData({ ...formData, title: e.target.value })}
+                className="w-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2"
+                placeholder="Transform Your Sleep with Luxury Bedding"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Subtitle *</label>
+              <input
+                type="text"
+                value={formData.subtitle}
+                onChange={e => setFormData({ ...formData, subtitle: e.target.value })}
+                className="w-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2"
+                placeholder="Premium Egyptian Cotton Collection"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Image *</label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageUpload}
+                className="w-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2"
+              />
+              {formData.image && (
+                <img src={formData.image} alt="Preview" className="mt-2 h-32 object-cover rounded-lg" />
+              )}
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CTA Button Text *</label>
+              <input
+                type="text"
+                value={formData.cta}
+                onChange={e => setFormData({ ...formData, cta: e.target.value })}
+                className="w-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2"
+                placeholder="Shop Now"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">CTA Link *</label>
+              <input
+                type="text"
+                value={formData.ctaLink}
+                onChange={e => setFormData({ ...formData, ctaLink: e.target.value })}
+                className="w-full border dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-lg px-3 py-2"
+                placeholder="/products"
+              />
+            </div>
+            <div className="md:col-span-2">
+              <label className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  checked={formData.isActive}
+                  onChange={e => setFormData({ ...formData, isActive: e.target.checked })}
+                  className="accent-amber-600"
+                />
+                <span className="text-sm text-gray-700 dark:text-gray-300">Active (show on homepage)</span>
+              </label>
+            </div>
+          </div>
+          <div className="flex gap-2 mt-4">
+            <button onClick={handleSubmit} className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">
+              {editingSlide ? 'Update' : 'Add'} Slide
+            </button>
+            <button onClick={() => { setShowForm(false); setEditingSlide(null); }} className="px-4 py-2 border dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 text-sm">
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      <div className="space-y-4">
+        {heroSlides.length === 0 ? (
+          <div className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-12 text-center">
+            <ImageIcon className="mx-auto text-gray-300 dark:text-gray-600 mb-4" size={48} />
+            <p className="text-gray-500 dark:text-gray-400">No hero slides yet. Add your first slide to showcase on the homepage.</p>
+          </div>
+        ) : (
+          heroSlides.sort((a, b) => a.sortOrder - b.sortOrder).map(slide => (
+            <div key={slide.id} className="bg-white dark:bg-gray-800 rounded-xl border dark:border-gray-700 p-4">
+              <div className="flex items-start gap-4">
+                <img src={slide.image} alt={slide.title} className="w-32 h-32 object-cover rounded-lg flex-shrink-0" />
+                <div className="flex-1">
+                  <div className="flex items-start justify-between mb-2">
+                    <div>
+                      <h3 className="font-semibold text-gray-900 dark:text-white">{slide.title}</h3>
+                      <p className="text-sm text-gray-500 dark:text-gray-400">{slide.subtitle}</p>
+                    </div>
+                    <span className={`px-2 py-1 text-xs rounded-full ${slide.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                      {slide.isActive ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                    <span>CTA: {slide.cta}</span>
+                    <span>Link: {slide.ctaLink}</span>
+                  </div>
+                  <div className="flex gap-2 mt-3">
+                    <button onClick={() => handleEdit(slide)} className="px-3 py-1 text-xs bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200">
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => updateHeroSlide(slide.id, { isActive: !slide.isActive })}
+                      className={`px-3 py-1 text-xs rounded-lg ${slide.isActive ? 'bg-gray-100 text-gray-700 hover:bg-gray-200' : 'bg-green-100 text-green-700 hover:bg-green-200'}`}
+                    >
+                      {slide.isActive ? 'Deactivate' : 'Activate'}
+                    </button>
+                    <button onClick={() => removeHeroSlide(slide.id)} className="px-3 py-1 text-xs bg-red-100 text-red-700 rounded-lg hover:bg-red-200">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

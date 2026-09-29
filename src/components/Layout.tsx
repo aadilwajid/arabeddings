@@ -255,6 +255,9 @@ export function Footer() {
               <li><Link to="/contact" className="hover:text-amber-400 transition-colors">Contact Us</Link></li>
               <li><Link to="/shipping" className="hover:text-amber-400 transition-colors">Shipping Info</Link></li>
               <li><Link to="/returns" className="hover:text-amber-400 transition-colors">Returns & Refunds</Link></li>
+              <li><Link to="/faq" className="hover:text-amber-400 transition-colors">FAQ</Link></li>
+              <li><Link to="/terms" className="hover:text-amber-400 transition-colors">Terms & Conditions</Link></li>
+              <li><Link to="/privacy" className="hover:text-amber-400 transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
 
@@ -286,10 +289,11 @@ export function Footer() {
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between">
           <p className="text-sm text-gray-500 mb-4 md:mb-0">© 2024 ARA BEDDINGS. All rights reserved.</p>
           <div className="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
-            <a href="#" className="hover:text-amber-400 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-amber-400 transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-amber-400 transition-colors">Shipping Info</a>
-            <a href="#" className="hover:text-amber-400 transition-colors">Returns</a>
+            <Link to="/privacy" className="hover:text-amber-400 transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-amber-400 transition-colors">Terms of Service</Link>
+            <Link to="/shipping" className="hover:text-amber-400 transition-colors">Shipping Info</Link>
+            <Link to="/returns" className="hover:text-amber-400 transition-colors">Returns</Link>
+            <Link to="/faq" className="hover:text-amber-400 transition-colors">FAQ</Link>
           </div>
         </div>
       </div>

@@ -227,6 +227,18 @@ export interface SiteSettings {
   logo?: string;
 }
 
+// ─── HERO SLIDES ───────────────────────────────────────
+export interface HeroSlide {
+  id: string;
+  title: string;
+  subtitle: string;
+  image: string;
+  cta: string;
+  ctaLink: string;
+  isActive: boolean;
+  sortOrder: number;
+}
+
 // ─── MEDIA ─────────────────────────────────────────────
 export interface MediaItem {
   id: string;

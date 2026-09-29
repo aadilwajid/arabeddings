@@ -6,38 +6,20 @@ import { ProductGrid } from '../components/ProductCard';
 import { formatPKR } from '../data/pakistan';
 
 export default function HomePage() {
-  const { products, categories } = useStore();
+  const { products, categories, heroSlides } = useStore();
   const featured = products.filter(p => p.isFeatured);
   const newArrivals = products.slice(0, 4);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const heroSlides = [
-    {
-      title: "Transform Your Sleep with Luxury Bedding",
-      subtitle: "Premium Egyptian Cotton Collection",
-      image: "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80",
-      cta: "Shop Now"
-    },
-    {
-      title: "Cool & Comfortable Bamboo Bedding",
-      subtitle: "Perfect for Pakistani Summers",
-      image: "https://images.unsplash.com/photo-1616627561839-074385245ff6?w=1200&q=80",
-      cta: "Explore Collection"
-    },
-    {
-      title: "Handcrafted Artisan Blankets",
-      subtitle: "Organic Cotton, Timeless Design",
-      image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80",
-      cta: "View Collection"
-    }
-  ];
+  const activeSlides = heroSlides.filter(s => s.isActive).sort((a, b) => a.sortOrder - b.sortOrder);
 
   useEffect(() => {
+    if (activeSlides.length === 0) return;
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      setCurrentSlide((prev) => (prev + 1) % activeSlides.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [activeSlides.length]);
 
   return (
     <div className="bg-white dark:bg-gray-900">
@@ -46,46 +28,50 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
-              <div className="inline-flex items-center bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm font-medium px-4 py-2 rounded-full">
-                <Sparkles size={16} className="mr-2" />
-                {heroSlides[currentSlide].subtitle}
-              </div>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-500">
-                {heroSlides[currentSlide].title.split(' ').slice(0, -2).join(' ')}{' '}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400">
-                  {heroSlides[currentSlide].title.split(' ').slice(-2).join(' ')}
-                </span>
-              </h1>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-lg">
-                Discover ARA BEDDINGS premium collection crafted from the finest Egyptian cotton, bamboo, and organic materials. Experience comfort like never before.
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Link 
-                  to="/products" 
-                  className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all shadow-lg shadow-amber-600/20 transform hover:scale-105"
-                >
-                  {heroSlides[currentSlide].cta}
-                  <ArrowRight className="ml-2" size={20} />
-                </Link>
-                <Link 
-                  to="/drug-order" 
-                  className="inline-flex items-center px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-semibold rounded-lg hover:border-amber-500 hover:text-amber-600 dark:hover:text-amber-400 transition-all"
-                >
-                  Custom Orders
-                </Link>
-              </div>
-              {/* Carousel Indicators */}
-              <div className="flex space-x-2 pt-4">
-                {heroSlides.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setCurrentSlide(index)}
-                    className={`h-2 rounded-full transition-all ${
-                      index === currentSlide ? 'w-8 bg-amber-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
-                    }`}
-                  />
-                ))}
-              </div>
+              {activeSlides.length > 0 && (
+                <>
+                  <div className="inline-flex items-center bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 text-sm font-medium px-4 py-2 rounded-full">
+                    <Sparkles size={16} className="mr-2" />
+                    {activeSlides[currentSlide].subtitle}
+                  </div>
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight transition-all duration-500">
+                    {activeSlides[currentSlide].title.split(' ').slice(0, -2).join(' ')}{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600 dark:from-amber-400 dark:to-orange-400">
+                      {activeSlides[currentSlide].title.split(' ').slice(-2).join(' ')}
+                    </span>
+                  </h1>
+                  <p className="text-lg text-gray-600 dark:text-gray-300 max-w-lg">
+                    Discover ARA BEDDINGS premium collection crafted from the finest Egyptian cotton, bamboo, and organic materials. Experience comfort like never before.
+                  </p>
+                  <div className="flex flex-wrap gap-4">
+                    <Link 
+                      to={activeSlides[currentSlide].ctaLink}
+                      className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all shadow-lg shadow-amber-600/20 transform hover:scale-105"
+                    >
+                      {activeSlides[currentSlide].cta}
+                      <ArrowRight className="ml-2" size={20} />
+                    </Link>
+                    <Link 
+                      to="/drug-order" 
+                      className="inline-flex items-center px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-semibold rounded-lg hover:border-amber-500 hover:text-amber-600 dark:hover:text-amber-400 transition-all"
+                    >
+                      Custom Orders
+                    </Link>
+                  </div>
+                  {/* Carousel Indicators */}
+                  <div className="flex space-x-2 pt-4">
+                    {activeSlides.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setCurrentSlide(index)}
+                        className={`h-2 rounded-full transition-all ${
+                          index === currentSlide ? 'w-8 bg-amber-600' : 'w-2 bg-gray-300 dark:bg-gray-600'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
               <div className="flex items-center space-x-6 pt-4">
                 <div className="flex items-center space-x-2">
                   <Leaf size={20} className="text-green-600 dark:text-green-400" />
@@ -103,11 +89,13 @@ export default function HomePage() {
             </div>
             <div className="relative">
               <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl transform rotate-2 hover:rotate-0 transition-transform duration-500">
-                <img
-                  src={heroSlides[currentSlide].image}
-                  alt="Luxury ARA BEDDINGS"
-                  className="w-full h-full object-cover transition-all duration-500"
-                />
+                {activeSlides.length > 0 && (
+                  <img
+                    src={activeSlides[currentSlide].image}
+                    alt="Luxury ARA BEDDINGS"
+                    className="w-full h-full object-cover transition-all duration-500"
+                  />
+                )}
               </div>
               <div className="absolute -bottom-6 -left-6 bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-5 border dark:border-gray-700 transform -rotate-3">
                 <div className="flex items-center space-x-3">
