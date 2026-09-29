@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { CartItem, WishlistItem, Order, DrugOrder, User, Address, OrderStatus, DrugOrderStatus, PaymentStatus, MediaItem } from '../types';
+import { CartItem, WishlistItem, Order, DrugOrder, User, Address, OrderStatus, DrugOrderStatus, PaymentStatus, MediaItem, HeroSlide } from '../types';
 import { products as initialProducts, currentUser, sampleOrders, sampleDrugOrders, shippingZones, siteSettings, categories } from '../data/mock';
 import type { Product, Category, ShippingZone, SiteSettings } from '../types';
 
@@ -70,6 +70,13 @@ interface AppState {
   appliedCoupon: Coupon | null;
   applyCoupon: (coupon: Coupon) => void;
   removeCoupon: () => void;
+
+  // Hero Slides
+  heroSlides: HeroSlide[];
+  addHeroSlide: (slide: HeroSlide) => void;
+  updateHeroSlide: (id: string, updates: Partial<HeroSlide>) => void;
+  removeHeroSlide: (id: string) => void;
+  reorderHeroSlides: (slides: HeroSlide[]) => void;
 }
 
 interface Coupon {
@@ -240,6 +247,52 @@ export const useStore = create<AppState>()(
       appliedCoupon: null,
       applyCoupon: (coupon: Coupon) => set({ appliedCoupon: coupon }),
       removeCoupon: () => set({ appliedCoupon: null }),
+
+      // Hero Slides
+      heroSlides: [
+        {
+          id: 'slide-1',
+          title: 'Transform Your Sleep with Luxury Bedding',
+          subtitle: 'Premium Egyptian Cotton Collection',
+          image: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=80',
+          cta: 'Shop Now',
+          ctaLink: '/products',
+          isActive: true,
+          sortOrder: 0
+        },
+        {
+          id: 'slide-2',
+          title: 'Cool & Comfortable Bamboo Bedding',
+          subtitle: 'Perfect for Pakistani Summers',
+          image: 'https://images.unsplash.com/photo-1616627561839-074385245ff6?w=1200&q=80',
+          cta: 'Explore Collection',
+          ctaLink: '/products?category=bed-sheets',
+          isActive: true,
+          sortOrder: 1
+        },
+        {
+          id: 'slide-3',
+          title: 'Handcrafted Artisan Blankets',
+          subtitle: 'Organic Cotton, Timeless Design',
+          image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80',
+          cta: 'View Collection',
+          ctaLink: '/products?category=blankets',
+          isActive: true,
+          sortOrder: 2
+        }
+      ],
+      addHeroSlide: (slide: HeroSlide) => set({ heroSlides: [...get().heroSlides, slide] }),
+      updateHeroSlide: (id: string, updates: Partial<HeroSlide>) => {
+        set({
+          heroSlides: get().heroSlides.map(s => s.id === id ? { ...s, ...updates } : s)
+        });
+      },
+      removeHeroSlide: (id: string) => {
+        set({ heroSlides: get().heroSlides.filter(s => s.id !== id) });
+      },
+      reorderHeroSlides: (slides: HeroSlide[]) => {
+        set({ heroSlides: slides });
+      },
     }),
     {
       name: 'bedding-store',
@@ -254,6 +307,7 @@ export const useStore = create<AppState>()(
         darkMode: state.darkMode,
         settings: state.settings,
         media: state.media,
+        heroSlides: state.heroSlides,
       }),
     }
   )

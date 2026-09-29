@@ -19,6 +19,9 @@ import ContactPage from './pages/ContactPage';
 import ShippingPage from './pages/ShippingPage';
 import ReturnsPage from './pages/ReturnsPage';
 import AboutPage from './pages/AboutPage';
+import TermsPage from './pages/TermsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import FAQPage from './pages/FAQPage';
 
 function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -51,6 +54,9 @@ export default function App() {
           <Route path="/shipping" element={<ShopLayout><ShippingPage /></ShopLayout>} />
           <Route path="/returns" element={<ShopLayout><ReturnsPage /></ShopLayout>} />
           <Route path="/about" element={<ShopLayout><AboutPage /></ShopLayout>} />
+          <Route path="/terms" element={<ShopLayout><TermsPage /></ShopLayout>} />
+          <Route path="/privacy" element={<ShopLayout><PrivacyPage /></ShopLayout>} />
+          <Route path="/faq" element={<ShopLayout><FAQPage /></ShopLayout>} />
 
           {/* Account Routes */}
           <Route path="/account" element={<ShopLayout><AccountPage /></ShopLayout>} />
