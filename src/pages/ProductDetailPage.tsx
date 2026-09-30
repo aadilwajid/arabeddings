@@ -5,6 +5,7 @@ import { useStore } from '../store';
 import { formatPKR } from '../data/pakistan';
 import { ProductGrid } from '../components/ProductCard';
 import SizeGuideModal from '../components/SizeGuide';
+import ProductReviews from '../components/ProductReviews';
 
 export default function ProductDetailPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -268,6 +269,11 @@ export default function ProductDetailPage() {
           <ProductGrid products={relatedProducts} />
         </div>
       )}
+
+      {/* Product Reviews */}
+      <div className="mt-16 border-t dark:border-gray-700 pt-12">
+        <ProductReviews productId={product.id} />
+      </div>
 
       {/* Size Guide Modal */}
       <SizeGuideModal isOpen={showSizeGuide} onClose={() => setShowSizeGuide(false)} />

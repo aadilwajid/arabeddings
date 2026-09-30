@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Header, Footer } from './components/Layout';
 import { ToastProvider } from './components/Toast';
+import WhatsAppChat from './components/WhatsAppChat';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -22,6 +23,10 @@ import AboutPage from './pages/AboutPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import FAQPage from './pages/FAQPage';
+import LoyaltyProgram from './components/LoyaltyProgram';
+import BundleDeals from './components/BundleDeals';
+import GiftCards from './components/GiftCards';
+import ProductComparison from './components/ProductComparison';
 
 function ShopLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -63,11 +68,18 @@ export default function App() {
           <Route path="/account/orders" element={<ShopLayout><AccountOrdersPage /></ShopLayout>} />
           <Route path="/account/drug-orders" element={<ShopLayout><AccountDrugOrdersPage /></ShopLayout>} />
           <Route path="/account/addresses" element={<ShopLayout><AccountAddressesPage /></ShopLayout>} />
+          <Route path="/account/loyalty" element={<ShopLayout><LoyaltyProgram /></ShopLayout>} />
+
+          {/* Feature Routes */}
+          <Route path="/bundles" element={<ShopLayout><BundleDeals /></ShopLayout>} />
+          <Route path="/gift-cards" element={<ShopLayout><GiftCards /></ShopLayout>} />
+          <Route path="/compare" element={<ShopLayout><ProductComparison /></ShopLayout>} />
 
           {/* Admin Routes */}
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/*" element={<AdminDashboard />} />
         </Routes>
+        <WhatsAppChat />
       </ToastProvider>
     </BrowserRouter>
   );

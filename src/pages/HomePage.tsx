@@ -371,6 +371,84 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Bundle Deals Section */}
+      <section className="py-16 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 text-sm font-medium px-4 py-2 rounded-full mb-4">
+              <i className="bi bi-lightning-fill mr-2"></i>
+              Limited Time Offers
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3">Bundle Deals & Save Big!</h2>
+            <p className="text-gray-600 dark:text-gray-400">Get more for less with our curated bedding bundles</p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { name: 'Complete Bedroom Set', discount: 20, price: 36000, original: 45000 },
+              { name: 'Luxury Sleep Collection', discount: 15, price: 21250, original: 25000 },
+              { name: 'Guest Room Essentials', discount: 18, price: 16400, original: 20000 },
+              { name: 'Summer Cool Collection', discount: 22, price: 14040, original: 18000 }
+            ].map((bundle, index) => (
+              <Link key={index} to="/bundles" className="bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-xl transition-all overflow-hidden border border-gray-100 dark:border-gray-700 group">
+                <div className="p-6">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">Save {bundle.discount}%</span>
+                  </div>
+                  <h3 className="font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">{bundle.name}</h3>
+                  <div className="mb-3">
+                    <span className="text-gray-400 line-through text-sm">{formatPKR(bundle.original)}</span>
+                    <div className="text-2xl font-bold text-red-600 dark:text-red-400">{formatPKR(bundle.price)}</div>
+                  </div>
+                  <button className="w-full bg-amber-600 text-white py-2 rounded-lg hover:bg-amber-700 transition-colors font-medium">
+                    View Bundle
+                  </button>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="text-center mt-8">
+            <Link to="/bundles" className="inline-flex items-center text-amber-600 dark:text-amber-400 hover:text-amber-700 font-semibold">
+              View All Bundle Deals <ArrowRight className="ml-2" size={18} />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Gift Cards Section */}
+      <section className="py-16 bg-white dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 md:p-12 text-white">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold mb-4">Give the Gift of Luxury Sleep</h2>
+                <p className="text-purple-100 text-lg mb-6">
+                  Digital gift cards delivered instantly. Perfect for any occasion.
+                </p>
+                <div className="flex flex-wrap gap-3 mb-6">
+                  <span className="bg-white/20 px-4 py-2 rounded-full text-sm">No Expiry</span>
+                  <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Instant Delivery</span>
+                  <span className="bg-white/20 px-4 py-2 rounded-full text-sm">Custom Amounts</span>
+                </div>
+                <Link
+                  to="/gift-cards"
+                  className="inline-flex items-center px-8 py-4 bg-white text-purple-600 font-bold rounded-lg hover:bg-gray-100 transition-all shadow-lg"
+                >
+                  Shop Gift Cards
+                  <ArrowRight className="ml-2" size={20} />
+                </Link>
+              </div>
+              <div className="hidden md:block">
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center">
+                  <i className="bi bi-gift-fill text-6xl mb-4"></i>
+                  <div className="text-4xl font-bold mb-2">Rs. 5,000 - 100,000</div>
+                  <div className="text-purple-200">Choose any amount</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Custom Order CTA */}
       <section className="py-20 bg-gradient-to-r from-amber-600 to-orange-600">
         <div className="max-w-4xl mx-auto px-4 text-center">
