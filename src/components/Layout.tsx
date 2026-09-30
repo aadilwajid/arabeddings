@@ -7,7 +7,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
   const [searchOpen, setSearchOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const { cart, wishlist, user, isAdmin, cartCount, logout, darkMode, toggleDarkMode } = useStore();
+  const { cart, wishlist, user, isAdmin, cartCount, logout, darkMode, toggleDarkMode, settings } = useStore();
   const location = useLocation();
 
   React.useEffect(() => {
@@ -52,8 +52,8 @@ export function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center space-x-3 group">
-              {useStore.getState().settings.logo ? (
-                <img src={useStore.getState().settings.logo} alt="ARA BEDDINGS" className="h-14 object-contain transition-transform group-hover:scale-105" />
+              {settings.logo ? (
+                <img src={settings.logo} alt="ARA BEDDINGS" className="h-14 object-contain transition-transform group-hover:scale-105" />
               ) : (
                 <div className="w-14 h-14 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all">
                   <span className="text-white font-bold text-2xl">A</span>
@@ -191,6 +191,8 @@ export function Header() {
 }
 
 export function Footer() {
+  const { settings } = useStore();
+  
   return (
     <footer className="bg-gradient-to-b from-gray-900 to-black dark:from-gray-900 dark:to-black text-gray-300 mt-16">
       {/* Main Footer Content */}
@@ -199,8 +201,8 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center space-x-3 mb-6 group">
-              {useStore.getState().settings.logo ? (
-                <img src={useStore.getState().settings.logo} alt="ARA BEDDINGS" className="h-14 object-contain transition-transform group-hover:scale-105" />
+              {settings.logo ? (
+                <img src={settings.logo} alt="ARA BEDDINGS" className="h-14 object-contain transition-transform group-hover:scale-105" />
               ) : (
                 <div className="w-14 h-14 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-xl">
                   <span className="text-white font-bold text-2xl">A</span>
