@@ -66,9 +66,8 @@ export function Header() {
             <nav className="hidden lg:flex items-center space-x-8">
               <Link to="/" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 font-medium transition-colors">Home</Link>
               <Link to="/products" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 font-medium transition-colors">Shop All</Link>
-              <Link to="/products?category=bed-sheets" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Sheets</Link>
-              <Link to="/products?category=duvet-covers" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Duvets</Link>
-              <Link to="/products?category=comforters" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Comforters</Link>
+              <Link to="/bundles" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Deals</Link>
+              <Link to="/gift-cards" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Gift Cards</Link>
               <Link to="/track-order" className="text-gray-700 dark:text-gray-300 hover:text-amber-600 dark:hover:text-amber-400 transition-colors">Track Order</Link>
               <Link to="/drug-order" className="text-amber-600 dark:text-amber-400 hover:text-amber-700 font-semibold transition-colors">Custom Order</Link>
             </nav>
@@ -119,6 +118,9 @@ export function Header() {
                     </div>
                     <Link to="/account" className="block px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">My Account</Link>
                     <Link to="/account/orders" className="block px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">My Orders</Link>
+                    <Link to="/account/loyalty" className="block px-4 py-3 text-sm text-amber-600 dark:text-amber-400 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium">
+                      <i className="bi bi-gift me-2"></i>Loyalty Rewards
+                    </Link>
                     {isAdmin && <Link to="/admin" className="block px-4 py-3 text-sm text-amber-600 dark:text-amber-400 hover:bg-gray-50 dark:hover:bg-gray-700 font-medium">Admin Dashboard</Link>}
                     <button onClick={logout} className="block w-full text-left px-4 py-3 text-sm text-red-600 dark:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-700 border-t dark:border-gray-700">Sign Out</button>
                   </div>
@@ -226,6 +228,8 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4 text-lg">Shop</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/products" className="hover:text-amber-400 transition-colors">All Products</Link></li>
+              <li><Link to="/bundles" className="hover:text-amber-400 transition-colors">Bundle Deals</Link></li>
+              <li><Link to="/gift-cards" className="hover:text-amber-400 transition-colors">Gift Cards</Link></li>
               <li><Link to="/products?category=bed-sheets" className="hover:text-amber-400 transition-colors">Bed Sheets</Link></li>
               <li><Link to="/products?category=duvet-covers" className="hover:text-amber-400 transition-colors">Duvet Covers</Link></li>
               <li><Link to="/products?category=comforters" className="hover:text-amber-400 transition-colors">Comforters</Link></li>
@@ -240,9 +244,11 @@ export function Footer() {
             <h4 className="text-white font-semibold mb-4 text-lg">Customer</h4>
             <ul className="space-y-3 text-sm">
               <li><Link to="/account" className="hover:text-amber-400 transition-colors">My Account</Link></li>
+              <li><Link to="/account/loyalty" className="hover:text-amber-400 transition-colors">Loyalty Rewards</Link></li>
               <li><Link to="/track-order" className="hover:text-amber-400 transition-colors">Track Order</Link></li>
               <li><Link to="/drug-order" className="hover:text-amber-400 transition-colors">Custom Orders</Link></li>
               <li><Link to="/wishlist" className="hover:text-amber-400 transition-colors">Wishlist</Link></li>
+              <li><Link to="/compare" className="hover:text-amber-400 transition-colors">Compare Products</Link></li>
               <li><Link to="/cart" className="hover:text-amber-400 transition-colors">Shopping Cart</Link></li>
             </ul>
           </div>
