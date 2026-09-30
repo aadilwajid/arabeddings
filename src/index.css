@@ -16,6 +16,23 @@
   html {
     scroll-behavior: smooth;
   }
+
+  /* Remove underlines from all links globally */
+  a {
+    text-decoration: none;
+  }
+
+  /* Navigation links styling */
+  nav a, .nav-link {
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  /* Footer links styling */
+  footer a {
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
 }
 
 @layer utilities {
