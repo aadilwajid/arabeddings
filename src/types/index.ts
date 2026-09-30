@@ -215,6 +215,8 @@ export interface Review {
   body?: string;
   isApproved: boolean;
   createdAt: string;
+  helpful?: number;
+  verifiedPurchase?: boolean;
 }
 
 // ─── SETTINGS ──────────────────────────────────────────
