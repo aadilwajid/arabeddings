@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Badge, Modal, ListGroup } from 'react-bootstrap';
 import { useStore } from '../store';
 import { formatPKR } from '../data/pakistan';
+import { useToast } from './Toast';
 
 interface Review {
   id: string;
@@ -19,6 +20,7 @@ interface Review {
 
 export default function ProductReviews({ productId }: { productId: string }) {
   const { products, user } = useStore();
+  const { warning, success } = useToast();
   const [showReviewModal, setShowReviewModal] = useState(false);
   const [selectedRating, setSelectedRating] = useState(0);
   const [reviewTitle, setReviewTitle] = useState('');
@@ -48,7 +50,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
 
   const handleSubmitReview = () => {
     if (!user) {
-      alert('Please login to submit a review');
+      warning('Please login', 'You need to be logged in to submit a review');
       return;
     }
 
@@ -67,6 +69,7 @@ export default function ProductReviews({ productId }: { productId: string }) {
 
     // In real app, this would call an API
     console.log('New review:', newReview);
+    success('Review submitted', 'Thank you for your feedback!');
     setShowReviewModal(false);
     setReviewTitle('');
     setReviewBody('');

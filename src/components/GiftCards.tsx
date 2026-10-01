@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Card, Form, Button, Modal, Badge, Alert } from 'react-bootstrap';
 import { formatPKR } from '../data/pakistan';
+import { useToast } from './Toast';
 
 export default function GiftCards() {
+  const { success } = useToast();
   const [showPurchaseModal, setShowPurchaseModal] = useState(false);
   const [amount, setAmount] = useState(5000);
   const [recipientEmail, setRecipientEmail] = useState('');
@@ -22,8 +24,13 @@ export default function GiftCards() {
 
   const handlePurchase = () => {
     // In real app, this would process payment and send email
-    alert(`Gift card purchased!\nAmount: ${formatPKR(amount)}\nRecipient: ${recipientEmail}\nDesign: ${selectedDesign}`);
+    success('Gift card purchased!', `Amount: ${formatPKR(amount)} sent to ${recipientEmail}`);
     setShowPurchaseModal(false);
+    // Reset form
+    setRecipientEmail('');
+    setRecipientName('');
+    setSenderName('');
+    setMessage('');
   };
 
   return (

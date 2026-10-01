@@ -3,9 +3,11 @@ import { Container, Row, Col, Card, Button, Table, Badge } from 'react-bootstrap
 import { useStore } from '../store';
 import { formatPKR } from '../data/pakistan';
 import { Link } from 'react-router-dom';
+import { useToast } from './Toast';
 
 export default function ProductComparison() {
   const { products } = useStore();
+  const { warning } = useToast();
   const [compareList, setCompareList] = useState<string[]>([]);
   const [showComparison, setShowComparison] = useState(false);
 
@@ -24,7 +26,7 @@ export default function ProductComparison() {
 
   const addToCompare = (productId: string) => {
     if (compareList.length >= 4) {
-      alert('You can compare up to 4 products at a time');
+      warning('Comparison limit reached', 'You can compare up to 4 products at a time');
       return;
     }
     if (!compareList.includes(productId)) {
